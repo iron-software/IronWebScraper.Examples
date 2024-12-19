@@ -1,73 +1,60 @@
-# Scraping a Film Database Online
+# Extracting Data from an Online Movie Website
 
 ***Based on <https://ironsoftware.com/how-to/scraping-from-an-online-movie-website/>***
 
 
-We are embarking on a practical example of web scraping, focusing on a film-oriented website.
+Embarking on a practical example, let's extract data from a movie-related website.
 
-First, we create a class called `MovieScraper`. Here's the class being added:
+First, we'll create a new `C#` class called `MovieScraper`:
 
-<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScrapaerAddClass.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScrapaerAddClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
+<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScraperAddClass.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScraperAddClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-Next, we inspect the target website:
+Next, let's examine the website we'll be scraping:
 
 <p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/123movies.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/123movies.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-Below is a snippet of the homepage's HTML:
-
+Here's a snippet of the HTML from the homepage:
 ```html
 <div id="movie-featured" class="movies-list movies-list-full tab-pane in fade active">
-    <div data-movie-id="20746" class="ml-item">
-        <a href="https://website.com/film/king-arthur-legend-of-the-sword-20746/">
-            <span class="mli-quality">CAM</span>
-            <img data-original="https://img.gocdn.online/2017/05/16/poster/2116d6719c710eabe83b377463230fbe-king-arthur-legend-of-the-sword.jpg" 
-                 class="lazy thumb mli-thumb" alt="King Arthur: Legend of the Sword"
-                 src="https://img.gocdn.online/2017/05/16/poster/2116d6719c710eabe83b377463230fbe-king-arthur-legend-of-the-sword.jpg" 
-                 style="display: inline-block;">
-            <span class="mli-info"><h2>King Arthur: Legend of the Sword</h2></span>
-        </a>
-    </div>
-    <!-- Additional movie items go here -->
+    <!-- Snippet reduced for brevity -->
 </div>
 ```
-Here we find key elements such as the Movie ID, Title, and Direct Link to the Detailed Page.
+This HTML contains movie IDs, titles, and links to more detailed pages.
 
-To commence data extraction:
-
+Time to start extracting this dataset:
 ```cs
 public class MovieScraper : WebScraper
 {
     public override void Init()
     {
-        License.LicenseKey = "YourLicenseKeyHere";
-        this.LoggingLevel = WebScraper.LogLevel.All;
+        License.LicenseKey = "LicenseKey";
+        this.LoggingLevel = LogLevel.All;
         this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\";
-        this.Request("www.website.com", Parse);
+        this.Request("https://website.com", Parse);
     }
     public override void Parse(Response response)
     {
-        foreach (var div in response.Css("#movie-featured > div"))
+        foreach (var Divs in response.Css("#movie-featured > div"))
         {
-            if (div.Attributes ["class"] != "clearfix")
+            if (Divs.Attributes["class"] != "clearfix")
             {
-                var movieId = div.GetAttribute("data-movie-id");
-                var link = div.Css("a")[0];
-                var movieTitle = link.TextContentClean;
-                Scrape(new ScrapedData() { { "MovieId", movieId }, { "MovieTitle", movieTitle } }, "Movie.Jsonl");
+                var MovieId = Divs.GetAttribute("data-movie-id");
+                var link = Divs.Css("a")[0];
+                var MovieTitle = link.TextContentClean;
+                Scrape(new ScrapedData() { { "MovieId", MovieId }, { "MovieTitle", MovieTitle } }, "Movie.Jsonl");
             }
         }           
     }
 }
 ```
 
-**Enhancements in the Code:**
+**New Enhancements:**
 
-- The `WorkingDirectory` property sets the primary directory for all scraped data and associated files.
+- `Working Directory` property sets up the directory for all scraped outputs.
 
-Continuing to evolve:
+Want to encapsulate scraped data in properly formatted objects?
 
-Why not create typed objects that encapsulate scraped data?
-
+Implement a `Movie` class like so:
 ```cs
 public class Movie
 {
@@ -77,28 +64,28 @@ public class Movie
 }
 ```
 
-Code update with typed data handling:
+Update our scraping class:
 ```cs
 public class MovieScraper : WebScraper
 {
     public override void Init()
     {
-        License.LicenseKey = "YourLicenseKeyHere";
-        this.LoggingLevel = WebScraper.LogLevel.All;
+        License.LicenseKey = "LicenseKey";
+        this.LoggingLevel = LogLevel.All;
         this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\";
         this.Request("https://website.com/", Parse);
     }
     public override void Parse(Response response)
     {
-        foreach (var div in response.Css("#movie-featured > div"))
+        foreach (var Divs in response.Css("#movie-featured > div"))
         {
-            if (div.Attributes ["class"] != "clearfix")
+            if (Divs.Attributes["class"] != "clearfix")
             {
                 var movie = new Movie();
-                movie.Id = Convert.ToInt32(div.GetAttribute("data-movie-id"));
-                var link = div.Css("a")[0];
+                movie.Id = Convert.ToInt32(Divs.GetAttribute("data-movie-id"));
+                var link = Divs.Css("a")[0];
                 movie.Title = link.TextContentClean;
-                movie.URL = link.Attributes ["href"];
+                movie.URL = link.Attributes["href"];
                 Scrape(movie, "Movie.Jsonl");
             }
         }
@@ -106,69 +93,52 @@ public class MovieScraper : WebScraper
 }
 ```
 
-**What's New?**
-1. Introduction of a `Movie` class to encapsulate scraped data.
-2. Passing movie objects to the `Scrape` method which automates saving in a pre-defined format: 
+**What’s new here?**
+1. Data is encapsulated in a `Movie` class.
+2. Data is saved in a standardized format.
 
-Further enhancement:
-
-Let's now focus on scraping more detailed pages from individual movie entries. Here's a view of such a movie page:
-
-The detailed movie page appears as follows:
+Explore detailed pages for more comprehensive data scraping:
 
 <p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/movieDetailsSample.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/movieDetailsSample.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-Addition of properties (Description, Genre, Actors) to our `Movie` class for a complete embrace of movie details:
-
+Add attributes like Description, Genre, and Actors to our class:
 ```cs
 public class Movie
 {
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public string URL { get; set; }
+    // Basic properties already mentioned earlier with added ones
     public string Description { get; set; }
     public List<string> Genre { get; set; }
     public List<string> Actor { get; set; }
 }
 ```
 
-Using IronWebScraper's features to extend the scraping to detailed pages:
+We can enhance the `MovieScraper` class further to scrape different types of page formats:
 
 ```cs
 public class MovieScraper : WebScraper
 {
-    public override void Init()
-    {
-        License.LicenseKey = "YourLicenseKeyHere";
-        this.LoggingLevel = WebScraper.LogLevel.All;
-        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\";
-        this.Request("https://domain/", Parse);
-    }
-    public override Parse(Response response)
-    {
-        foreach (var div in response.Css("#movie-featured > div"))
-        {
-            if (div.Attributes ["class"] != "clearfix")
-            {
-                var movie = new Movie();
-                movie.Id = Convert.ToInt32(div.GetAttribute("data-movie-id"));
-                var link = div.Css("a")[0];
-                movie.Title = link.TextContentClean;
-                movie.URL = link.Attributes ["href"];
-                this.Request(movie.URL, ParseDetails, new MetaData() { { "movie", movie } });
-            }
-        }           
-    }
+    // Initialization and simple parsing functions as before
     public void ParseDetails(Response response)
     {
         var movie = response.MetaData.Get<Movie>("movie");
-        var div = response.Css("div.mvic-desc")[0];
-        movie.Description = div.Css("div.desc")[0].TextContentClean;
-        movie.Genre = new List<string>();
-        movie.Actor = new List<string>();
-        foreach(var genre in div.Css("div > p > a"))
+        var Div = response.Css("div.mvic-desc")[0];
+        movie.Description = Div.Css("div.desc")[0].TextContentClean;
+        foreach (var Genre in Div.Css("div > p > a"))
         {
-            movie.Genre.Add(genre.TextContentClean);
+            movie.Genre.Add(Genre.TextContentClean);
         }
-        foreach (var actor in div.Css("div > p:nth-child(2) > a"))
+        foreach (var Actor in Div.Css("div > p:nth-child(2) > a"))
         {
+            movie.Actor.Add(Actor.TextContentClean);
+        }
+        Scrape(movie, "Movie.Jsonl");
+    }
+}
+```
+
+**Recent Improvements:**
+- Added detailed page scraping functionality.
+- Employed `MetaData` feature to pass movie objects between functions.
+- Produced and saved enriched movie data.
+
+<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass1.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass1.jpg" class="img-responsive add-shadow img-margin"></a></p>

@@ -1,289 +1,336 @@
-# How to Extract Data from Websites in C#
+# How to Extract Data from Websites in C<span>#</span> #
 
 ***Based on <https://ironsoftware.com/tutorials/webscraping-in-c-sharp/>***
 
 
-IronWebScraper is a robust .NET library designed for web scraping, data extraction, and content parsing. This user-friendly library integrates seamlessly with Microsoft Visual Studio, supporting both development and production environments.
+IronWebScraper is a .NET library designed for web scraping, extracting web data, and parsing web content. This library is straightforward to integrate with Microsoft Visual Studio projects for both development and production environments.
 
-IronWebScraper offers a rich set of capabilities including the ability to specify allowed and prohibited pages, objects, and media types. Additionally, it supports multiple identities and web caching among other advanced features, all of which we will explore in this tutorial.
+IronWebScraper offers a variety of distinctive functionalities, including the ability to specify allowed and restricted pages, objects, and media types. Moreover, it supports the management of multiple identities and web caching among other advanced features, which will be explored in detail throughout this tutorial.
 
-## Intended Readership
+<h3>Get started with IronWebscraper</h3>
 
-This guide is designed for software developers, whether novices or experts, who are interested in developing and deploying advanced web scraping tools. These tools are intended to facilitate the scraping of website data, the extraction of content, and the parsing of web pages for various applications.
+# How to Scrape Data from Websites in C#
+
+***Based on <https://ironsoftware.com/tutorials/webscraping-in-c-sharp/>***
+
+
+IronWebscraper is a powerful .NET library designed for web scraping, content parsing, and data extraction. It integrates seamlessly with Microsoft Visual Studio and can be easily employed in both development and production environments.
+
+IronWebscraper offers a wide array of features, allowing you to specify allowed and prohibited pages, objects, and media types. Additionally, it supports management of multiple identities, web caching, and offers numerous other functionalities, which will be discussed throughout this tutorial.
+
+### Getting Started with IronWebscraper
+
+## Intended Audience
+
+This guide is designed for software developers, ranging from beginners to those with advanced coding skills, who aim to develop solutions requiring sophisticated web scraping (e.g., data extraction, website content analysis, and information harvesting).
+
+![Webscraping banner](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/banner.jpg "Webscraping has never been a simple task, with no dominant frameworks for use in C# or .NET programming environments. Iron Web Scraper was created to change this")
+
+### Prerequisite Skills
+
+1. A basic understanding of programming with any Microsoft programming language, such as C# or VB.NET.
+2. A fundamental knowledge of web technologies (HTML, JavaScript, jQuery, CSS, etc.) and their operations.
+3. An understanding of DOM, XPath, HTML and CSS Selectors.
+
+### Required Tools
+
+1. Microsoft Visual Studio 2010 or newer.
+2. Web developer extensions for browsers like Chrome's web inspector or Firefox's Firebug.
+
+## Why use IronWebscraper?
+
+IronWebscraper is ideal if you're looking to:
+
+- Extract data from websites.
+- Compare content, prices, or features across different sites.
+- Handle scanning and caching of web content efficiently.
+
+## Installing IronWebScraper
+
+### Easy Installation with NuGet
+
+Add IronWebScraper to your project effortlessly using the NuGet Package Manager in Visual Studio. Simply right-click on your project name, select 'Manage NuGet Packages', and search for `IronWebScraper` to install it.
+
+#### NuGet Package Manager Method
+
+1. Right-click on the project name in Visual Studio and choose 'Manage NuGet Packages'.
+![Add IronWebScraper using GUI](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI.jpg)
+2. Search for `IronWebScraper` and click 'Install'.
+![Search and install IronWebScraper](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI2.jpg)
+3. Confirm the installation to proceed.
+![Confirm Installation](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI3.jpg)
+4. Installation complete!
+![Installation Complete](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI4.jpg)
+
+#### Using the Package Manager Console
+
+1. Go to `Tools` → `NuGet Package Manager` → `Package Manager Console`.
+![Open Package Manager Console](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingConsole.jpg)
+2. Set your project as the default.
+3. Execute the command: `Install-Package IronWebScraper`.
+![Installing via Console](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingConsole1.jpg)
+
+### Manual Installation
+
+1. Visit [IronWebScraper’s download page](https://ironsoftware.com/csharp/webscraper/)
+2. Click the 'Download DLL' button and extract the files.
+3. In Visual Studio, right-click on your project, go to 'Add' → 'Reference' → 'Browse', and select the extracted `.dll` files.
+![Add IronWebScraper DLL](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingDll.jpg)
+![Select DLL Files](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingDll2.png)
+4. Completion of the manual setup!
+
+### Conclusion
+
+This brief overview introduces the basic capability and installation methods of IronWebScraper. As this walkthrough shows, integrating IronWebScraper into your .NET projects is straightforward, whether through NuGet or manually adding the libraries. This library offers the robust functionality required for effective web scraping.
+
+## Intended Readers
+
+This guide is designed for software developers, whether they are beginners or possess advanced skills, looking to craft and deploy sophisticated solutions for complex web scraping tasks, including but not limited to, data extraction, content parsing, and web harvesting from various websites.
 
 <div class="article-img tutorial-img">
 	<img src="/img/tutorials/webscraping-in-c-sharp/banner.jpg" alt="Webscraping has never been a simple task, with no dominant frameworks for use in C# or .NET programming environments. Iron Web Scraper was created to change this" class="img-responsive">
 </div>
 
-### Prerequisites
+### Prerequisite Skills
 
-1. Fundamental programming knowledge and proficiency in a Microsoft programming language like C# or VB.NET.
-  
-2. An introductory understanding of web technologies, including HTML, JavaScript, JQuery, and CSS, along with their functionalities.
-  
-3. Elementary comprehension of DOM, XPath, and how to utilize HTML and CSS selectors.
+1. Fundamental programming skills in a Microsoft programming language such as C# or VB.NET.
+2. A foundational understanding of web technologies including HTML, JavaScript, jQuery, CSS, and their functionalities.
+3. Basic familiarity with the DOM, XPath, and the use of HTML and CSS selectors.
 
-### Essential Development Tools
+### Essential Tools
 
-1. Microsoft Visual Studio, Version 2010 or newer.
-2. Browser development tools/extensions like Chrome's Web Inspector or Firefox's Firebug.
+1. Microsoft Visual Studio 2010 or newer
 
-## Reasons to Consider Web Scraping
+2. Browser development tools like Chrome's Web Inspector or Firefox's Firebug extension
 
-Web scraping is essential for those looking to develop products or solutions capable of:
+## Motivations for Scraping Data (Key Concepts and Reasons)
 
-1. Retrieving data from websites.
-2. Analyzing and comparing information such as content, prices, and features across various websites.
-3. Recording and caching web content for efficient data retrieval and usage.
+If you're planning to develop a solution or product capable of:
 
-For such requirements, IronWebscraper serves as an ideal toolkit tailored to streamline your web data extraction needs.
+1. Harvesting data from websites
+2. Comparing information, such as content, prices, and features across various sites
+3. Storing and managing web content efficiently
 
-## Installing IronWebScraper
+IronWebscraper serves as an ideal tool tailored for these requirements, offering robust data extraction and management capabilities suitable for diverse web scraping needs.
 
-Once you've set up a new project (refer to Appendix A for details), you can integrate the IronWebScraper library into your project. This can be accomplished either by utilizing NuGet for an automated installation or by manually adding the DLL file.
+## Installing IronWebScraper in Your Project
 
-### NuGet Installation Method
+Once you've initiated a new project (refer to Appendix A for details), it becomes straightforward to incorporate the IronWebScraper library. You have the option to either integrate it automatically using NuGet or by manually downloading and adding the DLL file.
 
-Incorporating the IronWebScraper library into your project is straightforward with NuGet, which offers both a graphical user interface and a command-line option. 
+### Automatic Installation Using NuGet
 
-#### Using the NuGet Package Manager GUI
+You can conveniently add the IronWebScraper library to your project through NuGet. This can be achieved either via the NuGet Package Manager GUI, which is user-friendly especially for novices, or through the NuGet Package Manager Console, which is perfect for those who prefer command-line operations.
 
-1. Right-click on your project name in the solution explorer and select 'Manage NuGet Packages.'
-   ![Manage NuGet Packages](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI.jpg)
-2. Navigate to the 'Browse' tab, search for `IronWebScraper`, and click 'Install.'
-   ![Install IronWebScraper](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI2.jpg)
-3. Confirm any prompts to proceed with the installation.
-   ![Confirm Installation](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI3.jpg)
-4. Once completed, you will see the installation success notification.
-   ![Installation Complete](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI4.jpg)
+#### Installing via NuGet Package Manager Interface
+1. Right-click on your project in the Solution Explorer and select "Manage NuGet Packages."
+2. Navigate to the 'Browse' tab, search for `IronWebScraper`, and select the 'Install' option.
 
-#### Using the Package Manager Console
+#### Installing via NuGet Package Manager Console
+1. Go to 'Tools', choose 'NuGet Package Manager', then select 'Package Manager Console'.
+2. Ensure your project is set as the default project in the console.
+3. Type and enter the command: `Install-Package IronWebScraper`.
 
-1. Open the Package Manager Console by navigating through 'Tools' -> 'NuGet Package Manager' -> 'Package Manager Console.'
-   ![Open Package Manager Console](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingConsole.jpg)
-2. Set your target project as the Default Project in the console.
-3. Execute the command: `Install-Package IronWebScraper`.
-   ![Install Command](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingConsole1.jpg)
+### Manual Installation
+If you prefer to manually install the IronWebScraper DLL:
+1. Visit the IronWebScraper page at [Iron Software](https://ironsoftware.com/csharp/webscraper/) and download the DLL file.
+2. Open your project in Visual Studio, right-click on 'References' in your project, and click 'Add Reference'.
+3. Navigate to the downloaded DLL file, select it, and confirm by clicking 'OK'.
 
-With these methods, you can effectively integrate the IronWebScraper library into your .NET project using NuGet.
+### Installation via NuGet
 
-#### Installing IronWebScraper with NuGet Package Manager
+To integrate the IronWebScraper library into your project, you can use either the graphical NuGet Package Manager interface or execute commands in the Package Manager Console. Here’s how you can do it:
 
-To integrate IronWebScraper into your project via NuGet using the graphical interface, follow these simple steps:
+#### Utilizing the NuGet Package Manager
 
-1. Right-click on your project in the Solution Explorer and select "Manage NuGet Packages".
-<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-2. Navigate to the "Browse" tab, search for "IronWebScraper", and hit "Install" to add the library to your project.
-<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI2.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI2.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-3. Confirm any prompts by clicking "OK".
-<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI3.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI3.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-4. Once the package is successfully installed, your setup is complete.
-<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI4.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI4.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-By following these steps, IronWebScraper will be added to your project, allowing you to commence web scraping tasks effortlessly.
+1. With your mouse, right-click on the project name and choose "Manage NuGet Packages" from the context menu.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-2. Navigate to the browse tab, type in `IronWebScraper` in the search field, and select the Install option.
+2. Navigate to the browse tab, then search for `IronWebScraper` and select the option to install it.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI2.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI2.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-3. Confirm your selection by clicking on the "Ok" button.
+3. Proceed by clicking the 'Ok' button.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI3.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI3.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-Here's the paraphrased section from the article:
-
-4. That's all there is to it!
+4. That completes the installation process!
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI4.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingGUI4.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
 #### Utilizing the NuGet Package Console
 
-1. Navigate through `Tools` -> `NuGet Package Manager` -> `Package Manager Console`.
+1. Navigate to `Tools` -> `NuGet Package Manager` -> `Package Manager Console` in the IDE.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingConsole.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingConsole.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-```
-2. Set the Default Project to a Class Library Project.
+Here is the paraphrased section with corrected relative URL paths resolved to ironsoftware.com:
+
+-----
+2. Set the Class Library Project as the default project type.
 
 3. Execute the command: `Install-Package IronWebScraper`
-```
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingConsole1.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingConsole1.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
 ### Manual Installation Guide
 
-1. Visit [Iron Software's main website](https://ironsoftware.com).
+1. Visit [Iron Software's official website](https://ironsoftware.com).
 
-2. Navigate to the IronWebScraper product page directly at [https://ironsoftware.com/csharp/webscraper](https://ironsoftware.com/csharp/webscraper).
+2. Navigate directly to the IronWebScraper's specific page by following [this link](https://ironsoftware.com/csharp/webscraper/).
 
-3. Select the 'Download DLL' option.
+3. Select the option to download the DLL file.
 
-4. Upon downloading, unzip the compressed file.
+4. Once downloaded, unzip the contents of the compressed file.
 
-5. In Visual Studio, right-click on your project in the solution explorer, choose 'Add', then 'Reference', and then use 'Browse' to locate the extracted DLL files.
+5. Within Visual Studio, right-click on your project in the Solution Explorer, choose 'Add', then 'Reference', and finally 'Browse' to locate and include the extracted DLL in your project.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingDll.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingDll.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-6. Navigate to the `netstandard2.0` folder within the extracted directory and select all `.dll` files.
+6. Navigate to the extracted directory, open the `netstandard2.0` folder, and choose all `.dll` files for selection.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingDll2.png" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/AddIronWebscraperUsingDll2.png" class="img-responsive add-shadow img-margin"></a></p>
 
-7. Installation Complete!
+7. That completes the process!
 
-## HelloScraper - Introducing Our First IronWebScraper Example
+## Introduction to HelloScraper: Your Initial IronWebScraper Application
 
-We will begin by creating our initial application using IronWebScraper to demonstrate its basic usage.
+To commence our journey with IronWebScraper, we'll begin by developing a simple application called Hello Scraper.
 
-* A new console application has been set up with the title "IronWebScraperSample."
+* First, create a new console application titled “IronWebScraperSample”
 
-### Steps to Configure IronWebScraper Sample
+### Steps to Set Up Your First IronWebScraper Application ###
 
-1. Generate a folder titled "HelloScraperSample."
+1. **Create a directory:** Begin by creating a directory named `HelloScraperSample`
    
-2. Next, create a class named "HelloScraper."
+2. **Add a new class to your project:** Name this class `HelloScraper`
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/HelloScraperAddClass.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/HelloScraperAddClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-Here's the paraphrased content with resolved relative URL paths for links and images, as requested:
-
-
------
-3. Insert the Following Code into HelloScraper
-
-```cs
-public class HelloScraper : WebScraper
-{
-    /// <summary>
-    /// Initialize settings and configurations for the web scraper.
-    /// Be sure to set up at least one starting URL and manage domain or URL patterns for allowed or restricted access.
-    /// </summary>
-    public override void Init()
-    {
-        License.LicenseKey = "LicenseKey"; // Use your actual license key here
-        this.LoggingLevel = WebScraper.LogLevel.All; // Enables logging of all events
-        this.Request("https://blog.scrapinghub.com", Parse); // Initiating the first page request
-    }
-
-    /// <summary>
-    /// Define the default method to handle web responses. Modify this method to suit the handling of different types of pages.
-    /// </summary>
-    /// <param name="response">Received http response object for parsing</param>
-    public override void Parse(Response response)
-    {
-        // Setting the directory where the scraped data will be stored
-        this.WorkingDirectory = AppSetting.GetAppRoot()+ @"\HelloScraperSample\Output\";
-
-        // Iterating over each link found in the specified CSS selector
-        foreach (var title_link in response.Css("h2.entry-title a"))
-        {
-            // Extract the text content from the link
-            string strTitle = title_link.TextContentClean;
-
-            // Save the extracted title to a JSON file
-            Scrape(new ScrapedData() { { "Title", strTitle } }, "HelloScraper.json");
-        }
-
-        // Check for the existence of pagination links
-        if (response.CssExists("div.prev-post > a[href]"))
-        {
-            // Retrieve the URL of the next page
-            var next_page = response.Css("div.prev-post > a[href]")[0].Attributes["href"];
-
-            // Make a request to the next page
-            this.Request(next_page, Parse);
-        }
-    }
-}
-```
-```
-
 ```cs
 public class HelloScraper : WebScraper
 {
         /// <summary>
-        /// Initialize the webscraper by overriding this method.
-        /// Essential tasks include requesting a start URL and defining acceptable or restricted URL patterns.
+        /// Initialize the web-scraper here.
+        /// Essential to request at least one URL at the start and configure domain or URL restrictions.
         /// </summary>
         public override void Init()
         {
-            License.LicenseKey = "YourLicenseKeyHere"; // Set your license key
-            this.LoggingLevel = WebScraper.LogLevel.All; // Enable logging for all events
-            this.Request("https://blog.scrapinghub.com", Parse); // Initial URL to scrape
+            License.LicenseKey = "LicenseKey"; // Input your License Key
+            this.LoggingLevel = WebScraper.LogLevel.All; // Log all activities
+            this.Request("https://blog.scrapinghub.com", Parse); // Start with this URL
         }
 
         /// <summary>
-        /// This method is the default handler for processing web responses.
-        /// Override this to handle different types of web pages or add more specific methods for variant pages.
+        /// This is the main parsing method for the web scraper.
+        /// Here you define how the scraper handles HTTP responses.
+        /// If needed, add more methods for different types of pages.
         /// </summary>
-        /// <param name="response">The HTTP response to be processed</param>
+        /// <param name="response">The received HTTP response</param>
         public override void Parse(Response response)
         {
-            // Set the directory where the scraping results are stored
-            this.WorkingDirectory = AppSetting.GetAppRoot() + @"\HelloScraperSample\Output\";
-            // Process each link found
-            foreach (var titleLink in response.Css("h2.entry-title a"))
+            // Setting the directory to save our results
+            this.WorkingDirectory = AppSetting.GetAppRoot()+ @"\HelloScraperSample\Output\";
+
+            // Iterating over each link element on the page
+            foreach (var title_link in response.Css("h2.entry-title a"))
             {
-                // Extract the clean text from the link
-                string titleText = titleLink.TextContentClean;
-                // Store the scraped data into a JSON file
-                Scrape(new ScrapedData() { { "Title", titleText } }, "HelloScraper.json");
+                // Extracting the text of the link
+                string strTitle = title_link.TextContentClean;
+                // Storing the result in a JSON file
+                Scrape(new ScrapedData() { { "Title", strTitle } }, "HelloScraper.json");
             }
-            // Check if there are more pages to scrape
-            if (response.CssExists("div.prev-post > a [href]"))
+
+            // Check if there are more pages to scrape and request them
+            if (response.CssExists("div.prev-post > a[href]"))
             {
-                // Extract the URL for the next page
-                var nextPageLink = response.Css("div.prev-post > a [href]")[0].Attributes["href"];
-                // Continue scraping the next page
-                this.Request(nextPageLink, Parse);
+                var next_page = response.Css("div.prev-post > a[href]")[0].Attributes["href"];
+                this.Request(next_page, Parse); // Reinvoke Parse on new page
             }
         }
 }
 ```
 
-This section of code presents a basic structure for initializing and handling parsing operations in a web scraping scenario using the `HelloScraper` class. It sets up the initial conditions for the web scraper, including license key, logging level, and starting URL. The `Parse` method is structured to recursively handle paging, allowing the scraper to process subsequent pages through URL links identified in the scraped content.
-
 ```cs
-static void Main(string[] args)
+public class HelloScraper : WebScraper
 {
-    // Instantiate the HelloScraper from the HelloScraperSample namespace
-    HelloScraperSample.HelloScraper scraperInstance = new HelloScraperSample.HelloScraper();
-    // Initiate the scraping process
-    scraperInstance.Start();
+        /// <summary>
+        /// Initializes the web scraper with essential settings.
+        /// This includes defining the initial URL to scrape and setting rules for allowed or prohibited domains and URLs.
+        /// </summary>
+        public override void Init()
+        {
+            License.LicenseKey = "LicenseKey";  // Enter the appropriate license key here
+            this.LoggingLevel = WebScraper.LogLevel.All;  // Enables logging at all levels
+            this.Request("https://blog.scrapinghub.com", Parse);  // Initial URL to start scraping from
+        }
+
+        /// <summary>
+        /// Creates a default response handler for processing web responses.
+        /// You can define additional handlers for different types of pages or content as needed.
+        /// </summary>
+        /// <param name="response">The HTTP response to handle and parse data from</param>
+        public override void Parse(Response response)
+        {
+            // Specifies the directory where the output will be saved
+            this.WorkingDirectory = AppSetting.GetAppRoot() + @"\HelloScraperSample\Output\";
+            // Process each link found within the specified CSS path
+            foreach (var titleLink in response.Css("h2.entry-title a"))
+            {
+                // Extract the text content of the link
+                string titleText = titleLink.TextContentClean;
+                // Save the scraped title to a JSON file
+                Scrape(new ScrapedData() { { "Title", titleText } }, "HelloScraper.json");
+            }
+            // Check and process the subsequent page link if it exists
+            if (response.CssExists("div.prev-post > a[href]"))
+            {
+                // Extract the URL of the next page
+                string nextPage = response.Css("div.prev-post > a[href]")[0].Attributes["href"];
+                // Continue scraping on the next page by calling the same Parse method recursively
+                this.Request(nextPage, Parse);
+            }
+        }
 }
 ```
 
-Here's your paraphrased section with URLs resolved:
+```cs
+static void Main(string [] args)
+{
+        // Instantiate the HelloScraper class
+        HelloScraperSample.HelloScraper scraper = new HelloScraperSample.HelloScraper();
+        // Initiate the web scraping process
+        scraper.Start();
+}
+```
+
+Here's the paraphrased section of your C# code snippet, resolving any relative URL paths to `ironsoftware.com`:
 
 ```cs
 static void Main(string[] args)
 {
-    // Instantiate the Hello Scraper class
+    // Instantiate the HelloScraper class from the HelloScraperSample
     HelloScraperSample.HelloScraper scraper = new HelloScraperSample.HelloScraper();
-    // Begin the web scraping process
+    // Initiate the scraping process
     scraper.Start();
 }
 ```
 
-5. The outcome is stored in a file following the format `WebScraper.WorkingDirectory/classname.json`.
+The output will be preserved in a file following the structure: `WebScraper.WorkingDirectory/classname.Json`. This format organizes the scraped data into a structured JSON file, storing it in the directory specified by the `WorkingDirectory` attribute of the `WebScraper` instance, under a filename that reflects the class name.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/HelloScraperFrmFileResult.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/HelloScraperFrmFileResult.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-### Overview of Code Implementation
+### Overview of Code Execution
 
-Here's how the `Scrape.Start()` method initiates the scraping process:
+The `Scrape.Start()` method initiates the scraping process in the following sequence:
 
-1. It first executes the `Init()` method, which sets up variables, defines scraper properties, and establishes behavior attributes, preparing everything before any actual scraping begins.
+1. It starts by calling the `Init()` method. This method is crucial for initializing variables, setting up properties for the scrape, and defining behaviors.
 
-2. The initial webpage to visit is set up through a call to `Request("https://blog.scrapinghub.com", Parse)`. Here, `Parse` is a delegate that processes the HTTP response received from the request.
+2. It goes on to set the initial page for the request with `this.Request("https://blog.scrapinghub.com", Parse)`. The `Parse(Response response)` method is slated as the response handler, where the actual parsing of data takes place.
 
-3. The scraper operates with threads and HTTP protocols concurrently. This approach ensures all parts of your code remain both debuggable and execute in sync.
+3. The web scraper operates both HTTP requests and threading in tandem, ensuring that all operations are synchronized, thus facilitating easier debugging.
 
-4. Following the setup in the `Init()` function, the `Parse` method is triggered to analyze and extract data from the fetched webpage.
+4. Upon executing the `Init()` method, the `Parse` method is immediately triggered to begin processing the web page content.
 
 <ol type="a">
     <li><p>You can find elements using (Css selectors, Js DOM, XPath)</p></li>
@@ -291,13 +338,17 @@ Here's how the `Scrape.Start()` method initiates the scraping process:
     <li><p>The objects saved in a file with Json Format in the (“bin/Scrape/”) Directory. Or you can set the path of the file as a parameter as we will see later in other examples.</p></li>
 </ol>
 
-## Functions and Options of the IronWebScraper Library
+## Features and Functionalities of IronWebScraper Library
 
-For the most recent documentation, you have two options. For those installing manually, you can refer to the "IronWebScraper Documentation.chm" file located inside the downloaded zip file. Alternatively, the most up-to-date online documentation can be accessed at [https://ironsoftware.com/csharp/webscraper/object-reference/](https://ironsoftware.com/csharp/webscraper/object-reference/).
+For the latest documentation on the IronWebScraper library, you can access the IronWebScraper Documentation.chm File, included inside the zip file from a manual installation.
 
-To effectively use the IronWebScraper in your projects, it's essential that your class inherits from the `IronWebScraper.WebScraper` class. This approach not only extends your class library but also integrates comprehensive scraping functionality.
+Alternatively, the most current online documentation is available at [IronWebScraper Object Reference](https://ironsoftware.com/csharp/webscraper/object-reference/).
 
-Furthermore, it's imperative to implement the methods `Init()` and `Parse(Response response)`, which are crucial for setting up and dictating the behavior of your scraper.
+To effectively integrate IronWebScraper into your projects, your classes should derive from the `IronWebScraper.WebScraper` class. This inheritance enriches your class library by embedding robust web scraping functionalities directly into your applications.
+
+Furthermore, it's imperative to implement the methods `Init()` and `Parse(Response response)` to configure and dictate how your web scraper handles HTTP responses.
+
+Here is the paraphrased section of the article:
 
 ```cs
 namespace IronWebScraperEngine
@@ -306,12 +357,15 @@ namespace IronWebScraperEngine
     {
         public override void Init()
         {
-            throw new NotImplementedException("Initialization method not implemented.");
+            // Initialization logic will be defined here
+            throw new NotImplementedException("Initialization not implemented yet.");
         }
+
 
         public override void Parse(Response response)
         {
-            throw new NotImplementedException("Parse method not implemented.");
+            // Logic to parse data from the response goes here
+            throw new NotImplementedException("Parse method not implemented yet.");
         }
     }
 }
@@ -345,7 +399,8 @@ namespace IronWebScraperEngine
             </td>
             <td>Collections</td>
 
-<td>Enables restrictions or permissions on specific URLs and Domains. For instance, BannedUrls.Add("*.zip", "*.exe", "*.gz", "*.pdf");<br>Note:
+<td>Utilized to include or exclude specific URLs and domains<br>Example: BannedUrls.Add("*.zip", "*.exe", "*.gz", "*.pdf");<br>Note:
+```
 
 <ul>
                     <li>You can use ( * and/or ? ) wildcards</li>
@@ -417,9 +472,7 @@ namespace IronWebScraperEngine
             <td>ThrottleMode</td>
             <td>Enum</td>
 
-<td>Enumeration Choices:
-- ByIpAddress
-- ByDomainHostName</td>
+<td>Enumeration Options:
 
 <ul>
                     <li>ByIpAddress</li>
@@ -450,129 +503,15 @@ namespace IronWebScraperEngine
 
 ## Practical Examples and Applications
 
-This section will delve into practical scenarios where IronWebScraper can be employed to extract data from real websites effectively. Through these examples, we aim to demonstrate the versatility and robustness of the IronWebScraper library.
+### Scraping an Online Movie Database
 
-### Scraping a Movie Database Website
+We'll start with a practical scenario by scraping a movie database website.
 
-For our first example, we will extract data from a movie database website.
-
-Here's how to set up the project:
-
-- Begin by adding a new class named `MovieScraper`.
-- Examine the main website that we will be scraping:
-  
-![123movies Homepage](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/123movies.jpg)
-
-Consider the initial HTML segment from the website's homepage:
-```html
-<div id="movie-featured" class="movies-list movies-list-full tab-pane in fade active">
-    ...
-</div>
-```
-Here, you can notice each movie has a unique ID, title, and details page link.
-
-**Now, let's initiate scraping:**
-```csharp
-public class MovieScraper : WebScraper
-{
-    public override void Init()
-    {
-        License.LicenseKey = "YourLicenseKeyHere";
-        this.LoggingLevel = LogLevel.All;
-        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\";
-        this.Request("http://www.example.com", Parse);
-    }
-
-    public override void Parse(Response response)
-    {
-        foreach (var div in response.Css("#movie-featured > div"))
-        {
-            if (div.Attributes["class"] != "clearfix")
-            {
-                var movie = new Movie
-                {
-                    Id = Convert.ToInt32(div.GetAttribute("data-movie-id")),
-                    Title = div.Css("a")[0].TextContentClean,
-                    URL = div.Css("a")[0].Attributes["href"]
-                };
-                this.Request(movie.URL, ParseDetails, new MetaData { { "movie", movie } });
-            }
-        }
-    }
-
-    public void ParseDetails(Response response)
-    {
-        var movie = response.MetaData.Get<Movie>("movie");
-        var div = response.Css("div.mvic-desc")[0];
-        movie.Description = div.Css("div.desc")[0].TextContentClean;
-        movie.Genre = div.Css("div > p > a").Select(a => a.TextContentClean).ToList();
-        movie.Actor = div.Css("div > p:nth-child(2) > a").Select(a => a.TextContentClean).ToList();
-        Scrape(movie, "Movie.Jsonl");
-    }
-}
-```
-
-*Improvements and Enhancements:*
-1. Extended parsing to detail pages for comprehensive data capture.
-2. Utilized IronWebScraper's `MetaData` to pass complex objects during recursive requests.
-3. Stored results in JSONL format for easier processing and analysis.
-
-The resulting data capture and structure from a movie's detailed page is displayed here:
-
-![Movie Details Scraping Result](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass1.jpg)
-
-### Extracting Data from an E-commerce Shopping Website
-
-Next, we explore scraping a shopping website, focusing on gleaning product details across different categories.
-
-- First, ascertain the HTML structure for links to product categories. Consider how the site's left sidebar organizes categories and subcategories.
-
-Here's how we could approach this:
-
-1. Establish a new `ShoppingSiteSample` project inside Visual Studio.
-2. Create a new `ShoppingScraper` class.
-
-**Building the scraper logic:**
-```csharp
-public class ShoppingScraper : WebScraper
-{
-    public override void Init()
-    {
-        License.LicenseKey = "YourLicenseKeyHere";
-        this.LoggingLevel = LogLevel.All;
-        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";
-        this.Request("http://www.example.com", Parse);
-    }
-
-    public override void Parse(Response response)
-    {
-        ...
-        // Detailed scraping logic here
-        ...
-    }
-}
-```
-
-- Extract category and subcategory links.
-- Dive into each product page to fetch details, such as price, descriptions, and images.
-
-Each of these real-world examples demonstrates the scalable capabilities of IronWebScraper to navigate and extract coherent datasets from complex web pages, serving various data mining and information retrieval needs effectively.
-
-### Extracting Data from an Online Movie Portal
-
-In this example, we are going to tackle scraping a real-world website specifically focusing on a movie-themed site.
-
-First, we’ll begin by creating a new class. Let's call it `MovieScraper`: 
+Let's create a new class that we'll name `MovieScraper`:
 
 <p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScrapaerAddClass.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScrapaerAddClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/MovieScrapaerAddClass.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/MovieScrapaerAddClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-Examine the website we plan to scrape:
-
-<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/123movies.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/123movies.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-Here’s a snippet from its homepage HTML:
+Here’s a snippet of the homepage HTML from the site:
 ```html
 <div id="movie-featured" class="movies-list movies-list-full tab-pane in fade active">
     <div data-movie-id="20746" class="ml-item">
@@ -597,127 +536,57 @@ Here’s a snippet from its homepage HTML:
     </div>
 </div>
 ```
-As observed, each movie entry contains a movie ID, Title, and a link to its detailed page.
+We have identifiers, titles, and detailed page links for movies.
 
-<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/123movies.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/123movies.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-Below is the section of the homepage HTML for the website described:
-
-```html
-<div id="movie-featured" class="movies-list movies-list-full tab-pane in fade active">
-    <div data-movie-id="20746" class="ml-item">
-        <a href="https://website.com/film/king-arthur-legend-of-the-sword-20746/">
-            <span class="mli-quality">CAM</span>
-            <img data-original="https://img.gocdn.online/2017/05/16/poster/2116d6719c710eabe83b377463230fbe-king-arthur-legend-of-the-sword.jpg" 
-                 class="lazy thumb mli-thumb" alt="King Arthur: Legend of the Sword"
-                  src="https://img.gocdn.online/2017/05/16/poster/2116d6719c710eabe83b377463230fbe-king-arthur-legend-of-the-sword.jpg"
-                 style="display: inline-block;">
-            <span class="mli-info"><h2>King Arthur: Legend of the Sword</h2></span>
-        </a>
-    </div>
-    <div data-movie-id="20724" class="ml-item">
-        <a href="https://website.com/film/snatched-20724/" >
-            <span class="mli-quality">CAM</span>
-            <img data-original="https://img.gocdn.online/2017/05/16/poster/5ef66403dc331009bdb5aa37cfe819ba-snatched.jpg" 
-                 class="lazy thumb mli-thumb" alt="Snatched" 
-                 src="https://img.gocdn.online/2017/05/16/poster/5ef66403dc331009bdb5aa37cfe819ba-snatched.jpg"
-                 style="display: inline-block;">
-            <span class="mli-info"><h2>Snatched</h2></span>
-        </a>
-    </div>
-</div>
-```
-
-In this webpage section, a list of movies is presented. Each movie entry includes a unique movie ID, a thumbnail image representing the movie, and the movie's title. When a user clicks on an entry, they are directed to a URL providing more details about the movie. The images are loaded lazily to improve page load performance, contributing to a better user experience.
-
-Here's the paraphrased section with resolved URL paths:
-
-```html
-<div id="movie-featured" class="movies-list movies-list-full tab-pane in fade active">
-    <div data-movie-id="20746" class="ml-item">
-        <a href="https://website.com/film/king-arthur-legend-of-the-sword-20746/">
-            <span class="mli-quality">CAM</span>
-            <img data-original="https://img.gocdn.online/2017/05/16/poster/2116d6719c710eabe83b377463230fbe-king-arthur-legend-of-the-sword.jpg" 
-                 class="lazy thumb mli-thumb" alt="King Arthur: Legend of the Sword"
-                  src="https://img.gocdn.online/2017/05/16/poster/2116d6719c710eabe83b377463230fbe-king-arthur-legend-of-the-sword.jpg" 
-                 style="display: inline-block;">
-            <span class="mli-info"><h2>King Arthur: Legend of the Sword</h2></span>
-        </a>
-    </div>
-    <div data-movie-id="20724" class="ml-item">
-        <a href="https://website.com/film/snatched-20724/" >
-            <span class="mli-quality">CAM</span>
-            <img data-original="https://img.gocdn.online/2017/05/16/poster/5ef66403dc331009bdb5aa37cfe819ba-snatched.jpg" 
-                 class="lazy thumb mli-thumb" alt="Snatched" 
-                 src="https://img.gocdn.online/2017/05/16/poster/5ef66403dc331009bdb5aa37cfe819ba-snatched.jpg" 
-                 style="display: inline-block;">
-            <span class="mli-info"><h2>Snatched</h2></span>
-        </a>
-    </div>
-</div>
-```
-
-This section has been carefully rephrased while preserving the content's integrity and formatting. All URLs remain directed to their respective website, ensuring accurate referential integrity. If needed, modify any URLs to point to specific domains if provided or allowed.
-
-Here's the paraphrased content for the specified section:
-
------
-As observed, the displayed HTML structure provides attributes such as a movie ID, a title, and a URL leading to a detailed movie page.
-
-We shall now proceed with extracting these details:
-
+Starting to scrape:
 ```cs
 public class MovieScraper : WebScraper
 {
     public override void Init()
     {
-        License.LicenseKey = "YourLicenseKeyHere"; // Place your license key
-        this.LoggingLevel = WebScraper.LogLevel.All; // Set log level to capture all events
-        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\"; // Define the output directory for data
-        this.Request("www.website.com", Parse); // Initial request to target website
+        License.LicenseKey = "LicenseKey";
+        this.LoggingLevel = WebScraper.LogLevel.All;
+        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\";
+        this.Request("www.website.com", Parse);
     }
     public override void Parse(Response response)
     {
-        // Iterate over each division that features a movie on the page
-        foreach (var div in response.Css("#movie-featured > div"))
+        foreach (var Divs in response.Css("#movie-featured > div"))
         {
-            // Ensure we skip the clearfix class elements
-            if (div.Attributes["class"] != "clearfix")
+            if (Divs.Attributes ["class"] != "clearfix")
             {
-                var movieId = div.GetAttribute("data-movie-id");
-                var linkElement = div.Css("a")[0];
-                var movieTitle = linkElement.TextContentClean;
-                // Store the movie ID and title in our output file
-                Scrape(new ScrapedData() { { "MovieId", movieId }, { "MovieTitle", movieTitle } }, "Movie.Jsonl");
+                var MovieId = Divs.GetAttribute("data-movie-id");
+                var link = Divs.Css("a")[0];
+                var MovieTitle = link.TextContentClean;
+                Scrape(new ScrapedData() { { "MovieId", MovieId }, { "MovieTitle", MovieTitle } }, "Movie.Jsonl");
             }
-        }
+        }           
     }
 }
 ```
 
-*Adjustments and Enhancements in the Code:*
+*Enhancements include:*
 
-In the updated code, the property `WorkingDirectory` is employed to specify the principal directory wherein all data related to scraping operations will be stored.
+The `WorkingDirectory` attribute sets the primary directory for all related scraped files.
 
-*Expanding the Capabilities:*
+Let's delve further:
 
-How about constructing robust typed objects that can effectively encapsulate our scraped data?
-
-We'll introduce a dedicated movie class designed to manage and format the scraped movie data effectively. Here’s how it's structured:
-
-Here's the paraphrased section of the article, with the relative URL paths resolved to `ironsoftware.com`:
+Why don't we craft a detailed `Movie` class to encapsulate our scraped data?
 
 ```cs
-public class Film
+public class Movie
 {
-    public int Identifier { get; set; }
-    public string Name { get; set; }
-    public string Link { get; set; }
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string URL { get; set; }
+    public string Description { get; set; }
+    public List<string> Genre { get; set; }
+    public List<string> Actor { get; set; }
+    
 }
 ```
 
-Let's refine our existing code with these updates:
-
+After defining our `Movie` class, we modify our code to accommodate typed objects.
 ```cs
 public class MovieScraper : WebScraper
 {
@@ -739,7 +608,7 @@ public class MovieScraper : WebScraper
                 var link = Divs.Css("a")[0];
                 movie.Title = link.TextContentClean;
                 movie.URL = link.Attributes ["href"];
-                this.Request(movie.URL, ParseDetails, new MetaData() { { "movie", movie } }); // Requesting the detailed page while passing current movie object
+                this.Request(movie.URL, ParseDetails, new MetaData() { { "movie", movie } });// to scrap Detailed Page
             }
         }           
     }
@@ -748,115 +617,421 @@ public class MovieScraper : WebScraper
         var movie = response.MetaData.Get<Movie>("movie");
         var Div = response.Css("div.mvic-desc")[0];
         movie.Description = Div.Css("div.desc")[0].TextContentClean;
-        // Collecting genres
-        movie.Genre = Div.Css("div.mvic-info div.mvici-left p:nth-child(1) a").Select(a => a.TextContentClean).ToList();
-        // Collecting actors
-        movie.Actor = Div.Css("div.mvic-info div.mvici-left p:nth-child(2) a").Select(a => a.TextContentClean).ToList();
-        Scrape(movie, "Movie.Jsonl"); // Saving the detailed movie data
+        foreach(var Genre in Div.Css("div > p > a"))
+        {
+            movie.Genre.Add(Genre.TextContentClean);
+        }
+        foreach (var Actor in Div.Css("div > p:nth-child(2) > a"))
+        {
+            movie.Actor.Add(Actor.TextContentClean);
+        }
+        Scrape(movie, "Movie.Jsonl");
     }
 }
 ```
 
-**Key Enhancements Made:**
-1. **Systematic Data Scraping for Details:** We added generous selectors that simplify managing HTML structures and collect genres and actors more efficiently.
-2. **Streamlined Data Assignment:** Enhanced C# LINQ operations provide a more streamlined approach to assign genre and actor lists.
-3. **Direct Metadata Utilization:** The code now directly accesses movies stored in metadata for detail page evaluations, ensuring that captured data remains robust and firmly structured.
+*What's new?*
+
+1. Scrape functions such as `ParseDetails` allow for detailed page scraping.
+2. The `Scrape` function now produces a file with our structured data, utilizing the `MetaData` feature to transfer our object across scraping functions.
+3. Data are now saved to a file reflecting our structured movie object.
+
+<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass1.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass1.jpg" class="img-responsive add-shadow img-margin"></a></p>
+
+### Scraping a Movie Website
+
+For our next practical example, we will delve into scraping a movie-related website.
+
+We'll begin by creating a new class called `MovieScraper` for this purpose.
+
+<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/MovieScrapaerAddClass.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/MovieScrapaerAddClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
+
+Let's examine the target website that we'll be scraping:
+
+<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/123movies.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/123movies.jpg" class="img-responsive add-shadow img-margin"></a></p>
+
+```html
+<div id="movie-featured" class="movies-list movies-list-full tab-pane in fade active">
+    <div data-movie-id="20746" class="ml-item">
+        <a href="https://website.com/film/king-arthur-legend-of-the-sword-20746/">
+            <span class="mli-quality">CAM</span>
+            <img data-original="https://img.gocdn.online/2017/05/16/poster/2116d6719c710eabe83b377463230fbe-king-arthur-legend-of-the-sword.jpg" 
+                 class="lazy thumb mli-thumb" alt="King Arthur: Legend of the Sword"
+                 src="https://img.gocdn.online/2017/05/16/poster/2116d6719c710eabe83b377463230fbe-king-arthur-legend-of-the-sword.jpg" 
+                 style="display: inline-block;">
+            <span class="mli-info"><h2>King Arthur: Legend of the Sword</h2></span>
+        </a>
+    </div>
+    <div data-movie-id="20724" class="ml-item">
+        <a href="https://website.com/film/snatched-20724/" >
+            <span class="mli-quality">CAM</span>
+            <img data-original="https://img.gocdn.online/2017/05/16/poster/5ef66403dc331009bdb5aa37cfe819ba-snatched.jpg" 
+                 class="lazy thumb mli-thumb" alt="Snatched" 
+                 src="https://img.gocdn.online/2017/05/16/poster/5ef66403dc331009bdb5aa37cfe819ba-snatched.jpg" 
+                 style="display: inline-block;">
+            <span class="mli-info"><h2>Snatched</h2></span>
+        </a>
+    </div>
+</div>
+```
+This section displays the initial HTML structure observed on the website's main page:
+
+```html
+<div id="featured-movies" class="movie-listing full-tab active fade-in">
+    <div data-film-id="20746" class="movie-entry">
+        <a href="https://website.com/film/king-arthur-legend-of-the-sword-20746/">
+            <span class="movie-quality">CAM</span>
+            <img data-original="https://img.gocdn.online/2017/05/16/poster/2116d6719c710eabe83b377463230fbe-king-arthur-legend-of-the-sword.jpg"
+                 class="lazy thumb movie-thumbnail" alt="King Arthur: Legend of the Sword"
+                 src="https://img.gocdn.online/2017/05/16/poster/2116d6719c710eabe83b377463230fbe-king-arthur-legend-of-the-sword.jpg"
+                 style="display: inline;">
+            <span class="movie-info"><h2>King Arthur: Legend of the Sword</h2></span>
+        </a>
+    </div>
+    <div data-film-id="20724" class="movie-entry">
+        <a href="https://website.com/film/snatched-20724/">
+            <span class="movie-quality">CAM</span>
+            <img data-original="https://img.gocdn.online/2017/05/16/poster/5ef66403dc331009bdb5aa37cfe819ba-snatched.jpg"
+                 class="lazy thumb movie-thumbnail" alt="Snatched"
+                 src="https://img.gocdn.online/2017/05/16/poster/5ef66403dc331009bdb5aa37cfe819ba-snatched.jpg"
+                 style="display: inline;">
+            <span class="movie-info"><h2>Snatched</h2></span>
+        </a>
+    </div>
+</div>
+```
+
+# Initiate Scraping Specific Movie Data
+
+***Based on <https://ironsoftware.com/tutorials/webscraping-in-c-sharp/>***
+
+
+From the extracted information, each movie includes a unique identifier, a title, and a link leading to its detailed information page.
+
+## Begin Scraping Process for Movie Data
+
+Using the structure we observed containing the movie ID, title, and link, we'll implement the following steps to extract this data:
+
+```csharp
+public class MovieScraper : WebScraper
+{
+    public override void Init()
+    {
+        License.LicenseKey = "LicenseKey";
+        this.LoggingLevel = WebScraper.LogLevel.All;
+        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\";
+        this.Request("www.website.com", ScrapeMovieList);
+    }
+
+    public override void ScrapeMovieList(Response response)
+    {
+        foreach (var movieEntry in response.Css("#movie-featured > div"))
+        {
+            if (!movieEntry.Attributes["class"].Contains("clearfix"))
+            {
+                var movie = new Movie
+                {
+                    Id = Convert.ToInt32(movieEntry.GetAttribute("data-movie-id")),
+                    Title = movieEntry.Css("a")[0].TextContentClean,
+                    URL = movieEntry.Css("a")[0].Attributes["href"]
+                };
+
+                // Continue the scraping in detailed page
+                this.Request(movie.URL, ParseMovieDetails, new MetaData { { "currentMovie", movie } });
+            }
+        }           
+    }
+
+    // Parsing the details from the movie's dedicated page
+    public void ParseMovieDetails(Response response)
+    {
+        var movie = response.MetaData.Get<Movie>("currentMovie");
+        // Implementation for detailed scraping goes here...
+        Scrape(movie, "DetailedMovie.Json");
+    }
+}
+```
+
+- **Initial Setup**: Initializes the scraper settings, including its logging level and working directory.
+- **ScrapeMovieList Method**: Targets each movie container using specific CSS selectors, checks for relevant classes to skip unwanted elements, extracts the movie ID, title, and the link, and initiates a new request to scrape detailed data.
+- **ParseMovieDetails Method**: Intended to extract in-depth details from each movie's dedicated page using the provided URL. The extracted data is then saved.
+
+This structured approach ensures a thorough extraction and handling of data specific to each movie from the list to its detailed page, enhancing accuracy and efficiency in data acquisition.
 
 ```cs
 public class MovieScraper : WebScraper
 {
     public override void Init()
     {
-        License.LicenseKey = "LicenseKey"; // specify the license key
-        this.LoggingLevel = WebScraper.LogLevel.All; // set log level to capture all events
-        // Define the directory where the scraped data will be stored
+        License.LicenseKey = "YourLicenseKeyHere";
+        this.LoggingLevel = WebScraper.LogLevel.All;
         this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\";
-        // Request the main page to start scraping
-        this.Request("https://website.com/", Parse);
+        this.Request("http://www.website.com", Parse);
     }
+
     public override void Parse(Response response)
     {
-        // Iterating over div elements within the container with movies
-        foreach (var div in response.Css("#movie-featured > div"))
+        var movieBlocks = response.Css("#movie-featured > div");
+        foreach (var block in movieBlocks)
         {
-            // Filtering out unwanted divs
-            if (div.Attributes ["class"] != "clearfix")
+            if (block.Attributes["class"] != "clearfix")
             {
-                var movie = new Movie(); // Creating a new movie object
-                // Parsing and storing the movie ID
-                movie.Id = Convert.ToInt32( div.GetAttribute("data-movie-id"));
-               // Get the first anchor element within the div
-                var link = div.Css("a")[0];
-                movie.Title = link.TextContentClean; // store the clean text content as the movie title
-                movie.URL = link.Attributes ["href"]; // fetch and store the URL from href attribute
-                // Save the scraped movie data to a JSON line file
-                Scrape(movie, "Movie.Jsonl");
+                var movieIdentity = block.GetAttribute("data-movie-id");
+                var movieAnchor = block.Css("a")[0];
+                var movieTitle = movieAnchor.TextContentClean;
+                Scrape(new ScrapedData() { { "MovieID", movieIdentity }, { "Title", movieTitle } }, "MovieDetails.Jsonl");
             }
         }
     }
 }
 ```
 
-**Updates Introduced:**
+*Exploring the Updates in the Code*
+-----
 
-1. A new `Movie` class has been implemented to encapsulate the scraped data effectively.
+In the updated code, the `WorkingDirectory` property establishes the primary folder where all data retrieved from scraping operations is stored and managed.
 
-2. Movie instances are now passed to the `Scrape` method, which recognizes the structure and correctly saves the data as depicted here:
-![Scraped Data Format](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass.jpg)
+*Advancing our Approach*
+-----
+
+What happens if we require structured objects to store the scraped data effectively?
+
+We shall outline a `Movie` class designed specifically to encapsulate the scraped data in a structured format.
+
+```cs
+public class Film
+{
+    // Unique identifier for the movie
+    public int Id { get; set; }
+    // Title of the movie
+    public string Title { get; set; }
+    // URL link to the movie's detailed page
+    public string URL { get; set; }
+}
+```
+
+```cs
+public class MovieScraper : WebScraper
+{
+    public override void Init()
+    {
+        License.LicenseKey = "LicenseKey"; // Set your license key here
+        this.LoggingLevel = WebScraper.LogLevel.All; // Log all events during scraping
+        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\"; // Set the directory where all data will be saved
+        this.Request("https://website.com/", Parse); // Initial request to start scraping from the homepage
+    }
+
+    public override void Parse(Response response)
+    {
+        foreach (var container in response.Css("#movie-featured > div")) // Select each movie container
+        {
+            if (container.Attributes["class"] != "clearfix") // Ensure it's not a clearfix
+            {
+                var constructedMovie = new Movie(); // Initialize a new Movie object
+                constructedMovie.Id = int.Parse(container.GetAttribute("data-movie-id")); // Extract the movie's ID
+                var movieLink = container.Css("a")[0]; // Get the first <a> tag within the movie block
+                constructedMovie.Title = movieLink.TextContentClean; // Set the movie title
+                constructedMovie.URL = movieLink.Attributes["href"]; // Extract the URL to the detail page
+                Scrape(constructedMovie, "Movie.Jsonl"); // Save the scrapped data into a JSONL file named "Movie.Jsonl"
+            }
+        }
+    }
+}
+```
+
+*Changes made to the code:*
+1. Enhanced clarity in comments for better understanding of each step.
+2. Streamlined object and variable naming for readability.
+3. Consolidated the actions of initializing and assigning properties of the `Movie` object.
+4. Directly used the response from the CSS selector instead of intermediate variables for efficiency.
+5. Addressed code consistency by ensuring all comments and logical checks were clear and concise.
+
+Here's the paraphrased section of the code, adjusting the semantics while maintaining functional equivalency. Also, the relative link to `website.com` remains unchanged as it is generic and does not resolve to Iron Software's domain.
+
+```cs
+public class MovieScraper : WebScraper
+{
+    // Initialization method to configure the scraper settings
+    public override void Init()
+    {
+        License.LicenseKey = "LicenseKey"; // Set your license key here
+        this.LoggingLevel = WebScraper.LogLevel.All; // Enable logging at all levels
+        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\"; // Define where to store the output
+        this.Request("https://website.com/", Parse); // Start the scraping operation
+    }
+
+    // Method to handle the response and extract data
+    public override void Parse(Response response)
+    {
+        // Iterate through each div under the selected CSS path 
+        foreach (var divItem in response.Css("#movie-featured > div"))
+        {
+            // Process only if it is not of class 'clearfix'
+            if (divItem.Attributes["class"] != "clearfix")
+            {
+                var movie = new Movie(); // Instantiate a new movie object
+                movie.Id = Convert.ToInt32(divItem.GetAttribute("data-movie-id")); // Extract the movie ID and convert to integer
+                var linkElement = divItem.Css("a")[0]; // Get the first anchor element
+                movie.Title = linkElement.TextContentClean; // Get the cleaned text content of the link as movie title
+                movie.URL = linkElement.Attributes["href"]; // Extract the href attribute as movie URL
+
+                Scrape(movie, "Movie.Jsonl"); // Scrape the movie data into a JSONL file
+            }
+        }
+    }
+}
+```
+
+*Updates and Enhancements:*
+
+1. Implementation of the `Movie` class to encapsulate scraped data effectively.
+
+2. Utilization of `Movie` objects with the `Scrape` method, which seamlessly recognizes and stores data in a structured format as illustrated below:
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-Here's the paraphrased section, with resolved relative URL links directed to `ironsoftware.com`:
+### Beginning with Detailed Page Scraping
 
------
+Initiating the scraping process for a detailed page on a movie website, we'll explore how to capture more granular details.
 
-## Detailed Page Scraping Example
+#### Visual Overview of the Movie Page
 
-Next, we venture into scraping content from a more intricate web page.
+Here's what the detailed movie page appears as:
 
-### Look at a Movie Detail Web Page 
+![Movie Details Sample](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/movieDetailsSample.jpg)
 
-Below is the layout of a typical movie detail page that we will be working with:
-
-![Movie Details Webpage](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/movieDetailsSample.jpg)
-
-<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/movieDetailsSample.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/movieDetailsSample.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
+Here's a snippet of the HTML content from this page:
 ```html
-<div class="movie-details">
-    <div class="movie-thumbnail" style="background-image: url(https://img.gocdn.online/2017/04/28/poster/5a08e94ba02118f22dc30f298c603210-guardians-of-the-galaxy-vol-2.jpg);"></div>
-    <div class="movie-description">
+<div class="mvi-content">
+    <div class="thumb mvic-thumb" 
+         style="background-image: url(https://img.gocdn.online/2017/04/28/poster/5a08e94ba02118f22dc30f298c603210-guardians-of-the-galaxy-vol-2.jpg);">
+    </div>
+    <div class="mvic-desc">
         <h3>Guardians of the Galaxy Vol. 2</h3>
-        <div class="summary">
-            Against the sonic backdrop of Awesome Mixtape #2, Marvel's Guardians of the Galaxy Vol. 2 unfolds the team's escapades across the universe as they aid Peter Quill in uncovering his lineage.
+        <div class="desc">
+            Set to the backdrop of Awesome Mixtape #2, Marvel's Guardians of the Galaxy Vol. 2 continues the team's adventures as they traverse the cosmos to assist Peter Quill in discovering more about his true parentage.
         </div>
-        <div class="movie-meta">
-            <div class="meta-left">
-                <p>
-                    <strong>Genre: </strong>
+        <div class="mvic-info">
+            <div class="mvici-left">
+                <p><strong>Genre: </strong>
                     <a href="https://Domain/genre/action/" title="Action">Action</a>,
                     <a href="https://Domain/genre/adventure/" title="Adventure">Adventure</a>,
                     <a href="https://Domain/genre/sci-fi/" title="Sci-Fi">Sci-Fi</a>
                 </p>
-                <p>
-                    <strong>Cast: </strong>
+                <p><strong>Actor: </strong>
                     <a target="_blank" href="https://Domain/actor/chris-pratt" title="Chris Pratt">Chris Pratt</a>,
                     <a target="_blank" href="https://Domain/actor/-zoe-saldana" title="Zoe Saldana">Zoe Saldana</a>,
                     <a target="_blank" href="https://Domain/actor/-dave-bautista-" title="Dave Bautista">Dave Bautista</a>
+                </p>
+                <p><strong>Director: </strong>
+                    <a href="#" title="James Gunn">James Gunn</a>
+                </p>
+                <p><strong>Country: </strong>
+                    <a href="https://Domain/country/us" title="United States">United States</a>
+                </p>
+            </div>
+            <div class="mvici-right">
+                <p><strong>Duration:</strong> 136 min</p>
+                <p><strong>Quality:</strong> <span class="quality">CAM</span></p>
+                <p><strong>Release:</strong> 2017</p>
+                <p><strong>IMDb:</strong> 8.3</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+```
+From the page, we can collect numerous attributes such as the movie ID, title, and a detailed link.
+
+Let's enhance our scraper logic to capture this extended set of data:
+```cs
+public class MovieScraper : WebScraper
+{
+    public override void Init()
+    {
+        License.LicenseKey = "LicenseKey";
+        this.LoggingLevel = WebScraper.LogLevel.All;
+        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\";
+        this.Request("https://domain/", Parse);
+    }
+    public override void Parse(Response response)
+    {
+        foreach (var Divs in response.Css("#movie-featured > div"))
+        {
+            if (Divs.Attributes ["class"] != "clearfix")
+            {
+                var movie = new Movie();
+                movie.Id = Convert.ToInt32(Divs.GetAttribute("data-movie-id"));
+                var link = Divs.Css("a")[0];
+                movie.Title = link.TextContentClean;
+                movie.URL = link.Attributes ["href"];
+                this.Request(movie.URL, ParseDetails, new MetaData() { { "movie", movie } });  // to scrape Detailed Page
+            }
+        }           
+    }
+    public void ParseDetails(Response response)
+    {
+        var movie = response.MetaData.Get<Movie>("movie");
+        var Div = response.Css("div.mvic-desc")[0];
+        movie.Description = Div.Css("div.desc")[0].TextContentClean;
+        foreach(var Genre in Div.Css("div > p > a"))
+        {
+            movie.Genre.Add(Genre.TextContentClean);
+        }
+        foreach (var Actor in Div.Css("div > p:nth-child(2) > a"))
+        {
+            movie.Actor.Add(Actor.TextContentClean);
+        }
+        Scrape(movie, "Movie.Jsonl");
+    }
+}
+```
+
+#### Enhancements in the Scraping Code:
+1. Adding functions (`ParseDetails`) to retrieve detailed pages
+2. Scrape method now generates our file within a new function
+3. Utilization of IronWebScraper's `MetaData` to pass our movie object between scraping functions
+4. Scrapping and saving enriched movie object data to a file, ensuring comprehensive capture of detailed page elements.
+
+<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/movieDetailsSample.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/movieDetailsSample.jpg" class="img-responsive add-shadow img-margin"></a></p>
+
+```html
+<div class="movie-content">
+    <div class="movie-thumbnail" style="background-image: url(https://img.gocdn.online/2017/04/28/poster/5a08e94ba02118f22dc30f298c603210-guardians-of-the-galaxy-vol-2.jpg);"></div>
+    <div class="movie-description">
+        <h3>Guardians of the Galaxy Vol. 2</h3>
+        <div class="summary">
+            Continuing with the Awesome Mixtape #2, Marvel's Guardians of the Galaxy Vol. 2 follows the team as they journey across the universe to aid Peter Quill in discovering the secrets of his heritage.
+        </div>
+        <div class="movie-info">
+            <div class="info-left">
+                <p>
+                    <strong>Genre: </strong>
+                    <a href="https://ironsoftware.com/csharp/webscraper/genre/action/" title="Action">Action</a>,
+                    <a href="https://ironsoftware.com/csharp/webscraper/genre/adventure/" title="Adventure">Adventure</a>,
+                    <a href="https://ironsoftware.com/csharp/webscraper/genre/sci-fi/" title="Sci-Fi">Sci-Fi</a>
+                </p>
+                <p>
+                    <strong>Actors: </strong>
+                    <a target="_blank" href="https://ironsoftware.com/csharp/webscraper/actor/chris-pratt" title="Chris Pratt">Chris Pratt</a>,
+                    <a target="_blank" href="https://ironsoftware.com/csharp/webscraper/actor/-zoe-saldana" title="Zoe Saldana">Zoe Saldana</a>,
+                    <a target="_blank" href="https://ironsoftware.com/csharp/webscraper/actor/-dave-bautista-" title="Dave Bautista">Dave Bautista</a>
                 </p>
                 <p>
                     <strong>Directed by: </strong>
                     <a href="#" title="James Gunn">James Gunn</a>
                 </p>
                 <p>
-                    <strong>Produced in: </strong>
-                    <a href="https://Domain/country/us" title="United States">United States</a>
+                    <strong>Origin: </strong>
+                    <a href="https://ironsoftware.com/csharp/webscraper/country/us" title="United States">United States</a>
                 </p>
             </div>
-            <div class="meta-right">
+            <div class="info-right">
                 <p><strong>Runtime:</strong> 136 min</p>
-                <p><strong>Resolution:</strong> <span class="quality">CAM</span></p>
-                <p><strong>Year:</strong> 2017</p>
+                <p><strong>Quality:</strong> <span class="quality">CAM</span></p>
+                <p><strong>Released:</strong> 2017</p>
                 <p><strong>IMDb Rating:</strong> 8.3</p>
             </div>
             <div class="clearfix"></div>
@@ -867,27 +1042,27 @@ Below is the layout of a typical movie detail page that we will be working with:
 </div>
 ```
 
-We have the option to enhance our `Movie` class by adding additional properties such as `Description`, `Genre`, `Actor`, `Director`, `Country`, `Duration`, and `IMDB Score`. However, for this demonstration, we'll only utilize the `Description`, `Genre`, and `Actor` properties.
+We have the opportunity to augment our movie class with additional properties such as Description, Genre, Actor, Director, Country, Duration, and IMDB Score. However, for the purposes of this example, we will only utilize the Description, Genre, and Actor properties.
 
-Here's the paraphrased section of your article, including resolved relative URL paths:
+Here is the paraphrased section of the article:
 
 ```cs
 public class Film
 {
-    public int MovieId { get; set; }
-    public string MovieTitle { get; set; }
-    public string MovieURL { get; set; }
-    public string Summary { get; set; }
+    public int Identifier { get; set; }
+    public string Name { get; set; }
+    public string Link { get; set; }
+    public string Synopsis { get; set; }
     public List<string> Categories { get; set; }
     public List<string> Cast { get; set; }
 }
 ```
 
-Now let's move on to scraping the detailed pages.
+Exploring the functionality of IronWebScraper, this tool offers the flexibility to enhance your scraping functionality, allowing you to handle various types of page structures effectively.
 
-With IronWebScraper, you have the flexibility to extend the scraping functions to handle a variety of page layouts and formats.
+Here's how you can do it:
 
-Here’s an example:
+Certainly! Here's the paraphrased section with relative URL paths resolved:
 
 ```cs
 public class MovieScraper : WebScraper
@@ -895,78 +1070,161 @@ public class MovieScraper : WebScraper
     public override void Init()
     {
         License.LicenseKey = "YourLicenseKeyHere";
-        this.LoggingLevel = WebScraper.LogLevel.All; // Log every event
-        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\"; // Set the output directory
-        this.Request("https://example.com", Parse); // Initial page to start scraping
+        this.LoggingLevel = WebScraper.LogLevel.All;
+        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\MovieSample\Output\";
+        this.Request("https://ironsoftware.com/domain/", Parse);
     }
 
+    // Parsing the initial movie listing page
     public override void Parse(Response response)
     {
-        foreach (var container in response.Css("#movie-featured > div"))
+        foreach (var movieDiv in response.Css("#movie-featured > div"))
         {
-            if (container.Attributes["class"] != "clearfix")
+            if (movieDiv.Attributes["class"] != "clearfix")
             {
-                var movie = new Movie();
-                movie.Id = Convert.ToInt32(container.GetAttribute("data-movie-id")); // Extract movie ID
-                var anchor = container.Css("a")[0];
-                movie.Title = anchor.TextContentClean; // Clean up and set the title
-                movie.URL = anchor.Attributes["href"]; // Set URL for details page
-                this.Request(movie.URL, ParseDetails, new MetaData() { { "movie", movie } }); // Pass movie object to detail parsing
+                var movieInstance = new Movie();
+                movieInstance.Id = Convert.ToInt32(movieDiv.GetAttribute("data-movie-id"));
+                var movieLink = movieDiv.Css("a")[0];
+                movieInstance.Title = movieLink.TextContentClean;
+                movieInstance.URL = movieLink.Attributes["href"];
+                // Fetching details from the movie detail page
+                this.Request(movieInstance.URL, ParseDetails, new MetaData() { { "movie", movieInstance } });
             }
         }
     }
 
+    // Parsing detailed movie information
     public void ParseDetails(Response response)
     {
-        var movie = response.MetaData.Get<Movie>("movie"); // Retrieve the movie object
-        var descContainer = response.Css("div.mvic-desc")[0];
-        movie.Description = descContainer.Css("div.desc")[0].TextContentClean; // Parse and set the movie description
-        
-        movie.Genre = new List<string>(); // Initialize the list of genres
-        foreach (var genreElement in descContainer.Css("div > p > a"))
+        var detailedMovie = response.MetaData.Get<Movie>("movie");
+        var descriptionDiv = response.Css("div.mvic-desc")[0];
+        detailedMovie.Description = descriptionDiv.Css("div.desc")[0].TextContentClean;
+        // Extract genres
+        foreach (var genre in descriptionDiv.Css("div > p > a"))
         {
-            movie.Genre.Add(genreElement.TextContentClean); // Add each genre to the list
+            detailedMovie.Genre.Add(genre.TextContentClean);
         }
-
-        movie.Actor = new List<string>(); // Initialize the list of actors
-        foreach (var actorElement in descContainer.Css("div > p:nth-child(2) > a"))
+        // Extract actors
+        foreach (var actor in descriptionDiv.Css("div > p:nth-child(2) > a"))
         {
-            movie.Actor.Add(actorElement.TextContentClean); // Add each actor to the list
+            detailedMovie.Actor.Add(actor.TextContentClean);
         }
-
-        Scrape(movie, "Movie.Jsonl"); // Finally, save the scraped data to a JSONL file
+        // Save the scraped data
+        Scrape(detailedMovie, "Movie.Jsonl");
     }
 }
-```
+``` 
 
-### Key Enhancements in Scraping Workflow
+This rewritten version maintains the logical structure of the original code but rephrases several parts for clarity and readability. Additionally, it ensures that external links refer to the intended domain.
 
-1. Introduction of specialized scraping functions (`ParseDetails`) for efficiently processing detailed web pages.
+### Key Updates in Scrape Functionality
+
+1. Introduction of new scrape functions such as `ParseDetails` specifically for parsing more complex web pages.
    
-2. Transition of the `Scrape` function: this core function has been reallocated to operate within the newly introduced `ParseDetails` function for optimized data handling.
+2. The file generation step via the `Scrape` function has been shifted to the newly created function for more structured code organization.
 
-3. Integration of IronWebScraper's `MetaData` utility, enabling the seamless transfer of movie data objects between different scraping functions.
+3. We took advantage of the `MetaData` feature from IronWebScraper to efficiently pass data objects (in this case, the movie object) between different scraping functions.
 
-4. Implementation of a complete scraping process where the extracted movie data is stored directly into a dedicated file, ensuring data persistence and accessibility.
+4. Successfully executed the data extraction, capturing movie details into structured files using the updated scrape routines.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass1.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass1.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-### Extracting Data from a Retail Website
+### Extracting Data from an E-commerce Website
 
-We've chosen a retail website as our target for data extraction.
+For this example, we'll demonstrate how to extract data from an e-commerce website using IronWebScraper.
+
+![Shopping Site Overview](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/shoppingSite.jpg)
+
+As depicted in the image, the website features a navigation bar on the left that lists product categories, which is our primary focus to start the scraping process.
+
+![Category List from Shopping Site](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/shoppingSiteLeftBar.jpg)
+
+The e-commerce site segregates products into various categories, such as "Men", "Women", and "Kids" within broader categories like fashion.
+
+```html
+<li class="menu-item" data-id="">
+    <a href="https://domain.com/fashion-by-/" class="main-category">
+        <i class="cat-icon osh-font-fashion"></i>
+        <span class="nav-subTxt">FASHION </span>
+        <i class="osh-font-light-arrow-left"></i><i class="osh-font-light-arrow-right"></i>
+    </a>
+    <div class="navLayerWrapper" style="width: 633px; display: none;">
+        <!-- Submenu Content Here -->
+    </div>
+</li>
+```
+
+To handle this scraping task, follow these steps:
+
+1. **Initialize a New Project or Add a New Folder**: Create a console application or a new folder named “ShoppingSiteSample” for this example.
+   
+2. **Create a New Class**: Name it “ShoppingScraper”.
+
+3. **Model the Data Structure**: Structure a `Category` class to encapsulate category details.
+   ```cs
+   public class Category
+   {
+       public string Name { get; set; }
+       public string URL { get; set; }
+       public List<Category> SubCategories { get; set; }
+   }
+   ```
+
+4. **Build the Scraping Logic**: Use the following method to parse and scrape the categories and their subcategories.
+   ```cs
+   public class ShoppingScraper : WebScraper
+   {
+       public override void Init()
+       {
+           License.LicenseKey = "LicenseKey";
+           this.LoggingLevel = WebScraper.LogLevel.All;
+           this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";
+           this.Request("www.domain.com", Parse);
+       }
+
+       public override void Parse(Response response)
+       {
+           var categoryList = new List<Category>();
+
+           foreach (var li in response.Css("#menuFixed > ul > li"))
+           {
+               var cat = new Category() {
+                   URL = li.Css("a")[0].Attributes["href"],
+                   Name = li.Css("a")[0].InnerText,
+                   SubCategories = new List<Category>()
+               };
+
+               foreach (var subLi in li.Css("div.navLayerWrapper > div.submenu > div.column > div.categories > a.category"))
+               {
+                   var subCat = new Category() {
+                       URL = subLi.Attributes["href"],
+                       Name = subLi.InnerText
+                   };
+                   cat.SubCategories.Add(subCat);
+               }
+
+               categoryList.Add(cat);
+           }
+
+           Scrape(categoryList, "Categories.Jsonl");
+       }
+   }
+   ```
+
+By executing this scraping logic, you can effectively collect comprehensive details about the products available under each category on the target shopping website.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/shoppingSite.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/shoppingSite.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-As demonstrated in the image, there is a sidebar listing the product categories of the website.
+As illustrated in the image, there's a sidebar on the left that holds links to various product categories of the site.
 
-The initial step involves examining the website's HTML structure to strategize our web scraping approach.
+Initially, our task would be to examine the HTML of the site and strategize our approach to scraping it effectively.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/shoppingSiteLeftBar.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/shoppingSiteLeftBar.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-The fashion website organizes its products into main categories which include subcategories such as Men, Women, and Kids.
+The categories on the fashion website are divided into subcategories such as Men, Women, and Kids.
 
 ```html
-<li class="menu-item">
+<li class="menu-item" data-id="">
     <a href="https://ironsoftware.com/fashion-by/" class="main-category">
         <i class="cat-icon osh-font-fashion"></i> <span class="nav-subTxt">FASHION </span> <i class="osh-font-light-arrow-left"></i><i class="osh-font-light-arrow-right"></i>
     </a>
@@ -974,7 +1232,7 @@ The fashion website organizes its products into main categories which include su
         <div class="submenu">
             <div class="column">
                 <div class="categories">
-                    <a class="category" href="https://ironsoftware.com/fashion-by/?sort=newest&amp;dir=desc&amp;viewType=gridView3">New Arrivals</a>
+                    <a class="category" href="https://ironsoftware.com/fashion-by/?sort=newest&amp;dir=desc&amp;viewType=gridView3">New Arrivals!</a>
                 </div>
                 <div class="categories">
                     <a class="category" href="https://ironsoftware.com/men-fashion/">Men</a>
@@ -1041,92 +1299,93 @@ The fashion website organizes its products into main categories which include su
 </li>
 ```
 
-```
-# Setting Up Your Project
+# Project Setup Instructions
 
 ***Based on <https://ironsoftware.com/tutorials/webscraping-in-c-sharp/>***
 
 
-To embark on a new scraping project, proceed with the following steps:
+---- 
 
-1. Begin by creating a new Console Application or simply add a new folder to your existing solution. Name this folder "ShoppingSiteSample" to differentiate it from other areas of your project.
+## Starting Your Project
 
-2. Within this new folder or application, introduce a new class called `ShoppingScraper`. This class will handle the primary tasks of your webscraper application.
+To begin, either create a new Console Application or add a new folder named "ShoppingSiteSample" to an existing project to accommodate the sample code for scraping.
 
-3. Start off by configuring your scraper to fetch categories and subcategories from the target website.
+## Initializing the Scraper
 
-Now, let's define a model to hold these categories:
+Next, add a new class to your project and name it `ShoppingScraper`. This class will be responsible for the scraping operations.
 
-## Defining a Model for Categories
+## Scraper's Initial Task
 
-To effectively manage the data you scrape, define a category model as follows:
+Start with scraping the main categories and their respective subcategories from the target site.
 
-```cs
-public class Category
-{
-    /// <summary>
-    /// Represents the category name.
-    /// </summary>
-    public string Name { get; set; }
+## Define a Data Model for Categories
 
-    /// <summary>
-    /// Holds the URL to the category.
-    /// </summary>
-    public string URL { get; set; }
-
-    /// <summary>
-    /// Contains a list of subcategories within this category.
-    /// </summary>
-    public List<Category> SubCategories { get; set; }
-}
-```
-
-This model offers a structured way to capture and utilize category data within your webscraping application.
-```
+Construct a `Category` model to facilitate the organization of category data:
 
 ```cs
 public class Category
 {
     /// <summary>
-    /// Maintains or adjusts the category name.
+    /// The category name.
     /// </summary>
-    /// <value>
-    /// Represents the category name.
-    /// </value>
     public string Name { get; set; }
 
     /// <summary>
-    /// Maintains or adjusts the web address.
+    /// The URL associated with the category.
     /// </summary>
-    /// <value>
-    /// The web address associated with the category.
-    /// </value>
     public string URL { get; set; }
 
     /// <summary>
-    /// Maintains or adjusts the list of subcategories within this category.
+    /// A collection of subcategories under this category.
+    /// </summary>
+    public List<Category> SubCategories { get; set; }
+}
+```
+
+This structured approach will lay the foundation for systematically scraping website categories and their subcategories, organizing them effectively within your application.
+
+```cs
+public class Category
+{
+    /// <summary>
+    /// Property to get or set the category name.
     /// </summary>
     /// <value>
-    /// A list containing subcategories of this category.
+    /// Represents the name of the category.
+    /// </value>
+    public string Name { get; set; }
+    
+    /// <summary>
+    /// Property to get or set the URL associated with this category.
+    /// </summary>
+    /// <value>
+    /// Holds the URL of the category.
+    /// </value>
+    public string URL { get; set; }
+    
+    /// <summary>
+    /// Property to get or set the list of child subcategories.
+    /// </summary>
+    /// <value>
+    /// Contains the subcategories within this category.
     /// </value>
     public List<Category> SubCategories { get; set; }
 }
 ```
 
-Here's the rewritten section with relative URL paths resolved to `ironsoftware.com`:
+Below is the rewritten section:
 
 -----
+4. Building the Scraping Logic
 
-4. Building Our Scrape Logic
-
-Next, we develop the scraping strategy. Given below are the structured steps for setting this up:
+Now, let’s develop the scraping logic for our project:
 
 ```cs
 public class ShoppingScraper : WebScraper
 {
     /// <summary>
-    /// Starts the web scraper by setting initialization parameters.
-    /// This function is crucial for defining the initial URL and domain rules.
+    /// This method prepares the web scraper with initial settings.
+    /// It sets up necessary configurations such as start URLs and any domain or URL restrictions.
     /// </summary>
     public override void Init()
     {
@@ -1137,10 +1396,11 @@ public class ShoppingScraper : WebScraper
     }
 
     /// <summary>
-    /// Default handler for parsing HTTP responses.
-    /// You can implement additional handlers for different page types if needed.
+    /// This method handles the response for the initial web request.
+    /// The primary purpose here is to parse the HTTP response and manage data accordingly.
+    /// If the needs arise for handling different types of pages, additional methods similar to this can be created.
     /// </summary>
-    /// <param name="response">HTTP response to be parsed.</param>
+    /// <param name="response">The HTTP response object from the requested URL</param>
     public override void Parse(Response response)
     {
         var categoryList = new List<Category>();
@@ -1148,7 +1408,7 @@ public class ShoppingScraper : WebScraper
         foreach (var Links in response.Css("#menuFixed > ul > li > a "))
         {
             var cat = new Category();
-            cat.URL = Links.Attributes ["href"];
+            cat.URL = Links.Attributes["href"];
             cat.Name = Links.InnerText;
             categoryList.Add(cat);
         }
@@ -1157,254 +1417,180 @@ public class ShoppingScraper : WebScraper
 }
 ```
 
-By leveraging these code examples, developers can effectively extract data from the chosen categories within a shopping site, organizing the information collected into a structured format (JSON Lines) and saving them into designated output directories for further analysis or use.
+This segment of code initializes our scraper by making an HTTP request to `www.webSite.com`. It then processes each category found within the designated CSS path `#menuFixed > ul > li > a` on the website. Each category is read into a new Category object, capturing the name and URL from the HTML element. These categories are collected into a list and are written into a JSONL file named `Shopping.Jsonl` for subsequent use. This organized approach helps streamline the extraction and structuring of meaningful data from websites.
 
 ```cs
 public class ShoppingScraper : WebScraper
 {
     /// <summary>
-    /// This method sets up the initial configuration for your web scraper.
-    /// Essentials include specifying a starting URL and defining rules for allowed or banned domains and URL patterns.
+    /// Initializes the web scraper by setting up essential configurations such as the start URL and allowed/banned URL patterns.
+    /// It is crucial to start with at least one URL to begin scraping.
     /// </summary>
     public override void Init()
     {
         License.LicenseKey = "LicenseKey";
-        this.LoggingLevel = WebScraper.LogLevel.All;
-        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";
-        this.Request("www.webSite.com", Parse);
+        this.LoggingLevel = WebScraper.LogLevel.All;  // Set the logging level to log all events
+        this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";  // Set the working directory for output files
+        this.Request("www.webSite.com", Parse); // Initial web request to start scraping
     }
 
     /// <summary>
-    /// This method is responsible for handling the HTTP responses for your web scraper.
-    /// It serves as the primary method for processing web content, and you can define additional methods for different types of web pages.
+    /// This method acts as the primary response handler for the web scraper.
+    /// Here, you can define how to process the HTTP response and extract information.
+    /// This method can be duplicated or modified for handling different types of web pages.
     /// </summary>
-    /// <param name="response">The HTTP response object that will be processed</param>
+    /// <param name="response">The HTTP Response object from which data will be parsed</param>
     public override void Parse(Response response)
     {
-        var categories = new List<Category>();
+        var categoryList = new List<Category>();  // Initialize a list to hold category data
 
+        // Loop through each category link found in the specified CSS path
         foreach (var link in response.Css("#menuFixed > ul > li > a "))
         {
             var category = new Category
             {
-                URL = link.Attributes["href"],
-                Name = link.InnerText
+                URL = link.Attributes["href"],  // Get the href attribute as category URL
+                Name = link.InnerText.Trim()  // Get the text content as category name and trim any excess whitespace
             };
-            categories.Add(category);
+            categoryList.Add(category);  // Add the category to the list
         }
-        Scrape(categories, "Shopping.Jsonl");
+        Scrape(categoryList, "Shopping.Jsonl");  // Save the extracted category list as a JSONL file
     }
 }
 ```
 
-In this section, we'll extract links from the site's navigation menu. The process involves identifying the HTML structure of the menu and programmatically pulling out links that correspond to different categories or pages.
+Here's a paraphrased section of the text provided:
 
-Here’s the revised scraping process focused on pulling menu links:
+-----
 
-```cs
-public override void Parse(Response response)
-{
-    // Initialize a list to store categories with their respective links
-    var categoryList = new List<Category>();
-    
-    // Loop over each menu item in the navigation bar
-    foreach (var li in response.Css("#menuFixed > ul > li"))
-    {
-        // Extract the main links for each menu item
-        foreach (var Links in li.Css("a"))
-        {
-            var cat = new Category();
-            cat.URL = Links.Attributes ["href"];
-            cat.Name = Links.InnerText;
-            cat.SubCategories = new List<Category>();
+### Extracting Links from the Navigation Menu
 
-            // Extract subcategories for each main category
-            foreach (var subCategory in li.Css("a[class=subcategory]"))
-            {
-                var subcat = new Category();
-                subcat.URL = Links.Attributes ["href"];
-                subcat.Name = Links.InnerText;
+During our exploration of web scraping with IronWebScraper, an essential step is to extract links from a website’s navigation menu. This piece will guide you through the process using IronWebScraper to capture main and sub-category links efficiently.
 
-                // Prevent duplicate entries
-                if (cat.SubCategories.Find(c => c.Name == subcat.Name && c.URL == subcat.URL) == null)
-                {
-                    cat.SubCategories.Add(subcat);
-                }
-            }
-            // Add the main category to the list
-            categoryList.Add(cat);
-        }
-    }
-    Scrape(categoryList, "Shopping.Jsonl");
-}
-```
+Consider the following visual representation of our task:
 
-This part of the tutorial aims to demonstrate methodical navigation through nested elements in a webpage's structure to effectively extract data. This approach not only simplifies categorization but ensures that each category and its subcategories are accurately represented.
+![Scraping links from the navigation menu](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/ShoppingSiteScrapeMenu.jpg)
+
+Now let's delve into the code development process:
+
+1. **Initialize the Scraper:** Starting with configuring our `WebScraper` instance to target our desired webpage.
+2. **Parse the Main Category Links:** We utilize a selector to gather all primary links from the menu.
+3. **Capture Sub-category Links:** For each main category element, identify and gather the links to its sub-categories.
+4. **Data Structuring:** Construct a hierarchical model that mirrors the main categories and their respective sub-categories for a better organized and more accessible navigation hierarchy.
+5. **Storing Results:** Finally, save the structured data in a JSONL format, facilitating further manipulations or integrations.
+
+By scrupulously following these steps, the navigation structure of any given website can be dissected and conveniently scraped, paving the way for more detailed and targeted data extraction tasks.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/ShoppingSiteScrapeMenu.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/ShoppingSiteScrapeMenu.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-Here's the paraphrased section of the article:
-
----
-To enhance our scraping process, we need to adjust our code to gather not only the primary categories but also their subcategories from the website. Let's look at how we can refine our code to efficiently capture both the main category links and their respective sub-links:
-
-```csharp
-public override void Parse(Response response)
-{
-    // Compilation of the primary category links
-    var categoryList = new List<Category>();
-    
-    // Iterate through each main category listing
-    foreach (var li in response.Css("#menuFixed > ul > li"))
-    {
-        // Processing main links
-        foreach (var Links in li.Css("a"))
-        {
-            var cat = new Category();
-            cat.URL = Links.Attributes ["href"];
-            cat.Name = Links.InnerText;
-            cat.SubCategories = new List<Category>();
-            
-            // Compilation of subcategory links
-            foreach (var subCategory in li.Css("a [class=subcategory]"))
-            {
-                var subcat = new Category();
-                subcat.URL = Links.Attributes ["href"];
-                subcat.Name = Links.InnerText;
-                
-                // Ensure unique subcategory links are added
-                if (!cat.SubCategories.Any(c=>c.Name== subcat.Name && c.URL == subcat.URL))
-                {
-                    cat.SubCategories.Add(subcat);
-                }
-            }
-            
-            // Adding to the primary category list
-            categoryList.Add(cat);
-        }
-    }
-    Scrape(categoryList, "Shopping.Jsonl");
-}
-```
-
-This updated approach ensures that each main category and its corresponding subcategories are thoroughly scraped and cataloged, providing a structured and detailed overview of the site navigational schema.
-
-Here is the paraphrased section of the article with resolved URLs:
+We will refine our scraping technique to capture the primary categories and all its associated subcategories.
 
 ```cs
 public override void Parse(Response response)
 {
-    // Initializing main category list
-    var mainCategories = new List<Category>();
-
-    // Iterate through each list item found under the specified id
-    foreach (var listItem in response.Css("#menuFixed > ul > li"))
+    // Initiating a list to store category links
+    var categoryList = new List<Category>();
+    
+    // Loop through each 'li' element within the specified section
+    foreach (var li in response.Css("#menuFixed > ul > li"))
     {
-        // Traverse through each anchor link within the list item
-        foreach (var anchorLink in listItem.Css("a"))
+        // Iterate through each link within this category
+        foreach (var Links in li.Css("a"))
         {
-            var category = new Category
+            var cat = new Category
             {
-                URL = anchorLink.Attributes["href"], // Fetching URL from anchor tag
-                Name = anchorLink.InnerText, // Fetching the category name
-                SubCategories = new List<Category>() // Initializing the subcategories list
+                URL = Links.Attributes["href"], // Extracting the hyperlink
+                Name = Links.InnerText, // Extracting the link text
+                SubCategories = new List<Category>() // Preparing to store subcategories
             };
-
-            // Extract subcategories from the specified class within the anchor tag
-            foreach (var subCat in listItem.Css("a[class=subcategory]"))
+            
+            // Gather all subcategories under this main category
+            foreach (var subCategory in li.Css("a[class=subcategory]"))
             {
-                var subCategory = new Category
+                var subcat = new Category
                 {
-                    URL = anchorLink.Attributes["href"], // Fetching URL from subcategory anchor tag
-                    Name = anchorLink.InnerText // Fetching the subcategory name
+                    URL = Links.Attributes["href"],
+                    Name = Links.InnerText
                 };
-
-                // Ensuring unique subcategory entries only
-                if (!category.SubCategories.Any(c => c.Name == subCategory.Name && c.URL == subCategory.URL))
+                // Ensure this subcategory is unique before adding
+                if (!cat.SubCategories.Any(c => c.Name == subcat.Name && c.URL == subcat.URL))
                 {
-                    category.SubCategories.Add(subCategory); // Adding to subcategories list
+                    cat.SubCategories.Add(subcat);
                 }
             }
-
-            mainCategories.Add(category); // Add the filled category to the main categories list
+            // Add this populated category to the main list
+            categoryList.Add(cat);
         }
     }
-
-    Scrape(mainCategories, "Shopping.Jsonl"); // Storing the result as a JSON lines file
+    // Save the collected categories data into a Jsonl file
+    Scrape(categoryList, "Shopping.Jsonl");
 }
 ```
 
-With all site category links at our disposal, let's proceed with extracting the product details from each category.
+This updated script focuses on capturing not only the main categories found on the navigation bar but also drills down to fetch all associated subcategories for each primary category. This hierarchical data capture ensures a comprehensive scraping of site structure, providing a robust dataset for subsequent data analysis tasks.
 
-Next, we will explore a specific category to analyze its contents.
+Here is the paraphrased section of the article with relative URLs resolved to `ironsoftware.com`:
+
+```cs
+public override void Parse(Response response)
+{
+    // Initialize list to store the root category links
+    var mainCategoryList = new List<Category>();
+
+    // Iterate through each list item within the fixed menu
+    foreach (var listItem in response.Css("#menuFixed > ul > li"))
+    {
+        // Extract main category links
+        foreach (var link in listItem.Css("a"))
+        {
+            var category = new Category
+            {
+                URL = link.Attributes["href"],
+                Name = link.InnerText,
+                SubCategories = new List<Category>()
+            };
+
+            // Extract subcategory links
+            foreach (var subLink in listItem.Css("a[class=subcategory]"))
+            {
+                var subCategory = new Category
+                {
+                    URL = link.Attributes["href"],
+                    Name = link.InnerText
+                };
+
+                // Avoid adding duplicate subcategory links
+                if (!category.SubCategories.Exists(x => x.Name == subCategory.Name && x.URL == subCategory.URL))
+                {
+                    category.SubCategories.Add(subCategory);
+                }
+            }
+            // Populate the main category list
+            mainCategoryList.Add(category);
+        }
+    }
+    // Invoke the Scrape method to process the structured data
+    Scrape(mainCategoryList, "Shopping.Jsonl");
+}
+```
+
+This revised code maintains the original functionality while enhancing readability and commenting for clarity.
+
+Now that we have acquired links for all the site categories, it's time to begin extracting product data from each category.
+
+We'll proceed by exploring a specific category and examining its contents.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/ProductSubCategoryList.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/ProductSubCategoryList.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-Certainly! Here's the paraphrased content for the provided section, with image and link paths resolved:
-
----
-
-## Examining the Source Code
-
-Here's a glimpse into the HTML structure of the content:
-
-```html
-<section class="products">
-    <div class="sku -gallery -validate-size" data-sku="AG249FA0T2PSGNAFAMZ" ft-product-sizes="41,42,43,44,45" ft-product-color="Multicolour">
-        <a class="link" href="https://ironsoftware.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html">
-            <div class="image-wrapper default-state">
-                <img class="lazy image -loaded" alt="Bundle Of 2 Sneakers - Black & Navy Blue" data-image-vertical="1" width="210" height="262" src="https://ironsoftware.com/p/agu-6208-488356-1-catalog_grid_3.jpg" data-sku="AG249FA0T2PSGNAFAMZ" data-src="https://ironsoftware.com/p/agu-6208-488356-1-catalog_grid_3.jpg" data-placeholder="placeholder_m_1.jpg">
-                <noscript>
-                    <img src="https://ironsoftware.com/p/agu-6208-488356-1-catalog_grid_3.jpg" width="210" height="262" class="image" />
-                </noscript>
-            </div> 
-            <h2 class="title">
-                <span class="brand ">Agu&nbsp;</span>
-                <span class="name" dir="ltr">Bundle Of 2 Sneakers - Black & Navy Blue</span>
-            </h2>
-            <div class="price-container clearfix">
-                <span class="price-box">
-                    <span class="price">
-                        <span data-currency-iso="EGP">EGP</span>
-                        <span dir="ltr" data-price="299">299</span>
-                    </span>   
-                    <span class="price -old  -no-special"></span>
-                </span>
-            </div>
-            <div class="rating-stars">
-                <div class="stars-container">
-                    <div class="stars" style="width: 62%"></div>
-                </div> 
-                <div class="total-ratings">(30)</div> 
-            </div>    
-            <span class="shop-first-logo-container">
-                <img src="https://ironsoftware.com/images/local/logos/shop_first/ShoppingSite/logo_normal.png" data-src="https://ironsoftware.com/images/local/logos/shop_first/ShoppingSite/logo_normal.png" class="lazy shop-first-logo-img -mbxs -loaded"> 
-            </span>
-            <span class="osh-icon -ShoppingSite-local shop_local--logo -block -mbs -mts"></span>
-            <div class="list -sizes" data-selected-sku="">
-                <span class="js-link sku-size" data-href="https://ironsoftware.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html?size=41">41</span>     
-                <span class="js-link sku-size" data-href="https://ironsoftware.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html?size=42">42</span>
-                <span class="js-link sku-size" data-href="https://ironsoftware.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html?size=43">43</span>     
-                <span class="js-link sku-size" data-href="https://ironsoftware.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html?size=44">44</span>
-                <span 
-
-    the="js-link" sku-size="" data-href="https://ironsoftware.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html?size=45">45</span>
-            </div>
-        </a>
-    </div>
-</section>
-```
-This code snippet showcases the HTML used for embedding product information on a webpage, including details such as product images, names, prices, and sizes.
 
 ```html
 <section class="products">
     <div class="sku -gallery -validate-size" data-sku="AG249FA0T2PSGNAFAMZ" ft-product-sizes="41,42,43,44,45" ft-product-color="Multicolour">
         <a class="link" href="http://www.WebSite.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html">
             <div class="image-wrapper default-state">
-                <img class="lazy image -loaded" alt="Bundle Of 2 Sneakers - Black & Navy Blue" data-image-vertical="1" width="210" height="262" src="https://static.WebSite.com/p/agu-6208-488356-1-catalog_grid_3.jpg" data-sku="AG249FA0T2PSGNAFAMZ" data-src="https://static.WebSite.com/p/agu-6208-488356-1-catalog_grid_3.jpg" data-placeholder="placeholder_m_1.jpg"><noscript><img src="https://static.WebSite.com/p/agu-6208-488356-1-catalog_grid_3.jpg" width="210" height="262" class="image" /></noscript>
+                <img class="lazy image -loaded" alt="Bundle Of 2 Sneakers - Black & Navy Blue" data-image-vertical="1" width="210" height="262" src="https://static.WebSite.com/p/agu-6208-488356-1-catalog_grid_3.jpg" data-sku="AG249FA0T2PSGNAFAMZ" data-src="https://static.WebSite.com/p/agu-6208-488356-1-catalog_grid_3.jpg" data-placeholder="placeholder_m_1.jpg"/>
             </div>
             <h2 class="title">
-                <span class="brand">Agu</span>
+                <span class="brand">Agu&nbsp;</span>
                 <span class="name" dir="ltr">Bundle Of 2 Sneakers - Black & Navy Blue</span>
             </h2>
             <div class="price-container clearfix">
@@ -1413,7 +1599,91 @@ This code snippet showcases the HTML used for embedding product information on a
                         <span data-currency-iso="EGP">EGP</span>
                         <span dir="ltr" data-price="299">299</span>
                     </span>
-                    <span class="price -old  -no-special"></span>
+                    <span class="price -old -no-special"></span>
+                </span>
+            </div>
+            <div class="rating-stars">
+                <div class="stars-container">
+                    <div class="stars" style="width: 62%"></div>
+                </div>
+                <div class="total-ratings">(30)</div>
+            </div>
+            <span class="shop-first-logo-container">
+                <img src="http://www.WebSite.com/images/local/logos/shop_first/ShoppingSite/logo_normal.png" data-src="http://www.WebSite.com/images/local/logos/shop_first/ShoppingSite/logo_normal.png" class="lazy shop-first-logo-img -mbxs -loaded"/>
+            </span>
+            <span class="osh-icon -ShoppingSite-local shop_local--logo -block -mbs -mts"></span>
+            <div class="list -sizes" data-selected-sku="">
+                <span class="js-link sku-size" data-href="http://www.WebSite.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html?size=41">41</span>
+                <span class="js-link sku-size" data-href="http://www.WebSite.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html?size=42">42</span>
+                <span class="js-link sku-size" data-href="http://www.WebSite.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html?size=43">43</span>
+                <span class="js-link sku-size" data-href="http://www.WebSite.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html?size=44">44</span>
+                <span class="js-link sku-size" data-href="http://www.WebSite.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html?size=45">45</span>
+            </div>
+        </a>
+    </div>
+    <div class="sku -gallery -validate-size" data-sku="LE047FA01SRK4NAFAMZ" ft-product-sizes="110,115,120,125,130,135" ft-product-color="Black">
+        <a class="link" href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html">
+            <div class="image-wrapper default-state">
+                <img class="lazy image -loaded" alt="Genuine Leather Belt - Black" data-image-vertical="1" width="210" height="262" src="https://static.WebSite.com/p/leather-shop-1831-030217-1-catalog_grid_3.jpg" data-sku="LE047FA01SRK4NAFAMZ" data-src="https://static.WebSite.com/p/leather-shop-1831-030217-1-catalog_grid_3.jpg" data-placeholder="placeholder_m_1.jpg"/>
+            </div>
+            <h2 class="title">
+                <span class="brand">Leather Shop&nbsp;</span>
+                <span class="name" dir="ltr">Genuine Leather Belt - Black</span>
+            </h2>
+            <div class="price-container clearfix">
+                <span class="sale-flag-percent">-29%</span>
+                <span class="price-box">
+                    <span class="price">
+                        <span data-currency-iso="EGP">EGP</span>
+                        <span dir="ltr" data-price="96">96</span>
+                    </span>
+                    <span class="price -old">
+                        <span data-currency-iso="EGP">EGP</span>
+                        <span dir="ltr" data-price="135">135</span>
+                    </span>
+                </span>
+            </div>
+            <div class="rating-stars">
+                <div class="stars-container">
+                    <div class="stars" style="width: 100%"></div>
+                </div>
+                <div class="total-ratings">(1)</div>
+            </div>
+            <span class="osh-icon -ShoppingSite-local shop_local--logo -block -mbs -mts"></span>
+            <div class="list -sizes" data-selected-sku="">
+                <span class="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=110">110</span>
+                <span class="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=115">115</span>
+                <span the="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=120">120</span>
+                <span the="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=125">125</span>
+                <span the="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=130">130</span>
+                <span the="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=135">135</span>
+            </div>
+        </a>
+    </div>
+</section>
+```
+
+This HTML snippet showcases a section of a website listing products such as sneakers and belts. Each product is enclosed within a `div` element marked with the class `sku -gallery -validate-size`. Information such as the product's unique identifier (SKU), image, name, and pricing details are nicely structured using various HTML elements. The links to specific product pages are encapsulated within `a` tags, complete with dynamic attributes to handle different product sizes. The structure also includes graphical elements like brand logos and rating stars to enhance visual appeal and user engagement.
+
+```html
+<section class="products">
+    <div class="sku -gallery -validate-size " data-sku="AG249FA0T2PSGNAFAMZ" ft-product-sizes="41,42,43,44,45" ft-product-color="Multicolour">
+        <a class="link" href="http://www.WebSite.com/agu-bundle-of-2-sneakers-black-navy-blue-653884.html">
+            <div class="image-wrapper default-state">
+                <img class="lazy image -loaded" alt="Bundle of 2 Sneakers - Black & Navy Blue" data-image-vertical="1" width="210" height="262" src="https://static.WebSite.com/p/agu-6208-488356-1-catalog_grid_3.jpg" data-sku="AG249FA0T2PSGNAFAMZ" data-src="https://static.WebSite.com/p/agu-6208-488356-1-catalog_grid_3.jpg" data-placeholder="placeholder_m_1.jpg">
+                <noscript><img src="https://static.WebSite.com/p/agu-6208-488356-1-catalog_grid_3.jpg" width="210" height="262" class="image" /></noscript>
+            </div>
+            <h2 class="title">
+                <span class="brand">Agu&nbsp;</span>
+                <span class="name" dir="ltr">Bundle of 2 Sneakers - Black & Navy Blue</span>
+            </h2>
+            <div class="price-container clearfix">
+                <span class="price-box">
+                    <span class="price">
+                        <span data-currency-iso="EGP">EGP</span>
+                        <span dir="ltr" data-price="299">299</span>
+                    </span>
+                    <span class="price -old -no-special"></span>
                 </span>
             </div>
             <div class="rating-stars">
@@ -1435,13 +1705,14 @@ This code snippet showcases the HTML used for embedding product information on a
             </div>
         </a>
     </div>
-    <div class="sku -gallery -validate-size" data-sku="LE047FA01SRK4NAFAMZ" ft-product-sizes="110,115,120,125,130,135" ft-product-color="Black">
+    <div class="sku -gallery -validate-size " data-sku="LE047FA01SRK4NAFAMZ" ft-product-sizes="110,115,120,125,130,135" ft-product-color="Black">
         <a class="link" href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html">
             <div class="image-wrapper default-state">
-                <img class="lazy image -loaded" alt="Genuine Leather Belt - Black" data-image-vertical="1" width="210" height="262" src="https://static.WebSite.com/p/leather-shop-1831-030217-1-catalog_grid_3.jpg" data-sku="LE047FA01SRK4NAFAMZ" data-src="https://static.WebSite.com/p/leather-shop-1831-030217-1-catalog_grid_3.jpg" data-placeholder="placeholder_m_1.jpg"><noscript><img src="https://static.WebSite.com/p/leather-shop-1831-030217-1-catalog_grid_3.jpg" width="210" height="262" class="image" /></noscript>
+                <img class="lazy image -loaded" alt="Genuine Leather Belt - Black" data-image-vertical="1" width="210" height="262" src="https://static.WebSite.com/p/leather-shop-1831-030217-1-catalog_grid_3.jpg" data-sku="LE047FA01SRK4NAFAMZ" data-src="https://static.WebSite.com/p/leather-shop-1831-030217-1-catalog_grid_3.jpg" data-placeholder="placeholder_m_1.jpg">
+                <noscript><img src="https://static.WebSite.com/p/leather-shop-1831-030217-1-catalog_grid_3.jpg" width="210" height="262" class="image" /></noscript>
             </div>
             <h2 class="title">
-                <span class="brand">Leather Shop</span>
+                <span class="brand">Leather Shop&nbsp;</span>
                 <span class="name" dir="ltr">Genuine Leather Belt - Black</span>
             </h2>
             <div class="price-container clearfix">
@@ -1451,7 +1722,7 @@ This code snippet showcases the HTML used for embedding product information on a
                         <span data-currency-iso="EGP">EGP</span>
                         <span dir="ltr" data-price="96">96</span>
                     </span>
-                    <span class="price -old ">
+                    <span class="price -old">
                         <span data-currency-iso="EGP">EGP</span>
                         <span dir="ltr" data-price="135">135</span>
                     </span>
@@ -1459,106 +1730,159 @@ This code snippet showcases the HTML used for embedding product information on a
             </div>
             <div class="rating-stars">
                 <div class="stars-container">
-                    <div class="stars" style="width: 100%"></div>
+                    <div the="stars" style="width: 100%"></div>
                 </div>
                 <div class="total-ratings">(1)</div>
             </div>
             <span class="osh-icon -ShoppingSite-local shop_local--logo -block -mbs -mts"></span>
             <div class="list -sizes" data-selected-sku="">
                 <span class="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=110">110</span>
-                <span the "js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=115">115</span>
-                <span the "js-link sku-size" data-href="http://www.Webist.com/leather-shop-genuine-leather-belt-black-712030.html?size=120">120</span>
-                <span the "js-link sku-size" data-href="http://www.Webist.com/leather-shop-genuine-leather-belt-black-712030.html?size=125">125</span>
-                <span the "js-link sku-size" data-href="http://www.Webiste.com/leather-shop-genuine-leather-belt-black-712030.html?size=130">130</span>
-                <span the "js-link sku-size" data-href="http://www.Webiste.com/leather-shop-genuine-leather-belt-black-712030.html?size=135">135</span>
+                <span class="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=115">115</span>
+                <span the="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=120">120</span>
+                <span the="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=125">125</span>
+                <span the="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=130">130</span>
+                <span the="js-link sku-size" data-href="http://www.WebSite.com/leather-shop-genuine-leather-belt-black-712030.html?size=135">135</span>
             </div>
         </a>
     </div>
 </section>
 ```
 
-Let's design a model to encapsulate the data for these products.
+### Creating a Product Model for Scraping
+
+To efficiently manage data fetched during web scraping, it's crucial to establish a structured product model. This model will store specific attributes of products which we'll extract from a website.
+
+Here’s how we can design our product model:
+
+#### Define the Product Model
+
+We'll define a `Product` class to encapsulate details for each product we'll scrape. The model will contain properties such as the name of the product, its price, and an image link. Here's a simple implementation:
+
+```csharp
+public class Product
+{
+    /// <summary>
+    /// The name of the product.
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    /// The selling price of the product.
+    /// </summary>
+    public string Price { get; set; }
+
+    /// <summary>
+    /// A URL pointing to an image of the product.
+    /// </summary>
+    public string Image { get; set; }
+}
+```
+
+This structured class will ensure the data extracted during the scraping process is organized effectively, making it easier to handle and store.
+
+Here's a paraphrased version of the provided C# class section:
 
 ```cs
 public class Product
 {
     /// <summary>
-    /// Retrieves or assigns the product name.
+    /// Property to store the product's name.
     /// </summary>
     /// <value>
-    /// Name of the product.
+    /// Represents the product's name.
     /// </value>
     public string Name { get; set; }
 
     /// <summary>
-    /// Retrieves or assigns the product price.
+    /// Property to store the product's price.
     /// </summary>
     /// <value>
-    /// Price of the product.
+    /// Represents the cost of the product in string format.
     /// </value>
     public string Price { get; set; }
 
     /// <summary>
-    /// Retrieves or assigns the image URL of the product.
+    /// Property to store URL or path to the product's image.
     /// </summary>
     /// <value>
-    /// URL pointing to the product's image.
+    /// Represents the link or file path to the product's image.
     /// </value>
     public string Image { get; set; }
 }
 ```
 
-To extract information from category pages, we implement an additional scraping method as follows:
+To extract data from category pages effectively, we introduce a new scraping method:
 
 ```cs
-public void ScrapeCategory(Response response)
-{
-    // Creating a container for the product information
-    var products = new List<Product>();
+public void ParseCatgory(Response response)
+{          
+    // Initialize a list to collect product information
+    var productList = new List<Product>();
 
-    // Iterating through each product link found in the specified DOM path
-    foreach (var link in response.Css("body > main > section.osh-content > section.products > div > a"))
+    // Loop through each product link gathered from the response
+    foreach (var Links in response.Css("body > main > section.osh-content > section.products > div > a"))
     {
-        var product = new Product
-        {
-            Name = link.TextContentClean, // Extracting the product name
-            Image = link.Css("div.image-wrapper.default-state > img")[0].Attributes["src"] // Extracting the image source
-        };
-        
-        // Adding the product details to our list
-        products.Add(product);
+        var product = new Product();
+        product.Name = Links.InnerText;
+        product.Image = Links.Css("div.image-wrapper.default-state > img")[0].Attributes ["src"];                
+        productList.Add(product);
     }
 
-    // Saving the product list to a JSONL file
+    // Save the scraped products to a JSON line file
+    Scrape(productList, "Products.Jsonl");
+}
+```
+
+In this method, we navigate through the HTML elements that contain product details using CSS selectors to capture the name and image source of each product. These are then stored in a `Product` object and added to a list. The `Scrape` function finally saves all acquired data into a file, allowing structured storage of the extracted data from the webpage.
+
+```cs
+public void ParseCategory(Response response)
+{
+    // Initialize product list to store parsed products
+    var products = new List<Product>();
+    
+    // Loop through each product link found in the specified DOM path
+    foreach (var linkElement in response.Css("body > main > section.osh-content > section.products > div > a"))
+    {
+        var productItem = new Product();
+        productItem.Name = linkElement.InnerText; // Assign product name from link text
+        productItem.Image = linkElement.Css("div.image-wrapper.default-state > img")[0].Attributes["src"];  // Assign image URL from image source attribute
+        products.Add(productItem); // Add product to list
+    }
+
+    // Store the parsed product data in a JSONL file named 'Products.Jsonl'
     Scrape(products, "Products.Jsonl");
 }
 ```
 
 ### Enhanced Webscraping Capabilities
 
-#### Using HttpIdentity for Custom Sessions:
+#### Feature: HttpIdentity
 
-Certain websites grant access to content only after user authentication. Utilizing the `HttpIdentity` component of IronWebScraper can help in such cases:
+When scraping content from websites that require user authentication to access certain pages, the HttpIdentity feature comes in handy. This attribute allows you to configure web scrapers with specific user credentials or browser details, enabling them to mimic logged-in users.
 
 ```cs
-HttpIdentity identity = new HttpIdentity();
-identity.NetworkUsername = "yourUsername";
-identity.NetworkPassword = "yourPassword";
+HttpIdentity identity = new HttpIdentity()
+{
+    NetworkUsername = "username", 
+    NetworkPassword = "password"
+};
 Identities.Add(identity);
 ```
 
-IronWebScraper offers robust functionality by allowing thousands of distinct identities to simulate or scrape data across multiple user sessions and browser identities.
+IronWebScraper's robust design also supports the simultaneous use of various user agents and proxies, enhancing the ability to scrape complex websites without detection.
 
 ```cs
 public override void Init()
 {
-    License.LicenseKey = "YourLicenseKey";
+    License.LicenseKey = "LicenseKey";
     this.LoggingLevel = WebScraper.LogLevel.All;
-    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";
-    var proxies = "IP-Proxy1:8080,IP-Proxy2:8081".Split(',');
-    foreach (var userAgent in IronWebScraper.CommonUserAgents.ChromeDesktopUserAgents)
+    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\SampleOutput\";
+
+    string[] proxies = { "IP-Proxy1:8080", "IP-Proxy2:8081" };
+    foreach (string userAgent in IronWebScraper.CommonUserAgents.ChromeDesktopUserAgents)
     {
-        foreach (var proxy in proxies)
+        foreach (string proxy in proxies)
         {
             Identities.Add(new HttpIdentity()
             {
@@ -1568,337 +1892,401 @@ public override void Init()
             });
         }
     }
+
     this.Request("http://www.example.com", Parse);
 }
 ```
 
-Manage your scraping session with diverse identity properties such as `NetworkUsername`, `NetworkPassword`, `Proxy`, `UserAgent`, `HttpRequestHeaders`, and cookie settings to navigate complex web security measures.
+Key configurable properties include:
+- **NetworkDomain**: Specify the network domain for user authentication, used with NetworkUsername and NetworkPassword.
+- **NetworkUsername**: Username for network or HTTP authentication.
+- **NetworkPassword**: Corresponding password for authentication.
+- **Proxy**: Set specific proxy settings.
+- **UserAgent**: Browser user agent strings.
+- **HttpRequestHeaders**: Custom header values for the identity.
+- **UseCookies**: Toggle whether cookies should be used with the identity.
 
-#### Caching with Enable Web Cache:
+#### Web Cache Feature
 
-For workflow optimization, particularly during development and testing, you can cache scraped pages. This feature minimizes redundant server requests, allowing you to iterate rapidly without additional load times.
+This functionality is crucial during development. By enabling web caching, developers can work with cached pages, allowing them to quickly test changes without the need to repeatedly scrape live data.
 
-To enable caching:
-
+To enable caching in the scraper setup:
 ```cs
 public override void Init()
 {
-    License.LicenseKey = "YourLicenseKey";
+    License.LicenseKey = "LicenseKey";
     this.LoggingLevel = WebScraper.LogLevel.All;
-    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";
-    EnableWebCache(new TimeSpan(1, 30, 30));
+    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\SampleOutput\";
+    EnableWebCache(TimeSpan.FromHours(1.5)); // Set cache to expire after 1 hour and 30 minutes
     this.Request("http://www.example.com", Parse);
 }
 ```
+IronWebScraper can also resume scraping activities after a reboot or code restart by using the `Start(CrawlID)` method, maintaining the state between sessions.
 
-IronWebScraper can persist your scraped data state. This is valuable during development or if you need to pause and resume scraping processes.
+#### Throttling
 
-#### Throttle Settings:
-
-You can fine-tune your scraping operations with throttle settings to manage connection limits and request intervals, ensuring compliance with website request policies and avoiding IP bans.
+Control the rate and volume of requests to avoid overwhelming the servers or getting banned:
 
 ```cs
 public override void Init()
 {
     License.LicenseKey = "LicenseKey";
     this.LoggingLevel = WebScraper.LogLevel.All;
-    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";
-    this.MaxHttpConnectionLimit = 80;
-    this.RateLimitPerHost = TimeSpan.FromMilliseconds(50);
-    this.OpenConnectionLimitPerHost = 25;
+    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\SampleOutput\";
+    this.MaxHttpConnectionLimit = 80; // Limit on total concurrent HTTP requests
+    this.RateLimitPerHost = TimeSpan.FromMilliseconds(50); // Minimum delay between requests to the same host
+    this.OpenConnectionLimitPerHost = 25; // Concurrent requests to the same host
     this.ObeyRobotsDotTxt = false;
-    this.ThrottleMode = Throttle.ByDomainHostName;
+    this.ThrottleMode = Throttle.ByDomainHostName; // Throttle by hostname or IP address
+
     this.Request("https://www.example.com", Parse);
 }
 ```
-Key throttle properties include `MaxHttpConnectionLimit`, `RateLimitPerHost`, and `OpenConnectionLimitPerHost`, each governing specific aspects of your connection strategy to optimally manage server load from your scraping activities.
 
-#### Feature: HttpIdentity
+Throttling settings include:
+- **MaxHttpConnectionLimit**: Maximum number of concurrent HTTP requests.
+- **RateLimitPerHost**: The minimum delay between subsequent requests to a particular domain.
+- **OpenConnectionLimitPerHost**: Limits concurrent connections to the same host.
+- **ThrottleMode**: Configures whether throttling considers domain names or IP addresses.
 
-Certain online platforms mandate user authentication to access their content. For such scenarios, the `HttpIdentity` feature of IronWebScraper is particularly useful. This feature allows the web scraper to simulate a logged-in user state, enabling access to restricted areas of websites that require authentication. Here's how you can utilize it:
+#### HttpIdentity Feature:
 
-```cs
-HttpIdentity httpIdentity = new HttpIdentity();
-httpIdentity.NetworkUsername = "your_username";
-httpIdentity.NetworkPassword = "your_password";
-Identities.Add(httpIdentity);
-```
-
-IronWebScraper's capability to manage multiple identities is among its most robust features. This allows the emulation of several user interactions or browser environments concurrently, facilitating comprehensive web scraping sessions that adhere to site-specific login requirements.
-
-Below is the paraphrased version of the provided C# code section concerning `HttpIdentity`:
+Certain web platforms necessitate user authentication for accessing specific content. In these scenarios, `HttpIdentity` proves to be a useful feature. Here’s how it can be employed:
 
 ```cs
-HttpIdentity identityConfig = new HttpIdentity();
-identityConfig.NetworkUsername = "username";
-identityConfig.NetworkPassword = "password";
-Identities.Add(identityConfig);
+HttpIdentity id = new HttpIdentity();
+id.NetworkUsername = "username"; // Specify the username
+id.NetworkPassword = "password"; // Specify the password
+Identities.Add(id);
 ```
 
-One of the standout capabilities of IronWebScraper is its robust feature that supports the use of numerous unique identities, encompassing users' credentials or browser engines, to effectively cloak or retrieve data from websites through multiple login sessions. This scalability and versatility enhance the tool's efficacy in dealing with a variety of scraping scenarios.
-
-Here's your paraphrased section with resolved relative URLs:
+`HttpIdentity` is a powerful aspect of IronWebScraper that allows for simulating user sessions, utilizing multiple user credentials or browser identities to scrape content that requires authentication. This method facilitates scraping while mimicking diverse browsing environments:
 
 ```cs
 public override void Init()
 {
-    License.LicenseKey = "LicenseKey"; // Replace 'LicenseKey' with your actual license key
-    this.LoggingLevel = WebScraper.LogLevel.All; // Set the logging level to record all events
-    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\"; // Define the working directory for output files
+    License.LicenseKey = "Your License Key";
+    this.LoggingLevel = WebScraper.LogLevel.All;
+    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\YourProject\Output\";
 
-    // Split the proxy addresses and assign them to an array
-    var proxyAddresses = "IP-Proxy1:8080,IP-Proxy2:8081".Split(',');
-
-    // Loop through each user agent in the list of common Chrome desktop user agents
-    foreach (var userAgent in IronWebScraper.CommonUserAgents.ChromeDesktopUserAgents)
+    // Define proxy settings and user agents if needed
+    var proxies = "IP-Proxy1:8080, IP-Proxy2:8081".Split(',');
+    foreach (var UA in IronWebScraper.CommonUserAgents.ChromeDesktopUserAgents)
     {
-        // Assign each proxy to the current user agent
-        foreach (var proxy in proxyAddresses)
+        foreach (var proxy in proxies)
         {
             Identities.Add(new HttpIdentity()
             {
-                UserAgent = userAgent,        // Use the current Chrome user agent
-                UseCookies = true,            // Enable cookie usage
-                Proxy = proxy                 // Set the proxy
+                UserAgent = UA,
+                UseCookies = true,
+                Proxy = proxy
             });
         }
     }
 
-    // Initiate the scraping process with the target URL
-    this.Request("http://www.Website.com", Parse); // Change 'Website.com' to your actual target website
+    // Start the request with a specific URL
+    this.Request("http://www.example.com", Parse);
 }
 ```
 
-In this version:
-- Improved the commenting for clarity.
-- Explicitly set the `UseCookies` property to demonstrate boolean settings.
-- Adjusted the proxy list for better readability and usability.
-- Included direct instructions to replace placeholders with actual values.
+The `HttpIdentity` class encompasses numerous properties that modify scraping behavior, such as `NetworkUsername`, `NetworkPassword`, `Proxy`, and `UserAgent`. Additionally, `HttpRequestHeaders` can be used to set custom header values. This versatile feature ensures that scraping activities can be tailored to meet specific requirements and efficiently handle web sessions that require login credentials.
 
-IronWebScraper offers a variety of properties to configure different behavioral aspects of your web scraping tasks, which can help prevent your activities from being blocked by websites.
+Below is the paraphrased version of the provided C# code section, with any relative URL paths resolved against ironsoftware.com:
 
-Here are some of these configurable properties:
+```cs
+// Initialize a new HttpIdentity object for HTTP requests
+HttpIdentity identityConfig = new HttpIdentity();
+// Set the network username for authentication
+identityConfig.NetworkUsername = "yourUsername";
+// Set the network password for authentication
+identityConfig.NetworkPassword = "yourPassword";
+// Add the identity information to IronWebScraper's Identities collection
+Identities.Add(identityConfig);
+```
 
-- **NetworkDomain**: This is utilized for user authentication across diverse network types including Windows, NTLM, Kerberos, Linux, BSD, and Mac OS X. It should be used in conjunction with `NetworkUsername` and `NetworkPassword`.
-- **NetworkUsername**: This is the username required for network or HTTP authentication, supporting various protocols and network types like HTTP, Windows networks, NTLM, Kerberos, Linux, BSD, and Mac OS.
-- **NetworkPassword**: This corresponds to the password for network or HTTP authentication, and it is compatible with HTTP, Windows networks, NTLM, Kerberos, Linux, BSD, and Mac OS.
-- **Proxy**: This property allows you to specify proxy settings to be used during scraping.
-- **UserAgent**: This property lets you set the browser engine type - for example, Chrome (desktop, mobile, tablet), Internet Explorer, and Firefox.
-- **HttpRequestHeaders**: This allows for the specification of custom header values using a dictionary object (`Dictionary<string, string>`).
-- **UseCookies**: This can be toggled on or off to enable or disable the use of cookies during the scraping process.
-
-IronWebScraper typically operates using a selection of random identities to manage diverse scraping tasks. If needed, you can specify the use of a particular identity to parse a specific page, enhancing the flexibility and control over your web scraping operations.
-
-Here's a paraphrased version of the given C# code section:
+One of the standout capabilities of IronWebScraper is its robust feature that permits the deployment of an extensive array of unique identities (encompassing user credentials or different browser settings). This functionality is instrumental in either spoofing or extracting data from various websites utilizing multiple login sessions. This versatility enhances the effectiveness of web scraping tasks by allowing more complex and diverse scraping strategies.
 
 ```cs
 public override void Init()
 {
-    // Setting the license key for the scraper
-    License.LicenseKey = "YourLicenseKeyHere";
-    // Configuring logging to capture all events
-    this.LoggingLevel = WebScraper.LogLevel.All;
-    // Defining the working directory for output files
-    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";
-    // Creating a new HTTP identity for authenticated requests
-    HttpIdentity myIdentity = new HttpIdentity();
-    myIdentity.NetworkUsername = "yourUsername";
-    myIdentity.NetworkPassword = "yourPassword";
-    // Adding the identity to the scraper
-    Identities.Add(myIdentity);
-    // Initiating a web request with authentication
-    this.Request("http://www.Website.com", Parse, myIdentity);
+    License.LicenseKey = "YourLicenseKeyHere";  // Replace this with your actual license key
+    this.LoggingLevel = WebScraper.LogLevel.All;  // Set logging to capture all events
+    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";  // Setting the working directory for output
+
+    // Define proxy servers for web requests
+    string[] proxyServers = new string[] { "IP-Proxy1:8080", "IP-Proxy2:8081" };
+    foreach (var userAgent in IronWebScraper.CommonUserAgents.ChromeDesktopUserAgents)
+    {
+        foreach (var proxy in proxyServers)
+        {
+            // Add each combination of user agent and proxy to the identities used for requests
+            Identities.Add(new HttpIdentity()
+            {
+                UserAgent = userAgent,
+                UseCookies = true,
+                Proxy = proxy
+            });
+        }
+    }
+
+    // Initiate the first web request to start the scraping process
+    this.Request("http://www.website.com", Parse);
 }
 ```
 
-This version modifies variable names for clarity, rephrases comments for better understanding, and ensures that the identity instance is correctly referenced when being added to the `Identities` collection.
+You have access to multiple properties that facilitate varied behaviors, helping prevent sites from blocking your scraper.
 
-#### Web Cache Feature Utilization:
+Some notable properties include:
 
-The Web Cache feature plays a crucial role by storing requested pages, primarily during the development and testing stages. This capability allows developers to cache essential pages for subsequent use once updates to the code have been made. As a result, developers can rerun their code on cached pages without having to make repeated requests to the actual live website, effectively enabling an action-replay function.
+- **NetworkDomain**: Utilized for user authentication across various network types such as Windows, NTLM, Kerberos, Linux, BSD, and Mac OS X. It requires the use of `NetworkUsername` and `NetworkPassword`.
 
-*To activate this feature in the Init() method, use:*
+- **NetworkUsername**: The username for network/HTTP user authentication, supporting multiple protocols and systems including HTTP, Windows networks, NTLM, Kerberos, Linux networks, BSD networks, and Mac OS.
+
+- **NetworkPassword**: This is the password used along with the username for HTTP or network authentication, compatible with various systems such as HTTP, Windows networks, NTLM, Kerberos and others.
+
+- **Proxy**: Employ this to configure proxy settings to manage network traffic and protect privacy.
+
+- **UserAgent**: This property allows setting the browser type or 'user agent' to emulate different browsers like Chrome (desktop/mobile/tablet), Internet Explorer, Firefox, etc.
+
+- **HttpRequestHeaders**: Utilizes a dictionary (Dictionary<string, string>) to set custom header values that will be used with this identity.
+
+- **UseCookies**: Toggle this to enable or disable the use of cookies during sessions.
+
+IronWebScraper operates by using random identities during scraping tasks to optimize performance and avoid detection. However, you can specify which identity to use for scraping a particular page, enhancing control over the scraping process.
+
+Here's the paraphrased section of the article with relative URL paths resolved against ironsoftware.com:
+
+```cs
+public override void Init()
+{
+    License.LicenseKey = "LicenseKey"; // Replace 'LicenseKey' with your actual license
+    this.LoggingLevel = WebScraper.LogLevel.All; // Set to capture all log levels
+    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\"; // Define the output directory
+
+    // Create a new HttpIdentity instance for authentication
+    HttpIdentity userCredentials = new HttpIdentity();
+    userCredentials.NetworkUsername = "username"; // Specify the username
+    userCredentials.NetworkPassword = "password"; // Specify the password
+    Identities.Add(userCredentials); // Add the credentials to the identities collection
+
+    // Make the initial web request using the designated user credentials
+    this.Request("http://www.Website.com", Parse, userCredentials);
+}
+```
+
+In this rewritten code snippet:
+- Comments are added for clarity on each important operation.
+- `identity` variable name is changed to `userCredentials` for better readability.
+- The explicit string "pwd" is updated to "password" for an illustrative purpose.
+- Adjustments ensure improved readability and maintainability.
+
+#### Utilizing the Web Cache Feature:
+
+The Web Cache Feature is particularly useful for caching pages that have been requested during the development and testing periods. This allows developers to store necessary pages for later reuse, enabling them to execute updates and restarts of their web scrapers without needing to reconnect to the actual website each time, thus performing an action-replay of the cached content.
+
+*Implement this feature in the `Init()` method as follows:*
 
 ```cs
 EnableWebCache();
 ```
 
-*Alternatively, if you want the cache to expire after a specific duration, you can specify the expiration time:*
+*Alternatively, you can set an expiration for the cache with:*
 
 ```cs
 EnableWebCache(TimeSpan expiry);
 ```
 
-This command directs IronWebScraper to store the cached data in the WebCache folder located within the designated working directory.
+This configuration saves your cached data in the `WebCache` directory located within the working directory.
+
+Here is the paraphrased section of the provided C# code, with all relative URLs resolved to ironsoftware.com as requested:
 
 ```cs
 public override void Init()
 {
-    // Set the license key for usage
-    License.LicenseKey = "LicenseKey";
-    // Configure logging to capture all events
-    this.LoggingLevel = WebScraper.LogLevel.All;
-    // Define the directory to store output files
-    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";
-    // Enable caching of web pages for 1 hour and 30 minutes
-    EnableWebCache(new TimeSpan(1,30,30));
-    // Initiate web scraping on the specified URL
-    this.Request("http://www.WebSite.com", Parse);
+    License.LicenseKey = "YourLicenseKeyHere"; // Set your license key
+    this.LoggingLevel = WebScraper.LogLevel.All; // Log all events during the scraping process
+    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\"; // Define the output directory for your scraped data
+    EnableWebCache(new TimeSpan(1, 30, 30)); // Enable caching of scraped pages for 1 hour and 30 minutes
+    this.Request("http://www.WebSite.com", Parse); // Begin the scraping process at the specified URL
 }
-```
+``` 
 
-IronWebScraper includes capabilities that facilitate the resumption of scraping activities even after a code restart by employing a specific method `Start(CrawlID)`. This function allows you to name the scraping process, aiding in the continuation from where it was interrupted.
+This rewritten section of code maintains the original functionality while incorporating a clearer definition of certain parameters, such as the license key placement and the explanation of caching settings.
 
-Here's the paraphrased section of the article:
+IronWebScraper additionally provides functionality to maintain scraping activities even after a code restart by utilizing the `Start(CrawlID)` method to designate the engine start process name. This feature ensures seamless continuation of scraping tasks without manual reinitialization.
 
 ```cs
 static void Main(string[] args)
 {
-    // Instantiate the scraper class
-    EngineScraper scraper = new EngineScraper();
-    // Initialize the scraping process
-    scraper.Start("enginestate");
+    // Initialize a new instance of the Scraper class
+    EngineScraper scraperInstance = new EngineScraper();
+    // Initiate the scraping process
+    scraperInstance.Start("enginestate");
 }
 ```
 
-All execution requests and responses will be stored within the `SavedState` folder, located inside the working directory.
+The saved state of the execution, including both the request and response, will be preserved in the `SavedState` folder located within the working directory.
 
-#### Throttling Techniques
+#### Throttling Configuration
 
-By managing the connection counts and the speed per domain, we ensure efficient rate limiting. This approach helps in balancing both the minimum and maximum number of connections concurrently active, aiding in the smooth handling of data transmission speeds specific to each domain.
+Throttling allows for the adjustment of both minimum and maximum connection limits, as well as the speed at which connections to each domain can be made. This capability ensures efficient use of resources while maintaining compliance with domain-specific connection policies.
+
+Here's the paraphrased content for the `Init` method from the IronWebScraper library:
 
 ```cs
 public override void Init()
 {
-    License.LicenseKey = "LicenseKey"; // Activate the license
-    this.LoggingLevel = WebScraper.LogLevel.All; // Log all events
-    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\"; // Set the working directory
-    
-    // Configure the maximum number of simultaneous HTTP requests allowed
+    License.LicenseKey = "LicenseKey"; // Assign your specific license key here
+    this.LoggingLevel = WebScraper.LogLevel.All; // Set the logging level to capture all logs
+    this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\"; // Define where to save scrape data
+
+    // Configure maximum simultaneous HTTP requests (threads) allowed
     this.MaxHttpConnectionLimit = 80;
-    
-    // Implement a minimal polite delay between requests to the same domain
+
+    // Set the minimum interval between requests to the same domain or IP to avoid rate limits
     this.RateLimitPerHost = TimeSpan.FromMilliseconds(50);
-    
-    // Limit the concurrent requests per hostname to prevent overwhelming the server
+
+    // Set the number of concurrent threads allowed per hostname or IP to prevent overloading hosts
     this.OpenConnectionLimitPerHost = 25;
-    
-    // Do not adhere to the directives specified in the robots.txt file
+
+    // Choose whether to adhere to the rules specified in robots.txt files
     this.ObeyRobotsDotTxt = false;
-    
-    // Intelligent throttling by domain or IP to avoid excessive load on servers hosting multiple domains
+
+    // Enable throttling logic to include both domain names and host IP addresses,
+    // which is especially useful when scraping various domains located on the same server
     this.ThrottleMode = Throttle.ByDomainHostName;
 
-    // Initiate the scraping process by making a request to the specified URL
+    // Starts the web scraper with an initial page request
     this.Request("https://www.Website.com", Parse);
 }
 ```
 
-**Properties for Managing Throttling**
+The code still initializes and configures the behavior of the IronWebScraper instance, setting essential properties and kicking off the scraping process with a call to `this.Request`.
 
-* **MaxHttpConnectionLimit**<br>The maximum number of simultaneous HTTP requests (threads) that can be active at any given time.
+**Characteristics of Throttling**
 
-* **RateLimitPerHost**<br>This represents the smallest amount of time (in milliseconds) that the system should wait before making another request to the same domain or IP address, as a courtesy to avoid overwhelming the server.
 
-* **OpenConnectionLimitPerHost**<br>This specifies the maximum number of concurrent HTTP requests (threads) that are allowed per host, helping manage the load on the servers being accessed.
+* **MaxHttpConnectionLimit**<br>Total maximum allowable open HTTP connections to prevent server overload.
 
-* **ThrottleMode**<br>This feature configures the WebScraper to smartly regulate the request rate, not just by the domain name, but also considering the IP addresses of the host servers. This is especially useful when multiple target domains are located on the same physical server, thus ensuring polite and non-disruptive scraping activities.
+* **RateLimitPerHost**<br>Minimum required delay or pause in milliseconds between requests to a specific domain or IP to prevent rapid request flooding.
 
-## Additional Resources
+* **OpenConnectionLimitPerHost**<br>The maximum number of simultaneous HTTP connections permitted per host to manage bandwidth and server response stability.
 
-Below, you’ll find some useful guidance on setting up new applications specific to your requirements using Visual Studio.
+* **ThrottleMode**<br>Enables the WebScraper to adjust request rates not only based on the hostname but also considers the IP address of the server, ensuring polite access especially when multiple domains share the same server resources.
+
+## Appendix
 
 ### Creating a Windows Forms Application
 
-Visual Studio 2013 or later versions are recommended. Here's a step-by-step guide on how to get started:
+For this task, it's recommended to utilize Visual Studio 2013 or a newer version.
 
-1. **Initiate Visual Studio**.
-    ![Open Visual Studio](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/Enterprise2015.jpg)
-   
-2. **Create a new project**: Navigate through `File -> New -> Project`.
-    ![Creating a new project](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/FileNewProject.jpg)
+#### Steps to create a new Windows Forms Project:
 
-3. **Specify the project type**: Choose your preferred language (either Visual C# or VB), navigate through `Windows`, and select `Windows Forms Application`.
-    ![Specifying the project type](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/CreateWindowsApp.jpg)
+1. **Start Visual Studio**
+   ![Visual Studio](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/Enterprise2015.jpg)
 
-    **Project Name**: IronScraperSample <br>
-    **Location**: Select where you want your project files to be saved.
+2. **Create the Project**
+   - Navigate to `File -> New -> Project`
+   ![New Project](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/FileNewProject.jpg)
 
-    ![Windows Forms Main Interface](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/WindowsAppMainScreen.jpg) 
+3. **Setup the Project**
+   - Choose your programming language (either Visual C# or VB), select `Windows`, then `Windows Forms Application`.
+   ![Project Setup](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/CreateWindowsApp.jpg)
+   - **Project name**: IronScraperSample
+   - **Location**: Specify a directory on your computer
+
+   After creation, your main project screen should look similar to this:
+   ![Main Screen](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/WindowsAppMainScreen.jpg)
 
 ### Creating a Web Form Application
 
-Use Visual Studio 2013 or above for these steps:
+It's suggested to use Visual Studio 2013 or later for this process.
 
-1. **Launch Visual Studio**.
-    ![Start Visual Studio](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/Enterprise2015.jpg)
-   
-2. **Start a new project**: Choose `File -> New -> Project`.
-    ![Creating a project](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/FileNewProject.jpg)
+#### Steps to Create a New ASP.NET Web Forms Project:
 
-3. **Set the project properties**: Under the templates, select your language (Visual C# or VB), go to `Web`, and then choose `ASP.NET Web Application (.NET Framework)`.
-    ![Setting project properties](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/ASPNETWebApplication.jpg)
+1. **Launch Visual Studio**
+   ![Visual Studio](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/Enterprise2015.jpg)
 
-    **Project Name**: IronScraperSample <br>
-    **Location**: Decide on a storage location for your project files.
+2. **Initiate a New Project**
+   - Go to `File -> New -> Project`
+   ![File New Project](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/FileNewProject.jpg)
 
-4. **Choose the right template**:
-    - Select the `Empty` template.
-    - Ensure the `Web Forms` checkbox is marked.
+3. **Configure the New Project**
+   - Under Templates, select your language preference (Visual C# or VB), choose `Web`, then `ASP.NET Web Application (.NET Framework)`.
+   ![ASP.NET Web Application](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/ASPNETWebApplication.jpg)
+   - **Project name**: IronScraperSample
+   - **Location**: Choose a suitable location on your disk
 
-    ![Selecting ASP.NET Templates](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/ASPNETTemplates.jpg)
+4. **Choose the Template**
+   - Opt for the Empty template and make sure to tick the Web Forms box.
+   ![ASP.NET Templates](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/ASPNETTemplates.jpg)
 
-5. **Complete and View Your Project**: The basic ASP.NET web form Project is now set up.
-    ![Project initialization complete](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/ASPNETWebFormProject.jpg)
+5. **Complete the Setup**
+   - Once configured, your initial ASP.NET web form Project is ready.
+   ![ASP.NET Web Form Project](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/ASPNETWebFormProject.jpg)
 
-To download all the examples from this guide as a fully packaged code project, [click here](https://ironsoftware.com/downloads/assets/tutorials/webscraping-in-c-sharp/IronWebScraperSample.zip).
+Download the complete sample project code from [IronWebScraperSample.zip](https://ironsoftware.com/downloads/assets/tutorials/webscraping-in-c-sharp/IronWebScraperSample.zip).
 
-### Creating a Windows Forms Application
+These steps should assist you in setting up Windows Forms and Web Forms applications effectively using Visual Studio.
 
-For this task, it is recommended to use Visual Studio 2013 or a later version.
+### Creating a Windows Form Application
 
-Here's a step-by-step guide on how to start a new Windows Forms Project:
+For this procedure, ensure you have Visual Studio 2013 or a more recent version installed.
 
-1. Launch Visual Studio.
-
-<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/Enterprise2015.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/Enterprise2015.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-2. Navigate to `File`, then select `New`, followed by `Project`.
-
-<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/FileNewProject.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/FileNewProject.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-3. Select your preferred programming language (either Visual C# or VB) from the Template options, follow through by choosing 'Windows', and then opt for the 'Windows Forms Application'.
-
-<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/CreateWindowsApp.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/CreateWindowsApp.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-**Project Name**: IronScraperSample<br>
-**Storage Location**: Select a directory on your hard drive where the project will be saved.
-
-<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/WindowsAppMainScreen.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/WindowsAppMainScreen.jpg" class="img-responsive add-shadow img-margin"></a></p>
-
-### Creating a Web Form Application with ASP.NET
-
-For this task, it's necessary to use Visual Studio 2013 or a newer version.
-
-Here's how you can start a new ASP.NET Web Forms Project:
+Here’s a step-by-step guide on initiating a new Windows Forms Project:
 
 1. Launch Visual Studio
 
-Navigate through the process to set up a new ASP.NET Web Forms Project by following these detailed steps.
+Continue with this setup to configure and start your new Windows Forms project efficiently.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/Enterprise2015.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/Enterprise2015.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-2. Navigate to File -> Select New -> Click on Project
+```
+2. Navigate to **File**, then select **New** followed by **Project**.
 ```
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/FileNewProject.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/FileNewProject.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-3. Within the Template section, select your preferred programming language (either Visual C# or VB), then choose Web, followed by selecting ASP.NET Web Application (.NET Framework).
+3. Select your preferred programming language (such as Visual C# or VB) from the Template options, then navigate to Windows, and choose Windows Forms Application.
+
+<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/CreateWindowsApp.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/CreateWindowsApp.jpg" class="img-responsive add-shadow img-margin"></a></p>
+
+**Project Name**: IronScraperSample<br>
+
+**Location**: Select a location on your hard drive
+
+<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/WindowsAppMainScreen.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/WindowsAppMainScreen.jpg" class="img-responsive add-shadow img-margin"></a></p>
+
+### Creating a Web Form Application
+
+For this task, you'll need Visual Studio 2013 or a more recent version.
+
+Here’s a detailed guide to setting up a new Asp.NET Web Forms project:
+
+1. Launch Visual Studio. 
+2. Navigate to **File** -> **New** -> **Project**.
+3. Choose your programming language (either Visual C# or VB) and go to **Web** -> **ASP.NET Web Application (.NET Framework)**.
+
+Choose a name for your project such as `IronScraperSample` and select a directory on your drive to save it.
+
+In the next steps, you'll select your specific project setup:
+- Select the **Empty** template.
+- Make sure to check the option for **Web Forms**.
+
+This setup initializes a basic ASP.NET Web Forms project for you. Now, you're ready to start developing on this flexible platform.
+
+<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/Enterprise2015.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/Enterprise2015.jpg" class="img-responsive add-shadow img-margin"></a></p>
+
+2. Select "File" from the top menu, then choose "New" and click on "Project".
+
+<p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/FileNewProject.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/FileNewProject.jpg" class="img-responsive add-shadow img-margin"></a></p>
+
+3. Select a programming language (either Visual C# or VB) from the template options, then navigate to 'Web' and choose 'ASP.NET Web Application (.NET Framework)'.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/ASPNETWebApplication.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/ASPNETWebApplication.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-**Project Name**: IronScraperSample<br>
-**Storage Location**: Select a directory on your computer
+**Project Name:** IronScraperSample<br>
+**Storage Location:** Select a storage directory on your hard disk
 
 4. Selecting Your ASP.NET Templates
 
@@ -1908,7 +2296,7 @@ Navigate through the process to set up a new ASP.NET Web Forms Project by follow
     <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/ASPNETTemplates.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/ASPNETTemplates.jpg" class="img-responsive add-shadow img-margin"></a></p>
 </ol>
 
-5. At this point, your fundamental ASP.NET Web Form Project is successfully established.
+5. Your basic ASP.NET web form project has now been successfully created.
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/ASPNETWebFormProject.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/ASPNETWebFormProject.jpg" class="img-responsive add-shadow img-margin"></a></p>
 

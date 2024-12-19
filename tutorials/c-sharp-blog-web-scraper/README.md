@@ -1,10 +1,10 @@
 ***Based on <https://ironsoftware.com/tutorials/c-sharp-blog-web-scraper/>***
 
-## How to Extract Content from a Blog Using C#
+## Extracting Content from a Blog Using Iron WebScraper
 
-Explore the capabilities of Iron WebScraper by extracting content from a WordPress blog or a similar platform using C# or VB.NET.
+Discover how to utilize Iron WebScraper to gather content from a blog leveraging C# or VB.NET.
 
-This guide takes you through the process of using .NET to capture content from a blog.
+This tutorial will divulge the steps to harvest content from a WordPress blog (or a similar platform) using .NET technologies.
 
 <p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/FireShotScreenCaptureGizmodo.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/FireShotScreenCaptureGizmodo.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
@@ -12,63 +12,62 @@ This guide takes you through the process of using .NET to capture content from a
 public class BlogScraper : WebScraper
 {
     /// <summary>
-    /// This method sets up your web-scraper. Key tasks include setting the initial URL and defining allowed or banned domains and URL patterns.
+    /// Initialize your scraper setup here. Include the registration of start URLs and define domain constraints.
     /// </summary>
     public override void Init()
     {
-        License.LicenseKey = " LicenseKey ";
+        License.LicenseKey = "YourLicenseKeyHere";
         this.LoggingLevel = WebScraper.LogLevel.All;
         this.WorkingDirectory = AppSetting.GetAppRoot() + @"\BlogSample\Output\";
-        EnableWebCache(new TimeSpan(1, 30, 30)); // Enable caching to save web pages locally
-        this.Request("http://blogSite.com/", Parse); // Initial URL request
+        EnableWebCache(new TimeSpan(1, 30, 0)); // 1 hour and 30 minutes cache time
+        this.Request("http://yourblogsite.com/", Parse);
     }
 }
 ```
 
-In this tutorial, we begin by deriving `BlogScraper` from the `WebScraper` class.
+First, we develop a `BlogScraper` derived from `WebScraper`.
 
-We designate a directory at `"\BlogSample\Output\"` to store all output and cache files.
+We specify the working directory at “\BlogSample\Output\” for storing output and cache files.
 
-We then turn on the web cache to store pages locally in the "WebCache" folder.
+We then enable caching in the "WebCache" directory to store requested pages temporarily.
 
-Next, we set up a parsing function:
+Next, let's define our parse function:
 
 ```cs
 /// <summary>
-/// This method handles parsing of the http Response to capture necessary data.
-/// You may introduce additional methods for handling different types of pages.
+/// Parse http responses to handle various page types or set a default response handler.
 /// </summary>
-/// <param name="response">The http Response to parse</param>
+/// <param name="response">The http Response object to parse from</param>
 public override void Parse(Response response)
 {
-    foreach (var link in response.Css("div.section-nav > ul > li > a "))
+    foreach (var link in response.Css("div.section-nav > ul > li > a"))
     {
         switch(link.TextContentClean)
         {
             case "Reviews":
-                // Add handling for "Reviews" category
+                // Handle Reviews
                 break;
             case "Science":
-                // Add handling for "Science" category
+                // Handle Science
                 break;
             default:
-                {
-                    // Generic parsing and saving
-                    Scrape(new ScrapedData() { { "Title", link.TextContentClean } }, "BlogScraper.Jsonl");
-                }
+                // Default action to save scraped data
+                Scrape(new ScrapedData() { { "Title", link.TextContentClean } }, "BlogScraper.Jsonl");
                 break;
         }
     }
 }
 ```
 
-In the `Parse` method, we extract links to categories like Movies, Science, Reviews, etc., and switch to the appropriate parsing function based on the category link.
+In the `Parse` method, we navigate through the top menu to retrieve all category links (like Movies, Science, Reviews).
 
-Let’s structure our data model for the Science category:
+Based on the category from the link, we select an appropriate parsing strategy.
+
+Let’s define the model for the Science category:
 
 ```cs
 /// <summary>
-/// Represents data model for Science-related content.
+/// A model representing data from the Science category of a blog.
 /// </summary>
 public class ScienceModel
 {
@@ -80,16 +79,16 @@ public class ScienceModel
 }
 ```
 
-Following the data model setup, we implement the scraping of a specific page:
+Now, implement a method for scraping individual pages:
 
 ```cs
 /// <summary>
-/// Parses content specifically from review pages, collecting various details.
+/// Scrape and parse data from the reviews section.
 /// </summary>
-/// <param name="response">The http response from the review page.</param>
+/// <param name="response">The http response with page data.</param>
 public void ParseReviews(Response response)
 {
-    var scienceList = new List<ScienceModel>(); // Collection of science articles
+    var scienceList = new List<ScienceModel>();
 
     foreach (var postBox in response.Css("section.main > div > div.post-list"))
     {
@@ -101,18 +100,22 @@ public void ParseReviews(Response response)
             Image = postBox.Css("div.image-wrapper.default-state > img")[0].Attributes["src"],
             Text = postBox.Css("div.summary > p")[0].TextContentClean
         };
-        
         scienceList.Add(item);
     }
 
-    Scrape(scienceList, "BlogScience.Jsonl"); // Save data to file
+    Scrape(scienceList, "BlogScience.Jsonl");
 }
 ```
 
-After defining our model and implementing the page scrape, we can parse and extract visible elements such as title, author, date, image, and text, then save the data in a separate file using `Scrape(object, fileName)`.
+After defining our model, we parse distinct elements of the blog post (title, author, date, image, text) and record the findings sequentially.
 
-[Read more about using IronWebscraper in the full tutorial by Ahmed](https://ironsoftware.com/webscraping-in-c-sharp/)
+Learn more from Ahmed's comprehensive tutorial on using IronWebScraper [here](https://ironsoftware.com/webscraping-in-c-sharp/).
+
+<h3>Getting Started with IronWebScraper</h3>
+
+------------------------------
+
 
 <div class="article-img tutorial-img">
-	<img src="https://ironsoftware.com/img/tutorials/c-sharp-blog-web-scraper/banner.jpg" alt="Webscraping was never an easy task, with no leading frameworks in the C# or .NET environments. Iron Web Scraper was developed to transform this scenario" class="img-responsive">
+    <img src="https://ironsoftware.com/img/tutorials/c-sharp-blog-web-scraper/banner.jpg" alt="Webscrpaing has never been a simple task, with no dominant frameworks for use in C# or .NET programming environments. Iron Web Scraper was created to change this" class="img-responsive">
 </div>

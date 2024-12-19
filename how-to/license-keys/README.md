@@ -1,22 +1,21 @@
-# Utilizing License Keys with IronWebScraper
+# Utilizing IronWebScraper License Keys
 
 ***Based on <https://ironsoftware.com/how-to/license-keys/>***
 
 
-Upon purchasing an IronWebScraper license, you will be immediately provided with a license key once your transaction is confirmed.
-This license key can be viewed on the checkout page and will also be emailed to you.
+Upon completing the purchase of an IronWebScraper license, you will be immediately provided with a license key once your payment is processed. This key will appear on the checkout page and will also be delivered to your email address.
 
-### Implementing Your IronWebScraper License Key Through Code
+### Configuring Your IronWebScraper License Key with Code
 
-To integrate the license within your application, insert this line of code during the initialization phase, before any usage of IronWebScraper.
+For programming purposes, make sure to enter this line at the beginning of your application or before employing IronWebScraper:
 
 ```cs
 IronWebScraper.License.LicenseKey = "IRONSCRAPER-MYLICENSE-KEY-1EF01";
 ```
 
-### Deploying Your IronWebScraper License Key via Web.Config or App.Config
+### Configuring Your IronWebScraper License Key through Web.Config or App.Config
 
-For a more global approach, incorporate your license key into your Web.Config or App.Config. Simply add this entry within the `appSettings` section:
+To integrate the license key into your entire application via the Web.Config or App.Config file, insert the following entry in the `appSettings` section of your configuration file:
 
 ```xml
 <configuration>
@@ -28,15 +27,15 @@ For a more global approach, incorporate your license key into your Web.Config or
 </configuration>
 ```
 
-Please note a prevalent licensing complication affecting IronWebScraper versions from [2023.4.13](https://www.nuget.org/packages/IronWebScraper/2023.4.13) to [2024.3.6](https://www.nuget.org/packages/IronWebScraper/2024.3.6) associated with:
-- **ASP.NET** environments
-- **.NET Framework version 4.6.2 and above**
+Be aware of a licensing complication that affects IronWebScraper versions [2023.4.13](https://www.nuget.org/packages/IronWebScraper/2023.4.13) to [2024.3.6](https://www.nuget.org/packages/IronWebScraper/2024.3.6) in the following scenarios:
+- **ASP.NET** projects
+- **.NET Framework version >= 4.6.2**
 
-There's a particular issue where the license key in `Web.config` is **NOT** being recognized. For further guidance, refer to our detailed problem-solving guide here: ['Setting License Key in Web.config'](https://ironsoftware.com/csharp/webscraper/troubleshooting/license-key-web.config/).
+In these cases, the license key placed in a `Web.config` file may not be correctly recognized or utilized by the software. For a solution, refer to the '[Setting License Key in Web.config](https://ironsoftware.com/csharp/webscraper/troubleshooting/license-key-web.config/)' guide.
 
-### Verifying Successful License Key Installation
+### Verifying the Installation of Your License Key
 
-To confirm if your license key is active, execute the following check:
+To confirm if your license key is functioning correctly:
 
 ```cs
 bool result = IronWebScraper.License.IsValidLicense("IRONWEBSCRAPER-MYLICENSE-KEY-1EF01");
@@ -46,4 +45,4 @@ bool result = IronWebScraper.License.IsValidLicense("IRONWEBSCRAPER-MYLICENSE-KE
 
 ## Kickstarting Your Project
 
-Embark on your project by exploring our guide on [Getting Started with IronWebScraper](https://ironsoftware.com/csharp/webscraper/docs/).
+Begin by reviewing our guide on how to [Get Started with IronWebsraper](https://ironsoftware.com/csharp/webscraper/docs/).
