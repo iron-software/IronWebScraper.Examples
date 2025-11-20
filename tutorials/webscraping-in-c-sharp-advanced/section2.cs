@@ -7,14 +7,25 @@ namespace IronWebScraper.Examples.Tutorial.WebscrapingInCSharpAdvanced
         {
             public override void Init()
             {
-                License.LicenseKey = " LicenseKey ";
+                // Set the license key for IronWebScraper
+                License.LicenseKey = "LicenseKey";
+            
+                // Set the logging level to capture all logs
                 this.LoggingLevel = WebScraper.LogLevel.All;
+            
+                // Assign the working directory for the output files
                 this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";
-                var proxies = "IP-Proxy1: 8080,IP-Proxy2: 8081".Split(',');
+            
+                // Define an array of proxies
+                var proxies = "IP-Proxy1:8080,IP-Proxy2:8081".Split(',');
+            
+                // Iterate over common Chrome desktop user agents
                 foreach (var UA in IronWebScraper.CommonUserAgents.ChromeDesktopUserAgents)
                 {
+                    // Iterate over the proxies
                     foreach (var proxy in proxies)
                     {
+                        // Add a new HTTP identity with specific user agent and proxy
                         Identities.Add(new HttpIdentity()
                         {
                             UserAgent = UA,
@@ -23,6 +34,8 @@ namespace IronWebScraper.Examples.Tutorial.WebscrapingInCSharpAdvanced
                         });
                     }
                 }
+                
+                // Make an initial request to the website with a parse method
                 this.Request("http://www.Website.com", Parse);
             }
         }

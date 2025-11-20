@@ -7,36 +7,46 @@ namespace IronWebScraper.Examples.HowTo.ScrapingFromAShoppingWebsite
         {
             public override void Parse(Response response)
             {
-                // List of Categories Links (Root)
+                // List of Category Links (Root)
                 var categoryList = new List<Category>();
-                
+            
+                // Traverse each 'li' under the fixed menu
                 foreach (var li in response.Css("#menuFixed > ul > li"))
                 {
-                    // List Of Main Links
+                    // List of Main Links
                     foreach (var Links in li.Css("a"))
                     {
-                        var cat = new Category();
-                        cat.URL = Links.Attributes ["href"];
-                        cat.Name = Links.InnerText;
-                        cat.SubCategories = new List<Category>();
-                        // List of Sub Catgories Links
-                        foreach (var subCategory in li.Css("a [class=subcategory]"))
+                        var cat = new Category
                         {
-                            var subcat = new Category();
-                            subcat.URL = Links.Attributes ["href"];
-                            subcat.Name = Links.InnerText;
-                            // Check If Link Exist Before 
-                            if (cat.SubCategories.Find(c=>c.Name== subcat.Name && c.URL == subcat.URL) == null)
+                            URL = Links.Attributes["href"],
+                            Name = Links.InnerText,
+                            SubCategories = new List<Category>()
+                        };
+            
+                        // List of Subcategories Links
+                        foreach (var subCategory in li.Css("a[class=subcategory]"))
+                        {
+                            var subcat = new Category
                             {
-                                // Add Sublinks
+                                URL = subCategory.Attributes["href"],
+                                Name = subCategory.InnerText
+                            };
+            
+                            // Check if subcategory link already exists
+                            if (cat.SubCategories.Find(c => c.Name == subcat.Name && c.URL == subcat.URL) == null)
+                            {
+                                // Add sublinks
                                 cat.SubCategories.Add(subcat);
                             }
                         }
-                        // Add Categories
+                        
+                        // Add Main Category to the list
                         categoryList.Add(cat);
                     }
                 }
-                Scrape(categoryList, "Shopping.Jsonl");
+            
+                // Save the scraped data into a JSONL file.
+                Scrape(categoryList, "Shopping.jsonl");
             }
         }
     }

@@ -7,23 +7,15 @@ namespace IronWebScraper.Examples.Tutorial.WebscrapingInCSharp
         {
             public override void Init()
             {
-                License.LicenseKey = " LicenseKey ";
+                License.LicenseKey = "LicenseKey";
                 this.LoggingLevel = WebScraper.LogLevel.All;
                 this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";
-                var proxies = "IP-Proxy1: 8080,IP-Proxy2: 8081".Split(',');
-                foreach (var UA in IronWebScraper.CommonUserAgents.ChromeDesktopUserAgents)
-                {
-                    foreach (var proxy in proxies)
-                    {
-                        Identities.Add(new HttpIdentity()
-                        {
-                            UserAgent = UA,
-                            UseCookies = true,
-                            Proxy = proxy
-                        });
-                    }
-                }
-                this.Request("http://www.Website.com", Parse);
+                this.MaxHttpConnectionLimit = 80;
+                this.RateLimitPerHost = TimeSpan.FromMilliseconds(50);
+                this.OpenConnectionLimitPerHost = 25;
+                this.ObeyRobotsDotTxt = false;
+                this.ThrottleMode = Throttle.ByDomainHostName;
+                this.Request("https://www.Website.com", Parse);
             }
         }
     }

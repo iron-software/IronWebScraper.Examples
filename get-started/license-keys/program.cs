@@ -1,5 +1,5 @@
 using IronWebScraper;
-using IronWebScraper.Examples.HowTo.LicenseKeys;
+using IronWebScraper.Examples.GettingStarted.LicenseKeys;
 
 
 Section1.Run();

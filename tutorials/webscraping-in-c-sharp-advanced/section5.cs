@@ -7,22 +7,20 @@ namespace IronWebScraper.Examples.Tutorial.WebscrapingInCSharpAdvanced
         {
             public override void Init()
             {
+                // Set the license key for IronWebScraper
                 License.LicenseKey = "LicenseKey";
+            
+                // Set the logging level to capture all logs
                 this.LoggingLevel = WebScraper.LogLevel.All;
+            
+                // Assign the working directory for the output files
                 this.WorkingDirectory = AppSetting.GetAppRoot() + @"\ShoppingSiteSample\Output\";
-                // Gets or sets the total number of allowed open HTTP requests (threads)
-                this.MaxHttpConnectionLimit = 80;
-                // Gets or sets minimum polite delay (pause)between request to a given domain or IP address.
-                this.RateLimitPerHost = TimeSpan.FromMilliseconds(50);            
-                //     Gets or sets the allowed number of concurrent HTTP requests (threads) per hostname
-                //     or IP address. This helps protect hosts against too many requests.
-                this.OpenConnectionLimitPerHost = 25;
-                this.ObeyRobotsDotTxt = false;
-                //     Makes the WebSraper intelligently throttle requests not only by hostname, but
-                //     also by host servers' IP addresses. This is polite in-case multiple scraped domains
-                //     are hosted on the same machine.
-                this.ThrottleMode = Throttle.ByDomainHostName;
-                this.Request("https://www.Website.com", Parse);
+            
+                // Enable web cache with a specific expiration time of 1 hour, 30 minutes, and 30 seconds
+                EnableWebCache(new TimeSpan(1, 30, 30));
+                
+                // Make an initial request to the website with a parse method
+                this.Request("http://www.Website.com", Parse);
             }
         }
     }
