@@ -1,7 +1,6 @@
 # Extracting Data from an E-commerce Website
 
-***Based on <https://ironsoftware.com/how-to/scraping-from-a-shopping-website/>***
-
+> Full guide: [Extracting Data from an E-commerce Website](https://ironsoftware.com/how-to/scraping-from-a-shopping-website/)
 
 Choose an e-commerce site from which to extract data.
 
@@ -12,8 +11,6 @@ From the image provided, you will notice a sidebar on the left that lists links 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/shoppingSiteLeftBar.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/shoppingSiteLeftBar.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
 The fashion website organizes its items into main categories with several subcategories for each, including Men, Women, and Kids.
-
-Here's the paraphrased section with resolved URL paths:
 
 ```html
 <li class="menu-item" data-id="">
@@ -103,8 +100,6 @@ Let's get started on our project:
 
 Next, we need to define a Categories Model:
 
-Here is the paraphrased section of the article with the resolved URL paths and formatted in Markdown:
-
 ```csharp
 public class Category
 {
@@ -133,10 +128,6 @@ public class Category
     public List<Category> SubCategories { get; set; }
 }
 ```
-
-Here's the paraphrased section of the article regarding building the scraper logic:
-
----
 
 4. Next, let's construct the logic for our scraper
 
@@ -267,9 +258,6 @@ public override void Parse(Response response)
 
 <p><a rel="nofollow" href="/img/tutorials/webscraping-in-c-sharp/ShoppingSiteScrapeMenu.jpg" target="_blank"><img src="/img/tutorials/webscraping-in-c-sharp/ShoppingSiteScrapeMenu.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
-Here's the paraphrased section of the article:
-
------
 Let's modify our script to efficiently gather both Main Categories and their sub-links:
 
 ```csharp
@@ -528,7 +516,7 @@ Explore the HTML structure used on the page:
     </div>
 </section>
 ```
-In this revised HTML snippet, we presented two products featured in a typical online store's listings. Each product section contains well-defined blocks for images, titles, price details, ratings, and available sizes, providing a clear and structured layout for potential customers.
+The HTML above lists two products as a typical online store would present them. Each product section carries distinct blocks for the image, title, price, rating, and available sizes.
 
 ```csharp
 // Defining a model for product details
@@ -559,8 +547,6 @@ public class Product
     public string Image { get; set; }
 }
 ```
-
-Below is the paraphrased section of your article with resolved URL paths:
 
 ```csharp
 public class Product
@@ -620,8 +606,6 @@ public void ExtractCategoryData(Response response)
 }
 ```
 
-Here's the paraphrased section of your article:
-
 ```csharp
 public void ParseCategory(Response response)
 {
@@ -646,6 +630,4 @@ public void ParseCategory(Response response)
     Scrape(productList, "Products.jsonl");
 }
 ``` 
-
-This revised section maintains the original meaning and flow while employing different expressions and structure to present the same coding logic.
 

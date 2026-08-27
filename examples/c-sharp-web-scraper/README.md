@@ -1,4 +1,4 @@
-***Based on <https://ironsoftware.com/examples/c-sharp-web-scraper/>***
+> Full guide: [C sharp web scraper](https://ironsoftware.com/csharp/webscraper/examples/c-sharp-web-scraper/)
 
 IronWebScraper offers a robust set of tools to scrape and download data or files from websites by utilizing C#.
 

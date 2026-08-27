@@ -1,6 +1,6 @@
 # Web Scraping in C#
 
-***Based on <https://ironsoftware.com/docs/docs/>***
+> Docs: [IronWebScraper documentation](https://ironsoftware.com/csharp/webscraper/docs/)
 
 
 ## Introduction to IronWebScraper
