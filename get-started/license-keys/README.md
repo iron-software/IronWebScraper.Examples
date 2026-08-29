@@ -1,6 +1,6 @@
 # Activating Your IronWebScraper License Key
 
-> Full guide: [Activating Your IronWebScraper License Key](https://ironsoftware.com/get-started/license-keys/)
+> Full guide: [Activating Your IronWebScraper License Key](https://ironsoftware.com/csharp/barcode/get-started/license-keys/)
 
 
 Upon purchasing a license for IronWebScraper, you will receive a license key immediately after the payment is processed. This key will be shown on the checkout page and will also be sent to you via email.

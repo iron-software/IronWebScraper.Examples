@@ -1,6 +1,6 @@
 # Extracting Web Data Using C#
 
-> Full guide: [Extracting Web Data Using C#](https://ironsoftware.com/tutorials/webscraping-in-c-sharp/)
+> Full guide: [Extracting Web Data Using C#](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp/)
 
 IronWebscraper stands out as a powerful .NET library designed for web scraping, data extraction, and content parsing. This straightforward library integrates into Microsoft Visual Studio, making it an ideal tool for both development and production environments.
 

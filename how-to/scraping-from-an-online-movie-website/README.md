@@ -1,6 +1,6 @@
 # Scraping an Online Movie Website
 
-> Full guide: [Scraping an Online Movie Website](https://ironsoftware.com/how-to/scraping-from-an-online-movie-website/)
+> Full guide: [Scraping an Online Movie Website](https://ironsoftware.com/csharp/webscraper/how-to/scraping-from-an-online-movie-website/)
 
 
 Let’s embark on another practical example from a real-world context. In this instance, we'll opt to scrape a movie website.
