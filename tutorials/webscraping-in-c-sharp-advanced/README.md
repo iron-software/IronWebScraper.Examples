@@ -2,7 +2,6 @@
 
 > Full guide: [Enhanced Web Scraping Capabilities](https://ironsoftware.com/tutorials/webscraping-in-c-sharp-advanced/)
 
-
 ## `HttpIdentity` Feature
 
 For accessing protected content on websites that require user authentication, the `HttpIdentity` feature in IronWebScraper is invaluable. Below is a step-by-step guide on setting up an instance of `HttpIdentity`:
@@ -156,4 +155,3 @@ public override void Init()
 
 <h3>Get Started with IronWebscraper</h3>
 
-!!!--LIBRARY_START_TRIAL_BLOCK--!!!
