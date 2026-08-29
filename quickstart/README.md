@@ -1,6 +1,6 @@
 # Web Scraping in C#
 
-> Docs: [IronWebScraper documentation](https://ironsoftware.com/csharp/webscraper/docs/)
+> Docs: [IronWebScraper documentation](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github)
 
 
 ## Introduction to IronWebScraper
@@ -11,7 +11,7 @@ Comparable to Scrapy for Python, Iron Web Scraper embraces the strengths of C#, 
 
 ## Getting Started with Installation
 
-To begin using Iron Web Scraper, you can install it via [NuGet](https://www.nuget.org/packages/IronWebScraper/) or by [downloading the DLL](https://ironsoftware.com/csharp/webscraper/packages/IronWebScraper.zip) directly from our site.
+To begin using Iron Web Scraper, you can install it via [NuGet](https://www.nuget.org/packages/IronWebScraper/) or by [downloading the DLL](https://ironsoftware.com/csharp/webscraper/packages/IronWebScraper.zip?utm_source=github) directly from our site.
 
 You can access all necessary classes through the Iron Web Scraper namespace.
 
@@ -83,6 +83,6 @@ namespace WebScrapingProject
 
 ## Exploring Further
 
-For a deeper understanding of Iron Web Scraper, we suggest looking at the [API Reference Documentation](https://ironsoftware.com/csharp/webscraper/object-reference/). Subsequently, exploring our tutorial section will enhance your skills, starting with the [C# blog web scraping example](https://ironsoftware.com/csharp/webscraper/tutorials/c-sharp-blog-web-scraper/), ideal for text content extraction from platforms like WordPress, facilitating site migrations.
+For a deeper understanding of Iron Web Scraper, we suggest looking at the [API Reference Documentation](https://ironsoftware.com/csharp/webscraper/object-reference/api/?utm_source=github). Subsequently, exploring our tutorial section will enhance your skills, starting with the [C# blog web scraping example](https://ironsoftware.com/csharp/webscraper/tutorials/c-sharp-blog-web-scraper/?utm_source=github), ideal for text content extraction from platforms like WordPress, facilitating site migrations.
 
-Carry on with the [advanced web scraping tutorials](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp/), which cover varied site types, including e-commerce sites, and tactics for using different proxies and identities while extracting data online.
+Carry on with the [advanced web scraping tutorials](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp/?utm_source=github), which cover varied site types, including e-commerce sites, and tactics for using different proxies and identities while extracting data online.

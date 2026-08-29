@@ -1,6 +1,6 @@
 # Enhanced Web Scraping Capabilities
 
-> Full guide: [Enhanced Web Scraping Capabilities](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp-advanced/)
+> Full guide: [Enhanced Web Scraping Capabilities](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp-advanced/?utm_source=github)
 
 ## `HttpIdentity` Feature
 

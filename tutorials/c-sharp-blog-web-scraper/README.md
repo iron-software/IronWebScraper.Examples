@@ -1,13 +1,13 @@
 # How to Extract Content from a Blog Using C&#35;
 
-> Full guide: [How to Extract Content from a Blog Using C&#35;](https://ironsoftware.com/csharp/webscraper/tutorials/c-sharp-blog-web-scraper/)
+> Full guide: [How to Extract Content from a Blog Using C&#35;](https://ironsoftware.com/csharp/webscraper/tutorials/c-sharp-blog-web-scraper/?utm_source=github)
 
 
 Explore the functionality of Iron WebScraper for harvesting content from a blog designed in WordPress or similar platforms using C# or VB.NET.
 
 This guide demonstrates the extraction process utilizing .NET
 
-<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/FireShotScreenCaptureGizmodo.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/FireShotScreenCaptureGizmodo.jpg" class="img-responsive add-shadow img-margin"></a></p>
+<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/FireShotScreenCaptureGizmodo.jpg?utm_source=github" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/FireShotScreenCaptureGizmodo.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
 ```csharp
 // Create a class that inherits from IronWebScraper's WebScraper class
@@ -127,7 +127,7 @@ public void ParseReviews(Response response)
 
 Each "Review" page is parsed to gather necessary details, which are then compiled into a model and saved.
 
-[Access the complete tutorial on how to utilize IronWebscraper](https://ironsoftware.com/webscraping-in-c-sharp/)
+[Access the complete tutorial on how to utilize IronWebscraper](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp/?utm_source=github)
 
 ### Start Using IronWebscraper Now
 

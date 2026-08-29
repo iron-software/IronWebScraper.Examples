@@ -1,6 +1,6 @@
 # Extracting Data from an E-commerce Website
 
-> Full guide: [Extracting Data from an E-commerce Website](https://ironsoftware.com/csharp/webscraper/how-to/scraping-from-a-shopping-website/)
+> Full guide: [Extracting Data from an E-commerce Website](https://ironsoftware.com/csharp/webscraper/how-to/scraping-from-a-shopping-website/?utm_source=github)
 
 Choose an e-commerce site from which to extract data.
 
