@@ -1,87 +1,81 @@
-![Nuget Version](https://img.shields.io/nuget/v/IronWebScraper?color=informational&label=latest) ![Nuget Installs](https://img.shields.io/nuget/dt/IronWebScraper?color=informational&label=installs&logo=nuget) ![Build Status](https://img.shields.io/badge/build-%20%E2%9C%93%20925%20tests%20passed%20(0%20failed)%20-107C10?logo=visualstudio) [![Windows Compatibility](https://img.shields.io/badge/%E2%80%8E%20-%20%E2%9C%93-107C10?logo=windows)](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github) [![Live Chat Status](https://img.shields.io/badge/Live%20Chat-Active-purple?logo=googlechat&logoColor=white)](https://ironsoftware.com/csharp/webscraper/?utm_source=github#helpscout-support)
+# IronWebScraper.Examples
 
-## Iron WebScraper - The C# Library for Web Scraping
+Runnable C# examples for [IronWebScraper](https://ironsoftware.com/csharp/webscraper/?utm_source=github), a .NET web scraping library that crawls sites with CSS selectors, request throttling, and multi-threaded workers.
 
-[![IronWebscraper NuGet Trial Banner Image](https://raw.githubusercontent.com/iron-software/iron-nuget-assets/main/IronWebscraper-readme/nuget-trial-banner.png)](https://ironsoftware.com/csharp/webscraper/?utm_source=github#trial-license)
+## Install
 
-[Get Started](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github) | [Code Examples](https://ironsoftware.com/csharp/webscraper/examples/c-sharp-web-scraper/?utm_source=github) | [Licensing](https://ironsoftware.com/csharp/webscraper/licensing/?utm_source=github) | [Free Trial](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github#trial-license)
-
-Iron WebScraper is a C# library for web scraping. It simulates human browsing patterns to extract content, files, and images from web applications and provides them as native .Net objects. This library ensures polite and efficient multithreading while simplifying maintenance and understanding of your application.
-
-It is ideal for content migration, building search indexes, and tracking changes in website structure or content.
-
-#### Features of Iron WebScraper:
-
-  * Utilizes html DOM, Javascript, Xpath, and jQuery Style CSS Selectors to extract structured content.
-  * Employs fast multithreading for handling numerous simultaneous requests.
-  * Elegantly manages demand on servers with IP/domain level throttling and support for robots.txt.
-  * Handles multiple identities, DNS, proxies, user agents, custom headers, methods, cookies, and logins.
-  * Converts data scraped from websites into manageable C# objects for immediate use or storage.
-  * Incorporates exception handling outside the developer's code, with automatic retries on errors or captchas.
-  * Features to save, pause, resume, and autosave scraping tasks.
-  * Includes a built-in web cache for replaying actions, crash recovery, and data query without network traffic.
-
-#### Supported Platforms for Iron WebScraper include:
-
-  * **.NET 6** and versions down to .NET Framework
-  * Platforms like Windows, macOS, Linux, and containers such as Docker, Azure, and AWS
-
-[![IronWebScraper Platform Compatibility Image](https://raw.githubusercontent.com/iron-software/iron-nuget-assets/main/IronWebscraper-readme/cross-platform-compatibility.png)](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github)
-
-For comprehensive API references and full licensing details, please visit our website.
-
-#### Getting Started with Iron WebScraper
-
-To integrate IronWebScraper into your project, simply install the package via NuGet:
-
-```powershell
-PM> Install-Package IronWebScraper
+```bash
+dotnet add package IronWebScraper
 ```
 
-Begin by importing Iron Web Scraper into your C# application like so:
+## Quickstart
 
 ```csharp
 using IronWebScraper;
 
-namespace YourApp
+public class BlogScraper : WebScraper
 {
-    public class Program
+    public override void Init()
     {
-        private static void Main(string[] args)
-        {
-            var ScrapeJob = new BlogScraper();
-            ScrapeJob.Start();
-        }
+        LoggingLevel = LogLevel.All;
+        Request("https://www.example.com/blog/", Parse);
     }
 
-    public class BlogScraper : WebScraper
+    public override void Parse(Response response)
     {
-        public override void Init()
+        foreach (HtmlNode title in response.Css(".post-title"))
         {
-            LoggingLevel = LogLevel.All;
-            Request("https://www.zyte.com/blog/", Parse);
+            Scrape(new ScrapedData() { { "Title", title.TextContentClean } });
         }
 
-        public override void Parse(Response response)
+        if (response.CssExists("a.next-page[href]"))
         {
-            foreach (HtmlNode title_link in response.Css(".oxy-post-title"))
-            {
-                string strTitle = title_link.TextContentClean;
-                Scrape(new ScrapedData() { { "Title", strTitle } });
-            }
-
-            if (response.CssExists("div.oxy-easy-posts-pages > a[href]"))
-            {
-                string next_page = response.Css("div.oxy-easy-posts-pages > a[href]")[0].Attributes["href"];
-                Request(next_page, Parse);
-            }
+            Request(response.Css("a.next-page[href]")[0].Attributes["href"], Parse);
         }
     }
 }
+
+new BlogScraper().Start();
 ```
 
-### Support & Licensing
+A scraper subclasses `WebScraper`, queues URLs from `Init()`, and handles each response in a parse method. `response.Css(selector)` selects nodes, `Scrape(...)` writes a row to the output, and calling `Request(url, Parse)` again from inside a parse method is how pagination and detail-page crawling work.
 
-Explore code samples, tutorials, and detailed documentation at [Iron Web Scraper Learning Resources](https://ironsoftware.com/csharp/webscraper/?utm_source=github).
+For production use, set a license key via `License.LicenseKey = "YOUR-KEY"`.
 
-For direct support, contact us at developers@ironsoftware.com. We provide extensive support and licensing options for commercial projects.
+## What's in this repo
+
+Each folder contains a self-contained .NET project you can open and run:
+
+- `examples/` — a focused single-file scraper
+- `get-started/` — license-key setup
+- `how-to/` — task-oriented guides scraping a shopping site and a movie database
+- `quickstart/` — a project scaffold to start from
+- `tutorials/` — longer walkthroughs, from a first blog scraper to advanced multi-page crawls
+
+## Common tasks covered
+
+- Subclassing `WebScraper` and queueing URLs from `Init()`
+- Selecting content with CSS selectors and reading node text and attributes
+- Following pagination and crawling from listing pages into detail pages
+- Writing structured rows with `ScrapedData`
+- Multiple parse methods for different page shapes on one site
+- Logging levels and diagnosing a crawl
+- Throttling and politeness: `MaxHttpConnectionLimit`, `RateLimitPerHost`, `ThrottleMode`, `ObeyRobotsDotTxt`
+- Identity rotation with `HttpIdentity`, and response caching with `EnableWebCache`
+
+## Platform support
+
+.NET Standard 2.0 and 2.1 — so .NET 8, 7, 6, 5, .NET Core 2.0+, and .NET Framework 4.6.1+. Windows, macOS, Linux, Docker, Azure, and AWS. See the [documentation](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github) for environment-specific notes.
+
+## Documentation and support
+
+- Full documentation: [ironsoftware.com/csharp/webscraper/docs](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github)
+- API reference: [ironsoftware.com/csharp/webscraper/object-reference/api](https://ironsoftware.com/csharp/webscraper/object-reference/api/?utm_source=github)
+- Issues with these examples: file directly on this repository
+- Product support: [support@ironsoftware.com](mailto:support@ironsoftware.com)
+
+## About
+
+This repository is maintained by [Iron Software](https://ironsoftware.com/?utm_source=github). IronWebScraper is a commercial library — see [licensing](https://ironsoftware.com/csharp/webscraper/licensing/?utm_source=github) for terms and trial details.
+
+Scrape responsibly: check a site's terms of service and `robots.txt` before crawling it.
