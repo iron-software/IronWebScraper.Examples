@@ -7,7 +7,7 @@ Let’s embark on another practical example from a real-world context. In this i
 
 First, we'll create a new class named `MovieScraper`:
 
-<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScraperAddClass.jpg?utm_source=github" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScraperAddClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
+<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScrapaerAddClass.jpg?utm_source=github" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScrapaerAddClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
 Next, let's review the site we intend to scrape:
 

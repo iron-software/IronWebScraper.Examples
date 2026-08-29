@@ -83,6 +83,6 @@ namespace WebScrapingProject
 
 ## Exploring Further
 
-For a deeper understanding of Iron Web Scraper, we suggest looking at the [API Reference Documentation](https://ironsoftware.com/csharp/webscraper/object-reference/?utm_source=github). Subsequently, exploring our tutorial section will enhance your skills, starting with the [C# blog web scraping example](https://ironsoftware.com/csharp/webscraper/tutorials/c-sharp-blog-web-scraper/?utm_source=github), ideal for text content extraction from platforms like WordPress, facilitating site migrations.
+For a deeper understanding of Iron Web Scraper, we suggest looking at the [API Reference Documentation](https://ironsoftware.com/csharp/webscraper/object-reference/api/?utm_source=github). Subsequently, exploring our tutorial section will enhance your skills, starting with the [C# blog web scraping example](https://ironsoftware.com/csharp/webscraper/tutorials/c-sharp-blog-web-scraper/?utm_source=github), ideal for text content extraction from platforms like WordPress, facilitating site migrations.
 
 Carry on with the [advanced web scraping tutorials](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp/?utm_source=github), which cover varied site types, including e-commerce sites, and tactics for using different proxies and identities while extracting data online.

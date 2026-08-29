@@ -127,7 +127,7 @@ public void ParseReviews(Response response)
 
 Each "Review" page is parsed to gather necessary details, which are then compiled into a model and saved.
 
-[Access the complete tutorial on how to utilize IronWebscraper](https://ironsoftware.com/webscraping-in-c-sharp/?utm_source=github)
+[Access the complete tutorial on how to utilize IronWebscraper](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp/?utm_source=github)
 
 ### Start Using IronWebscraper Now
 

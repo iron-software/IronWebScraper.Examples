@@ -244,7 +244,7 @@ When the `Scrape.Start()` is executed, it initiates the scraping process as desc
 
 ## IronWebScraper Library Capabilities and Settings
 
-For the latest updates and complete guidance, please refer to the documentation included in the zip file obtained through the manual download (`IronWebScraper Documentation.chm File`). Additionally, the most recent online instructions and references can be visited at [IronWebScraper Object Reference](https://ironsoftware.com/csharp/webscraper/object-reference/?utm_source=github).
+For the latest updates and complete guidance, please refer to the documentation included in the zip file obtained through the manual download (`IronWebScraper Documentation.chm File`). Additionally, the most recent online instructions and references can be visited at [IronWebScraper Object Reference](https://ironsoftware.com/csharp/webscraper/object-reference/api/?utm_source=github).
 
 To incorporate the IronWebScraper into your .NET projects, you need to derive from the `IronWebScraper.WebScraper` class. This enhances your class library with powerful web scraping functionalities. You are also required to implement two essential methods: `Init()` and `Parse(Response response)`, which set up the environment for your scraping operations and handle the parsing of web responses, respectively.
 
