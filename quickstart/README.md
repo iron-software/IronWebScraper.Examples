@@ -1,6 +1,6 @@
 # Web Scraping in C#
 
-***Based on <https://ironsoftware.com/docs/docs/>***
+> Docs: [IronWebScraper documentation](https://ironsoftware.com/csharp/webscraper/docs/)
 
 
 ## Introduction to IronWebScraper
@@ -23,7 +23,7 @@ Install-Package IronWebScraper
 
 ### Converting Websites to Databases
 
-With IronWebScraper, it's straightforward to transform existing websites into structured databases. This tool is perfect for transferring data from older websites or intranets to modern C# applications, facilitating seamless content migration.
+With IronWebScraper, it's straightforward to transform existing websites into structured databases. This tool is perfect for transferring data from older websites or intranets to modern C# applications, facilitating content migration.
 
 ### Website Content Extraction
 
@@ -31,7 +31,7 @@ The ability to efficiently extract information from full or partial websites in 
 
 ### Enhancing Search Indexes
 
-IronWebScraper can be employed to parse your website or intranet meticulously, capturing structured data from each page. This function allows for the accurate population of an internal search engine, enhancing the functionality of search systems like IronSearch, which integrates seamlessly with IronWebScraper to bolster enterprise search capabilities.
+IronWebScraper can be employed to parse your website or intranet meticulously, capturing structured data from each page. This function allows for the accurate population of an internal search engine, enhancing the functionality of search systems like IronSearch, which integrates with IronWebScraper to bolster enterprise search capabilities.
 
 ## Implementing IronWebScraper
 
@@ -83,6 +83,6 @@ namespace WebScrapingProject
 
 ## Exploring Further
 
-For a deeper understanding of Iron Web Scraper, we suggest delving into the [API Reference Documentation](https://ironsoftware.com/csharp/webscraper/object-reference/). Subsequently, exploring our tutorial section will enhance your skills, starting with the [C# blog web scraping example](https://ironsoftware.com/csharp/webscraper/tutorials/c-sharp-blog-web-scraper/), ideal for text content extraction from platforms like WordPress, facilitating site migrations.
+For a deeper understanding of Iron Web Scraper, we suggest looking at the [API Reference Documentation](https://ironsoftware.com/csharp/webscraper/object-reference/). Subsequently, exploring our tutorial section will enhance your skills, starting with the [C# blog web scraping example](https://ironsoftware.com/csharp/webscraper/tutorials/c-sharp-blog-web-scraper/), ideal for text content extraction from platforms like WordPress, facilitating site migrations.
 
-Continue your learning journey by examining our [advanced web scraping tutorials](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp/), which cover varied site types, including e-commerce sites, and tactics for using different proxies and identities while extracting data online.
+Carry on with the [advanced web scraping tutorials](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp/), which cover varied site types, including e-commerce sites, and tactics for using different proxies and identities while extracting data online.

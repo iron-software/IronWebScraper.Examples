@@ -1,3 +1,4 @@
+using IronWebScraper;
 ﻿using IronWebScraper;
 
 public class Program

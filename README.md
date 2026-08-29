@@ -6,7 +6,7 @@
 
 [Get Started](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=navigation) | [Code Examples](https://ironsoftware.com/csharp/webscraper/examples/c-sharp-web-scraper/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=navigation) | [Licensing](https://ironsoftware.com/csharp/webscraper/licensing/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=navigation) | [Free Trial](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=navigation#trial-license)
 
-Iron WebScraper is a robust C# library for web scraping. It simulates human browsing patterns to extract content, files, and images from web applications and provides them as native .Net objects. This library ensures polite and efficient multithreading while simplifying maintenance and understanding of your application.
+Iron WebScraper is a C# library for web scraping. It simulates human browsing patterns to extract content, files, and images from web applications and provides them as native .Net objects. This library ensures polite and efficient multithreading while simplifying maintenance and understanding of your application.
 
 It is ideal for content migration, building search indexes, and tracking changes in website structure or content.
 

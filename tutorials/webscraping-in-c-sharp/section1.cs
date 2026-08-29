@@ -1,3 +1,4 @@
+using System;
 using IronWebScraper;
 namespace IronWebScraper.Examples.Tutorial.WebscrapingInCSharp
 {
@@ -5,12 +6,23 @@ namespace IronWebScraper.Examples.Tutorial.WebscrapingInCSharp
     {
         public static void Run()
         {
-            HttpIdentity id = new HttpIdentity
+            // Identities belongs to WebScraper, so the snippet is shown on a scraper class.
+            var scraper = new IdentityScraper();
+        }
+
+        private class IdentityScraper : WebScraper
+        {
+            public override void Init()
             {
-                NetworkUsername = "username",
-                NetworkPassword = "pwd"
-            };
-            Identities.Add(id);
+                HttpIdentity id = new HttpIdentity
+                {
+                    NetworkUsername = "username",
+                    NetworkPassword = "pwd"
+                };
+                Identities.Add(id);
+            }
+
+            public override void Parse(Response response) { }
         }
     }
 }

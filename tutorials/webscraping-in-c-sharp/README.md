@@ -1,16 +1,12 @@
 # Extracting Web Data Using C#
 
-***Based on <https://ironsoftware.com/tutorials/webscraping-in-c-sharp/>***
+> Full guide: [Extracting Web Data Using C#](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp/)
 
+IronWebscraper stands out as a powerful .NET library designed for web scraping, data extraction, and content parsing. This straightforward library integrates into Microsoft Visual Studio, making it an ideal tool for both development and production environments.
 
-IronWebscraper stands out as a powerful .NET library designed for web scraping, data extraction, and content parsing. This straightforward library integrates seamlessly into Microsoft Visual Studio, making it an ideal tool for both development and production environments.
-
-Featuring a versatile set of characteristics, IronWebscraper enables precise control over permissible and forbidden content, including pages, objects, and media types. Additionally, it supports handling multiple identities and web caching, among other functionalities, all of which we will explore in detail throughout this guide.
+Featuring a set of characteristics, IronWebscraper enables precise control over permissible and forbidden content, including pages, objects, and media types. Additionally, it supports handling multiple identities and web caching, among other functionalities, all of which we will explore in detail throughout this guide.
 
 <h3>Get started with IronWebscraper</h3>
-
-!!!--LIBRARY_START_TRIAL_BLOCK--!!!
-```
 
 ---------
 
@@ -105,7 +101,7 @@ You can integrate the IronWebScraper library into your project through NuGet eit
 
 ## Introducing HelloScraper - Your First Exploration with IronWebScraper
 
-We'll begin our journey into web scraping by introducing you to your first project using IronWebScraper: the Hello Scraper application.
+The first project is Hello Scraper, the smallest thing IronWebScraper can usefully do.
 
 * First, we established a new Console Application titled "IronWebScraperSample".
 
@@ -161,10 +157,8 @@ Follow these steps to get your IronWebScraper project up and running:
            }
        }
    }
-   ```
 This template sets up a basic scraper with logging, initial request setup, URL navigation, and data extraction. Adjust the URL and elements based on the specifics of the site you are scraping.
 
-```csharp
 public class HelloScraper : WebScraper
 {
     /// <summary>
@@ -209,9 +203,6 @@ public class HelloScraper : WebScraper
 }
 ```
 
-Here's the paraphrased section:
-
-
 4. To initiate the scraping process, include the following code in the Main function:
     
     ```csharp
@@ -223,11 +214,6 @@ Here's the paraphrased section:
         scrapeInstance.Start();
     }
     ```
-```
-
-In this paraphrase, I have used a slightly different wording and altered the comment within the code block to better explain the actions being performed.
-
-Here is the paraphrased content from the given section:
 -----
 
 ```csharp
@@ -254,16 +240,13 @@ When the `Scrape.Start()` is executed, it initiates the scraping process as desc
 
 3. The scraper efficiently handles numerous HTTP requests and multiple threads simultaneously, maintaining synchronicity across operations for easier management and debugging.
 
-4. Once initialized, the `Parse()` method is activated to process the incoming HTTP response. This method leverages CSS selectors to extract data, which is subsequently formatted and stored in JSON format.
+4. Once initialized, the `Parse()` method is activated to process the incoming HTTP response. This method uses CSS selectors to extract data, which is subsequently formatted and stored in JSON format.
 
 ## IronWebScraper Library Capabilities and Settings
 
 For the latest updates and complete guidance, please refer to the documentation included in the zip file obtained through the manual download (`IronWebScraper Documentation.chm File`). Additionally, the most recent online instructions and references can be visited at [IronWebScraper Object Reference](https://ironsoftware.com/csharp/webscraper/object-reference/).
 
 To incorporate the IronWebScraper into your .NET projects, you need to derive from the `IronWebScraper.WebScraper` class. This enhances your class library with powerful web scraping functionalities. You are also required to implement two essential methods: `Init()` and `Parse(Response response)`, which set up the environment for your scraping operations and handle the parsing of web responses, respectively.
-
-Here is the paraphrased section of the article with the image path resolved against ironsoftware.com:
-
 
 ```csharp
 namespace ScraperEngine
@@ -283,7 +266,6 @@ namespace ScraperEngine
         }
     }
 }
-```
 ```
 
 ### IronWebScraper Library Properties and Methods
@@ -345,7 +327,6 @@ namespace ScraperEngine
 - `WorkingDirectory`
   - **Type:** String
   - **Description:** Specifies the local directory where the scraper should store its data outputs, making data handling more organized.
-```
 
 ## Practical Examples and Implementation
 
@@ -525,8 +506,6 @@ Begin by defining a new class called `MovieScraper`:
 
 Below is a snapshot of the homepage's HTML markup that we find on the specified website:
 
-Here's a paraphrased version of the HTML snippet you provided, with URLs resolved to ironsoftware.com:
-
 ```html
 <div id="featured-movies" class="movie-list full-list fade-in active">
     <div class="movie-item" data-movie-id="20746">
@@ -555,8 +534,6 @@ Here's a paraphrased version of the HTML snippet you provided, with URLs resolve
 This adapted version modifies some of the className attributes and text to slightly alter their presentation while maintaining the overall structure and function of the original HTML snippet.
 
 As shown above, we have extracted key elements such as a movie ID, Title, and a Link that leads to a more detailed page. Now, let's commence with the scraping of this information:
-
-Here is the paraphrased section of the article:
 
 ```csharp
 public class MovieScraper : WebScraper
@@ -600,8 +577,6 @@ public class MovieScraper : WebScraper
 
 To organize our scraped movie data effectively, we'll design a dedicated class named `Movie`:
 
-Below is the paraphrased section of the article, with relative URL paths resolved as requested:
-
 ```csharp
 public class Film
 {
@@ -610,10 +585,6 @@ public class Film
     public string Link { get; set; }
 }
 ```
-
-Here's the revised section of the article that discusses updating code to utilize the Movie class, with links and image paths resolved to `ironsoftware.com` as requested:
-
----
 
 ### Integrating the Movie Class into Our Code
 
@@ -699,7 +670,7 @@ public class Movie
 }
 ```
 
-Next, we will proceed to extract the detailed data from individual movie pages. We'll leverage IronWebScraper's robust functionality to navigate to and parse these detailed pages: 
+Next, we will proceed to extract the detailed data from individual movie pages. We'll use IronWebScraper's functionality to navigate to and parse these detailed pages:
 
 ```csharp
 public class MovieScraper : WebScraper
@@ -744,8 +715,6 @@ public class MovieScraper : WebScraper
 
 This process will allow the extraction of a rich set of information about each movie, including descriptions, genres, and actors, thus providing a comprehensive dataset for any related application or analysis.
 
-Here's a paraphrased version of the provided C# class definition for handling movie data:
-
 ```csharp
 public class Film
 {
@@ -759,8 +728,6 @@ public class Film
 ```
 
 Navigate to the specific page that contains detailed information in order to thoroughly scrape it, utilizing the enhanced features of IronWebScraper:
-
-Here is the paraphrased section of the article:
 
 ```csharp
 public class MovieScraper : WebScraper
@@ -818,8 +785,6 @@ public class MovieScraper : WebScraper
     }
 }
 ```
-
-In this rewritten block, the comments have been added or extended to give a better context of code functionality, and the code structure was slightly rephrased to ensure the clarity of each step.
 
 ## Features of the IronWebScraper Library
 
@@ -881,8 +846,6 @@ public override void Init()
 
 Certain platforms mandate user authentication to access specific content. Utilize the `HttpIdentity` object for managing credentials:
 
-Here's the paraphrased section of the article:
-
 ```csharp
 HttpIdentity httpId = new HttpIdentity
 {
@@ -892,13 +855,11 @@ HttpIdentity httpId = new HttpIdentity
 Identities.Add(httpId);
 ```
 
-This revised code snippet continues to set up an HTTP identity with credentials, which is then added to the identities collection, using different variable names and comments for clarity.
+The snippet sets up an HTTP identity with credentials and adds it to the identities collection.
 
 ### Implement Web Caching
 
 Save previously requested pages for efficient reuse throughout the development process:
-
-Here is the paraphrased section of the article with the relative URL paths resolved to "ironsoftware.com":
 
 ```csharp
 public override void Init()
@@ -916,8 +877,6 @@ This code snippet initializes the scraping process, setting essential configurat
 ### Managing Connection Throttling
 
 Adjust the quantity and pace of your connections:
-
-Here's the paraphrased version of the given section:
 
 ```csharp
 public override void Init()

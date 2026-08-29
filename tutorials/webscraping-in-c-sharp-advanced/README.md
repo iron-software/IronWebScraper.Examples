@@ -1,7 +1,6 @@
 # Enhanced Web Scraping Capabilities
 
-***Based on <https://ironsoftware.com/tutorials/webscraping-in-c-sharp-advanced/>***
-
+> Full guide: [Enhanced Web Scraping Capabilities](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp-advanced/)
 
 ## `HttpIdentity` Feature
 
@@ -156,4 +155,3 @@ public override void Init()
 
 <h3>Get Started with IronWebscraper</h3>
 
-!!!--LIBRARY_START_TRIAL_BLOCK--!!!

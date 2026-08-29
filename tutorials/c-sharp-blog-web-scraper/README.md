@@ -1,6 +1,6 @@
 # How to Extract Content from a Blog Using C&#35;
 
-***Based on <https://ironsoftware.com/tutorials/c-sharp-blog-web-scraper/>***
+> Full guide: [How to Extract Content from a Blog Using C&#35;](https://ironsoftware.com/csharp/webscraper/tutorials/c-sharp-blog-web-scraper/)
 
 
 Explore the functionality of Iron WebScraper for harvesting content from a blog designed in WordPress or similar platforms using C# or VB.NET.
