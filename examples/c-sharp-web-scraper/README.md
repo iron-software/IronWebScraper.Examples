@@ -1,6 +1,6 @@
 > Full guide: [C sharp web scraper](https://ironsoftware.com/csharp/webscraper/examples/c-sharp-web-scraper/)
 
-IronWebScraper offers a robust set of tools to scrape and download data or files from websites by utilizing C#.
+IronWebScraper offers a set of tools to scrape and download data or files from websites by utilizing C#.
 
 1. Add IronWebScraper to your project via [NuGet](https://www.nuget.org/packages/IronWebScraper/).
 2. Define a class that inherits from `WebScraper`.

@@ -170,7 +170,7 @@ public class ShoppingScraper : WebScraper
 }
 ```
 
-In this section, we've refined the way we initiate and parse our web scraper for a more streamlined data extraction process.
+In this section, we've refined the way we initiate and parse our web scraper for a more simplified data extraction process.
 
 ```csharp
 public class ShoppingScraper : WebScraper
@@ -306,7 +306,7 @@ public override void Parse(Response response)
 }
 ``` 
 
-In this revision, we have streamlined the process of accumulating both primary categories and their respective sub-links into a single operation. This approach not only simplifies the script but also enhances its efficiency in categorizing and saving the data.
+In this revision, we have simplified the process of accumulating both primary categories and their respective sub-links into a single operation. This approach not only simplifies the script but also enhances its efficiency in categorizing and saving the data.
 
 ```csharp
 public override void Parse(Response response)
