@@ -1,6 +1,6 @@
 # Extracting Web Data Using C#
 
-> Full guide: [Extracting Web Data Using C#](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp/)
+> Full guide: [Extracting Web Data Using C#](https://ironsoftware.com/csharp/webscraper/tutorials/webscraping-in-c-sharp/?utm_source=github)
 
 IronWebscraper stands out as a powerful .NET library designed for web scraping, data extraction, and content parsing. This straightforward library integrates into Microsoft Visual Studio, making it an ideal tool for both development and production environments.
 
@@ -81,9 +81,9 @@ You can integrate the IronWebScraper library into your project through NuGet eit
 
 ### Manual Installation Steps
 
-1. Visit the [IronSoftware website](https://ironsoftware.com).
+1. Visit the [IronSoftware website](https://ironsoftware.com?utm_source=github).
 
-2. Navigate to the IronWebScraper page, either through the menu or directly via [this link](https://ironsoftware.com/csharp/webscraper/).
+2. Navigate to the IronWebScraper page, either through the menu or directly via [this link](https://ironsoftware.com/csharp/webscraper/?utm_source=github).
 
 3. Select the 'Download DLL' option to begin downloading the necessary files.
 
@@ -244,7 +244,7 @@ When the `Scrape.Start()` is executed, it initiates the scraping process as desc
 
 ## IronWebScraper Library Capabilities and Settings
 
-For the latest updates and complete guidance, please refer to the documentation included in the zip file obtained through the manual download (`IronWebScraper Documentation.chm File`). Additionally, the most recent online instructions and references can be visited at [IronWebScraper Object Reference](https://ironsoftware.com/csharp/webscraper/object-reference/).
+For the latest updates and complete guidance, please refer to the documentation included in the zip file obtained through the manual download (`IronWebScraper Documentation.chm File`). Additionally, the most recent online instructions and references can be visited at [IronWebScraper Object Reference](https://ironsoftware.com/csharp/webscraper/object-reference/?utm_source=github).
 
 To incorporate the IronWebScraper into your .NET projects, you need to derive from the `IronWebScraper.WebScraper` class. This enhances your class library with powerful web scraping functionalities. You are also required to implement two essential methods: `Init()` and `Parse(Response response)`, which set up the environment for your scraping operations and handle the parsing of web responses, respectively.
 
@@ -952,7 +952,7 @@ To create an ASP.NET Web Form Application, follow these steps using Visual Studi
 5. You have now successfully set up the basics of your ASP.NET Web Form Project.
    ![ASP.NET Web Form Project Created](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/ASPNETWebFormProject.jpg)
 
-[Download the complete sample project code here](https://ironsoftware.com/downloads/assets/tutorials/webscraping-in-c-sharp/IronWebScraperSample.zip).
+[Download the complete sample project code here](https://ironsoftware.com/downloads/assets/tutorials/webscraping-in-c-sharp/IronWebScraperSample.zip?utm_source=github).
 
 ### Creating a Windows Form Application with Visual Studio 2013 or Later
 
@@ -1001,5 +1001,5 @@ Ensure you're using Visual Studio 2013 or a newer version for this setup.
 
    ![ASP.NET Web Form Project Created](https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/ASPNETWebFormProject.jpg)
 
-[Download the complete tutorial sample project code here](https://ironsoftware.com/downloads/assets/tutorials/webscraping-in-c-sharp/IronWebScraperSample.zip).
+[Download the complete tutorial sample project code here](https://ironsoftware.com/downloads/assets/tutorials/webscraping-in-c-sharp/IronWebScraperSample.zip?utm_source=github).
 

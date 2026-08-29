@@ -1,6 +1,6 @@
 # Activating Your IronWebScraper License Key
 
-> Full guide: [Activating Your IronWebScraper License Key](https://ironsoftware.com/csharp/barcode/get-started/license-keys/)
+> Full guide: [Activating Your IronWebScraper License Key](https://ironsoftware.com/csharp/barcode/get-started/license-keys/?utm_source=github)
 
 
 Upon purchasing a license for IronWebScraper, you will receive a license key immediately after the payment is processed. This key will be shown on the checkout page and will also be sent to you via email.
@@ -32,7 +32,7 @@ There is a notable licensing issue for IronWebScraper versions [2023.4.13](https
 - **ASP.NET** projects
 - Projects using **.NET Framework version >= 4.6.2**
 
-In these cases, the license key set in the `Web.config` file does not get recognized. For a detailed explanation, visit our guide on '[Setting License Key in Web.config](https://ironsoftware.com/csharp/webscraper/troubleshooting/license-key-web.config/)'.
+In these cases, the license key set in the `Web.config` file does not get recognized. For a detailed explanation, visit our guide on '[Setting License Key in Web.config](https://ironsoftware.com/csharp/webscraper/troubleshooting/license-key-web.config/?utm_source=github)'.
 
 ### Verifying the Installation of Your License Key
 
@@ -47,4 +47,4 @@ bool result = IronWebScraper.License.ValidLicense("IRONWEBSCRAPER-MYLICENSE-KEY-
 
 ## Begin Your Project
 
-To start building your project with IronWebScraper, follow our [Introduction to IronWebScraper](https://ironsoftware.com/csharp/webscraper/docs/) guide.
+To start building your project with IronWebScraper, follow our [Introduction to IronWebScraper](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github) guide.

@@ -1,10 +1,10 @@
-![Nuget Version](https://img.shields.io/nuget/v/IronWebScraper?color=informational&label=latest) ![Nuget Installs](https://img.shields.io/nuget/dt/IronWebScraper?color=informational&label=installs&logo=nuget) ![Build Status](https://img.shields.io/badge/build-%20%E2%9C%93%20925%20tests%20passed%20(0%20failed)%20-107C10?logo=visualstudio) [![Windows Compatibility](https://img.shields.io/badge/%E2%80%8E%20-%20%E2%9C%93-107C10?logo=windows)](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=topshield) [![Live Chat Status](https://img.shields.io/badge/Live%20Chat-Active-purple?logo=googlechat&logoColor=white)](https://ironsoftware.com/csharp/webscraper/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=topshield#helpscout-support)
+![Nuget Version](https://img.shields.io/nuget/v/IronWebScraper?color=informational&label=latest) ![Nuget Installs](https://img.shields.io/nuget/dt/IronWebScraper?color=informational&label=installs&logo=nuget) ![Build Status](https://img.shields.io/badge/build-%20%E2%9C%93%20925%20tests%20passed%20(0%20failed)%20-107C10?logo=visualstudio) [![Windows Compatibility](https://img.shields.io/badge/%E2%80%8E%20-%20%E2%9C%93-107C10?logo=windows)](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github) [![Live Chat Status](https://img.shields.io/badge/Live%20Chat-Active-purple?logo=googlechat&logoColor=white)](https://ironsoftware.com/csharp/webscraper/?utm_source=github#helpscout-support)
 
 ## Iron WebScraper - The C# Library for Web Scraping
 
-[![IronWebscraper NuGet Trial Banner Image](https://raw.githubusercontent.com/iron-software/iron-nuget-assets/main/IronWebscraper-readme/nuget-trial-banner.png)](https://ironsoftware.com/csharp/webscraper/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=topbanner#trial-license)
+[![IronWebscraper NuGet Trial Banner Image](https://raw.githubusercontent.com/iron-software/iron-nuget-assets/main/IronWebscraper-readme/nuget-trial-banner.png)](https://ironsoftware.com/csharp/webscraper/?utm_source=github#trial-license)
 
-[Get Started](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=navigation) | [Code Examples](https://ironsoftware.com/csharp/webscraper/examples/c-sharp-web-scraper/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=navigation) | [Licensing](https://ironsoftware.com/csharp/webscraper/licensing/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=navigation) | [Free Trial](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=navigation#trial-license)
+[Get Started](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github) | [Code Examples](https://ironsoftware.com/csharp/webscraper/examples/c-sharp-web-scraper/?utm_source=github) | [Licensing](https://ironsoftware.com/csharp/webscraper/licensing/?utm_source=github) | [Free Trial](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github#trial-license)
 
 Iron WebScraper is a C# library for web scraping. It simulates human browsing patterns to extract content, files, and images from web applications and provides them as native .Net objects. This library ensures polite and efficient multithreading while simplifying maintenance and understanding of your application.
 
@@ -26,7 +26,7 @@ It is ideal for content migration, building search indexes, and tracking changes
   * **.NET 6** and versions down to .NET Framework
   * Platforms like Windows, macOS, Linux, and containers such as Docker, Azure, and AWS
 
-[![IronWebScraper Platform Compatibility Image](https://raw.githubusercontent.com/iron-software/iron-nuget-assets/main/IronWebscraper-readme/cross-platform-compatibility.png)](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=crossplatformbanner)
+[![IronWebScraper Platform Compatibility Image](https://raw.githubusercontent.com/iron-software/iron-nuget-assets/main/IronWebscraper-readme/cross-platform-compatibility.png)](https://ironsoftware.com/csharp/webscraper/docs/?utm_source=github)
 
 For comprehensive API references and full licensing details, please visit our website.
 
@@ -82,6 +82,6 @@ namespace YourApp
 
 ### Support & Licensing
 
-Explore code samples, tutorials, and detailed documentation at [Iron Web Scraper Learning Resources](https://ironsoftware.com/csharp/webscraper/?utm_source=nuget&utm_medium=organic&utm_campaign=readme&utm_content=supportanddocs).
+Explore code samples, tutorials, and detailed documentation at [Iron Web Scraper Learning Resources](https://ironsoftware.com/csharp/webscraper/?utm_source=github).
 
 For direct support, contact us at developers@ironsoftware.com. We provide extensive support and licensing options for commercial projects.

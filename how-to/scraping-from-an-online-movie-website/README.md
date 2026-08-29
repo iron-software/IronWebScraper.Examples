@@ -1,17 +1,17 @@
 # Scraping an Online Movie Website
 
-> Full guide: [Scraping an Online Movie Website](https://ironsoftware.com/csharp/webscraper/how-to/scraping-from-an-online-movie-website/)
+> Full guide: [Scraping an Online Movie Website](https://ironsoftware.com/csharp/webscraper/how-to/scraping-from-an-online-movie-website/?utm_source=github)
 
 
 Let’s embark on another practical example from a real-world context. In this instance, we'll opt to scrape a movie website.
 
 First, we'll create a new class named `MovieScraper`:
 
-<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScraperAddClass.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScraperAddClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
+<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScraperAddClass.jpg?utm_source=github" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieScraperAddClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
 Next, let's review the site we intend to scrape:
 
-<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/123movies.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/123movies.jpg" class="img-responsive add-shadow img-margin"></a></p>
+<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/123movies.jpg?utm_source=github" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/123movies.jpg" class="img-responsive add-shadow img-margin"></a></p>
 
 Here's a snippet of the homepage HTML from the website:
 
@@ -143,4 +143,4 @@ public class MovieScraper : WebScraper
 *Key New Integrations:*
 1. Implementation of a `Movie` class to neatly structure our scraped data.
 2. The `Scrape` method now accepts movie objects, which facilitates structured data storage as illustrated below:
-<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass.jpg" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
+<p><a rel="nofollow" href="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass.jpg?utm_source=github" target="_blank"><img src="https://ironsoftware.com/img/tutorials/webscraping-in-c-sharp/MovieResultMovieClass.jpg" class="img-responsive add-shadow img-margin"></a></p>
